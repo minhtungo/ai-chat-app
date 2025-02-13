@@ -3,6 +3,7 @@ import { ErrorComponent, RouterProvider, createRouter } from '@tanstack/react-ro
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { routeTree } from '@/routeTree.gen';
 import { Spinner } from '@/components/ui/spinner';
+import './styles.css';
 
 export const queryClient = new QueryClient();
 
