@@ -4,7 +4,7 @@ import * as React from 'react';
 import { NavChats } from '@/components/nav-chats';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
-import { appConfig } from '@/lib/app-config';
+import { appConfig } from '@/config/app-config';
 
 const data = {
   user: {
