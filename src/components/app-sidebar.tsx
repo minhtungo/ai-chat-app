@@ -12,21 +12,14 @@ const data = {
     email: 'm@example.com',
     avatar: '',
   },
-  projects: [
+  chats: [
     {
       name: 'Design Engineering',
-      url: '#',
-      icon: Frame,
+      id: 1,
     },
     {
       name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChart,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: Map,
+      id: 2,
     },
   ],
 };
@@ -36,7 +29,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>{appConfig.appName}</SidebarHeader>
       <SidebarContent>
-        <NavChats projects={data.projects} />
+        <NavChats chats={data.chats} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

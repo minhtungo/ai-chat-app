@@ -16,14 +16,14 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { Link } from '@tanstack/react-router';
 
 export function NavChats({
-  projects,
+  chats,
 }: {
-  projects: {
+  chats: {
     name: string;
-    url: string;
-    icon: LucideIcon;
+    id: number;
   }[];
 }) {
   const { isMobile } = useSidebar();
@@ -32,13 +32,17 @@ export function NavChats({
     <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
       <SidebarGroupLabel>Today</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+        {chats.map((chat) => (
+          <SidebarMenuItem key={chat.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
+              <Link
+                to='/chat/$id'
+                params={{
+                  id: chat.id.toString(),
+                }}
+              >
+                <span>{chat.name}</span>
+              </Link>
             </SidebarMenuButton>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
