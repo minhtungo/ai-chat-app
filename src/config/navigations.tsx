@@ -1,4 +1,4 @@
-import { File, MessageSquare } from 'lucide-react';
+import { File, MessageSquare } from '@/components/icons';
 
 export const navigations = {
   appSidebar: [

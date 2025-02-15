@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { Search, XIcon } from 'lucide-react';
+import { Search, XIcon } from '@/components/icons';
 
 interface ChatSearchModalProps {}
 

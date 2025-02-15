@@ -2,7 +2,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { paths } from '@/config/paths';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import { MessageSquarePlus } from 'lucide-react';
+import { MessageSquarePlus } from '@/components/icons';
 
 export function CreateNewChatLink({ className, ...props }: React.ComponentProps<'a'>) {
   return (

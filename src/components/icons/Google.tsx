@@ -27,5 +27,3 @@ export function Google({ className, ...props }: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-
-export default Google;

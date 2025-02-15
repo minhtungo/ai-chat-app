@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Slot } from '@radix-ui/react-slot';
 import { VariantProps, cva } from 'class-variance-authority';
-import { PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen } from '@/components/icons';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

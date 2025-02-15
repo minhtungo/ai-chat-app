@@ -1,4 +1,4 @@
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from '@/components/icons';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {

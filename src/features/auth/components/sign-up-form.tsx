@@ -1,4 +1,4 @@
-import Google from '@/components/icons/Google';
+import { Google } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
