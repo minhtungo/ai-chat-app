@@ -1,2 +1,4 @@
+import { Google } from './Google';
+
 export * from 'lucide-react';
-export { Google } from './google';
+export { Google };
