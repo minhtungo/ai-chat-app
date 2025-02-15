@@ -17,6 +17,8 @@ import { Route as AppImport } from './routes/_app'
 import { Route as AppIndexImport } from './routes/_app/index'
 import { Route as AuthSignupImport } from './routes/_auth/signup'
 import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as AppChatImport } from './routes/_app/chat'
+import { Route as AppChatIndexImport } from './routes/_app/chat/index'
 import { Route as AppChatIdImport } from './routes/_app/chat/$id'
 
 // Create/Update Routes
@@ -55,10 +57,22 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AppChatIdRoute = AppChatIdImport.update({
-  id: '/chat/$id',
-  path: '/chat/$id',
+const AppChatRoute = AppChatImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => AppRoute,
+} as any)
+
+const AppChatIndexRoute = AppChatIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppChatRoute,
+} as any)
+
+const AppChatIdRoute = AppChatIdImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppChatRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -86,6 +100,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/_app/chat': {
+      id: '/_app/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AppChatImport
+      parentRoute: typeof AppImport
+    }
     '/_auth/login': {
       id: '/_auth/login'
       path: '/login'
@@ -109,24 +130,44 @@ declare module '@tanstack/react-router' {
     }
     '/_app/chat/$id': {
       id: '/_app/chat/$id'
-      path: '/chat/$id'
+      path: '/$id'
       fullPath: '/chat/$id'
       preLoaderRoute: typeof AppChatIdImport
-      parentRoute: typeof AppImport
+      parentRoute: typeof AppChatImport
+    }
+    '/_app/chat/': {
+      id: '/_app/chat/'
+      path: '/'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AppChatIndexImport
+      parentRoute: typeof AppChatImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface AppRouteChildren {
-  AppIndexRoute: typeof AppIndexRoute
+interface AppChatRouteChildren {
   AppChatIdRoute: typeof AppChatIdRoute
+  AppChatIndexRoute: typeof AppChatIndexRoute
+}
+
+const AppChatRouteChildren: AppChatRouteChildren = {
+  AppChatIdRoute: AppChatIdRoute,
+  AppChatIndexRoute: AppChatIndexRoute,
+}
+
+const AppChatRouteWithChildren =
+  AppChatRoute._addFileChildren(AppChatRouteChildren)
+
+interface AppRouteChildren {
+  AppChatRoute: typeof AppChatRouteWithChildren
+  AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppChatRoute: AppChatRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
-  AppChatIdRoute: AppChatIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -146,10 +187,12 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
   '/about': typeof AboutRoute
+  '/chat': typeof AppChatRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
   '/chat/$id': typeof AppChatIdRoute
+  '/chat/': typeof AppChatIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -159,6 +202,7 @@ export interface FileRoutesByTo {
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
   '/chat/$id': typeof AppChatIdRoute
+  '/chat': typeof AppChatIndexRoute
 }
 
 export interface FileRoutesById {
@@ -166,26 +210,38 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRouteWithChildren
   '/about': typeof AboutRoute
+  '/_app/chat': typeof AppChatRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/_app/': typeof AppIndexRoute
   '/_app/chat/$id': typeof AppChatIdRoute
+  '/_app/chat/': typeof AppChatIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/about' | '/login' | '/signup' | '/' | '/chat/$id'
+  fullPaths:
+    | ''
+    | '/about'
+    | '/chat'
+    | '/login'
+    | '/signup'
+    | '/'
+    | '/chat/$id'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/about' | '/login' | '/signup' | '/' | '/chat/$id'
+  to: '' | '/about' | '/login' | '/signup' | '/' | '/chat/$id' | '/chat'
   id:
     | '__root__'
     | '/_app'
     | '/_auth'
     | '/about'
+    | '/_app/chat'
     | '/_auth/login'
     | '/_auth/signup'
     | '/_app/'
     | '/_app/chat/$id'
+    | '/_app/chat/'
   fileRoutesById: FileRoutesById
 }
 
@@ -219,8 +275,8 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
-        "/_app/",
-        "/_app/chat/$id"
+        "/_app/chat",
+        "/_app/"
       ]
     },
     "/_auth": {
@@ -232,6 +288,14 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/_app/chat": {
+      "filePath": "_app/chat.tsx",
+      "parent": "/_app",
+      "children": [
+        "/_app/chat/$id",
+        "/_app/chat/"
+      ]
     },
     "/_auth/login": {
       "filePath": "_auth/login.tsx",
@@ -247,7 +311,11 @@ export const routeTree = rootRoute
     },
     "/_app/chat/$id": {
       "filePath": "_app/chat/$id.tsx",
-      "parent": "/_app"
+      "parent": "/_app/chat"
+    },
+    "/_app/chat/": {
+      "filePath": "_app/chat/index.tsx",
+      "parent": "/_app/chat"
     }
   }
 }

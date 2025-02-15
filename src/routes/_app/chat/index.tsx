@@ -1,10 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_app/chat/$id')({
+export const Route = createFileRoute('/_app/chat/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { id } = Route.useParams();
-  return <div>{id}</div>;
+  return <div>Hello "/_app/chat/"!</div>;
 }

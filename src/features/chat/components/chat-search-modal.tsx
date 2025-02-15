@@ -1,22 +1,11 @@
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { Search, XIcon } from 'lucide-react';
 
 interface ChatSearchModalProps {}
 
-const ChatSearchModal = ({}: ChatSearchModalProps) => {
+export function ChatSearchModal({}: ChatSearchModalProps) {
   return (
     <Dialog modal={false}>
       <DialogTrigger asChild>
@@ -43,6 +32,4 @@ const ChatSearchModal = ({}: ChatSearchModalProps) => {
       </DialogContent>
     </Dialog>
   );
-};
-
-export default ChatSearchModal;
+}

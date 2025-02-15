@@ -10,7 +10,7 @@ function RootComponent() {
   return (
     <>
       <Outlet />
-      <ReactQueryDevtools buttonPosition='top-right' />
+      {/* <ReactQueryDevtools buttonPosition='top-right' /> */}
       <TanStackRouterDevtools position='bottom-right' />
     </>
   );
