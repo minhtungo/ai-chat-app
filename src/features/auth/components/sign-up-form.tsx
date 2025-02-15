@@ -21,7 +21,7 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <div className='flex flex-col gap-4'>
-              <Button variant='outline' className='w-full'>
+              <Button variant='outline' type='button' className='w-full'>
                 <Google />
                 Sign up with Google
               </Button>
