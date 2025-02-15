@@ -1,10 +1,12 @@
-import { Frame, Map, PieChart } from 'lucide-react';
+import { Search, SquarePen } from 'lucide-react';
 import * as React from 'react';
 
 import { NavChats } from '@/components/nav-chats';
 import { NavUser } from '@/components/nav-user';
+import { Button } from '@/components/ui/button';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { appConfig } from '@/config/app-config';
+import ChatSearchModal from '@/features/chat/components/chat-search-modal';
 
 const data = {
   user: {
@@ -26,8 +28,16 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible='icon' {...props}>
-      <SidebarHeader>{appConfig.appName}</SidebarHeader>
+    <Sidebar collapsible='offcanvas' {...props}>
+      <SidebarHeader className='flex flex-row items-center justify-between'>
+        <span>{appConfig.appName}</span>
+        <div className='flex'>
+          <ChatSearchModal />
+          <Button variant='ghost' size='icon'>
+            <SquarePen className='size-4.5' />
+          </Button>
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <NavChats chats={data.chats} />
       </SidebarContent>

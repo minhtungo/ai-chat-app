@@ -7,9 +7,5 @@ export const Route = createFileRoute('/_app/chat/$id')({
 
 function RouteComponent() {
   const { id } = Route.useParams();
-  return (
-    <div>
-      {env.API_URL}Hello "/app/c/{id}"!
-    </div>
-  );
+  return <div></div>;
 }
