@@ -1,7 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { navigations } from '@/config/navigations';
-import { NavUser } from '@/features/chat/components/nav-user';
+import { NavUser } from '@/components/app-sidebar/nav-user';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
 
@@ -23,7 +23,7 @@ const data = {
   ],
 };
 
-export function AppSideNav({ className, children, ...props }: React.ComponentProps<'div'>) {
+export function AppSideBar({ className, children, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       className={cn(

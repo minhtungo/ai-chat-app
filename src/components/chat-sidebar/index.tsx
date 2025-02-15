@@ -1,8 +1,8 @@
 import { CreateNewChatLink } from '@/components/create-new-chat-link';
-import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
-import { appConfig } from '@/config/app-config';
-import { ChatSearchModal } from '@/features/chat/components/chat-search-modal';
-import { NavChats } from '@/features/chat/components/nav-chats';
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import { appConfig } from '@/config/app';
+import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
+import { NavChats } from '@/components/chat-sidebar/nav-chats';
 
 const data = {
   user: {
@@ -42,7 +42,7 @@ export function ChatSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
       {/* <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter> */}
-      {/* <SidebarRail /> */}
+      <SidebarRail />
     </Sidebar>
   );
 }

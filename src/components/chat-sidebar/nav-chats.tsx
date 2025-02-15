@@ -1,4 +1,4 @@
-import { MoreHorizontal, Pencil, Share, Trash2, type LucideIcon } from 'lucide-react';
+import { MoreHorizontal, Pencil, Share, Trash2 } from 'lucide-react';
 
 import {
   DropdownMenu,
