@@ -53,7 +53,7 @@ export function AppSideBar({ className, children, ...props }: React.ComponentPro
             </Tooltip>
           ))}
         </div>
-        <NavUser user={data.user} />
+        <NavUser />
       </div>
     </div>
   );

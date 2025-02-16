@@ -1,3 +1,5 @@
+import { useLogoutMutation } from '@/api/auth/logout';
+import { useUser } from '@/api/user/get-user';
 import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from '@/components/icons';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,18 +12,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar';
+import { useSidebar } from '@/components/ui/sidebar';
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const { data: user } = useUser();
+  const { mutate: logout } = useLogoutMutation({});
+
+  if (!user) return null;
+
+  const onLogout = () => {
+    logout();
+  };
 
   return (
     <DropdownMenu>
@@ -30,11 +32,6 @@ export function NavUser({
           <AvatarImage src={user.avatar} alt={user.name} />
           <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
         </Avatar>
-        {/* <div className='grid flex-1 text-left text-sm leading-tight'>
-                <span className='truncate font-semibold'>{user.name}</span>
-                <span className='truncate text-xs'>{user.email}</span>
-              </div> */}
-        {/* <ChevronsUpDown className='ml-auto size-4' /> */}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
@@ -77,7 +74,8 @@ export function NavUser({
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+
+        <DropdownMenuItem onClick={onLogout}>
           <LogOut />
           Log out
         </DropdownMenuItem>
