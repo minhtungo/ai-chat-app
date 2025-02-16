@@ -1,6 +1,7 @@
+import { refreshToken } from '@/api/auth/refresh';
 import { appConfig } from '@/config/app';
 import { env } from '@/config/env';
-import Axios, { InternalAxiosRequestConfig } from 'axios';
+import Axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
@@ -27,16 +28,23 @@ api.interceptors.response.use(
   (response) => {
     return response.data;
   },
-  (error) => {
-    console.error(error);
-    // const message = error.response?.data?.message || error.message;
+  async (error: AxiosError) => {
+    const originalRequest = error.config;
 
-    // if (error.response?.status === 401) {
-    //   const searchParams = new URLSearchParams();
-    //   const redirectTo = searchParams.get('redirectTo') || window.location.pathname;
-    //   window.location.href = paths.auth.login.getHref(redirectTo);
-    // }
+    if (!originalRequest) {
+      return;
+    }
 
-    // return Promise.reject(error);
+    //TODO: handle refresh token
+    if (error.response?.status === 401) {
+      const response = await refreshToken();
+      const newAccessToken = response.data.accessToken;
+
+      sessionStorage.setItem(appConfig.accessToken.name, newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+    }
+
+    return Promise.reject(error);
   }
 );

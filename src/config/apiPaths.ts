@@ -9,6 +9,9 @@ export const apiPaths = {
     logout: {
       path: '/logout',
     },
+    refresh: {
+      path: '/refresh',
+    },
   },
   user: {
     me: {
