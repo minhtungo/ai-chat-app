@@ -4,7 +4,7 @@ import { router } from '@/router';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
-import './styles.css';
+import '@/styles/globals.css';
 
 function App() {
   const { data } = useUser();
