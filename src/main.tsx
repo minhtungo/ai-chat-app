@@ -1,4 +1,4 @@
-import { useUser } from '@/api/user/get-user';
+import { getUserQueryOptions, useUser } from '@/api/user/get-user';
 import { Spinner } from '@/components/ui/spinner';
 import { queryClient } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';

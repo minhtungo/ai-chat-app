@@ -6,7 +6,6 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 
 export async function getUser(): Promise<User> {
   const response = await api.get(apiPaths.user.me.path);
-  console.log('getUser', response.data);
   return response.data.user;
 }
 

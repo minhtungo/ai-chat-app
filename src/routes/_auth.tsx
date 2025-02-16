@@ -7,6 +7,8 @@ export const Route = createFileRoute('/_auth')({
     redirect: z.string().optional(),
   }),
   beforeLoad: ({ context, search }) => {
+    console.log('AuthLayoutComponent beforeLoad', context);
+
     if (context.user) {
       throw redirect({
         to: search.redirect || paths.app.chat.path,

@@ -1,3 +1,4 @@
+import { useUser } from '@/api/user/get-user';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({
@@ -5,5 +6,6 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function RouteComponent() {
-  return <div>Hello "/_app/chat/"!</div>;
+  const { data } = useUser();
+  return <div>Hello "/_app/chat/"! ${data?.name}</div>;
 }

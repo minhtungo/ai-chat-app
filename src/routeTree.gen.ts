@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AppImport } from './routes/_app'
 import { Route as AppIndexImport } from './routes/_app/index'
@@ -22,12 +21,6 @@ import { Route as AppChatIndexImport } from './routes/_app/chat/index'
 import { Route as AppChatIdImport } from './routes/_app/chat/$id'
 
 // Create/Update Routes
-
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AuthRoute = AuthImport.update({
   id: '/_auth',
@@ -91,13 +84,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
     '/_app/chat': {
@@ -186,7 +172,6 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
   '/chat': typeof AppChatRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
@@ -197,7 +182,6 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
@@ -209,7 +193,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRouteWithChildren
-  '/about': typeof AboutRoute
   '/_app/chat': typeof AppChatRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
@@ -220,22 +203,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/about'
-    | '/chat'
-    | '/login'
-    | '/signup'
-    | '/'
-    | '/chat/$id'
-    | '/chat/'
+  fullPaths: '' | '/chat' | '/login' | '/signup' | '/' | '/chat/$id' | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/about' | '/login' | '/signup' | '/' | '/chat/$id' | '/chat'
+  to: '' | '/login' | '/signup' | '/' | '/chat/$id' | '/chat'
   id:
     | '__root__'
     | '/_app'
     | '/_auth'
-    | '/about'
     | '/_app/chat'
     | '/_auth/login'
     | '/_auth/signup'
@@ -248,13 +222,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
-  AboutRoute: typeof AboutRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
-  AboutRoute: AboutRoute,
 }
 
 export const routeTree = rootRoute
@@ -268,8 +240,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/_auth",
-        "/about"
+        "/_auth"
       ]
     },
     "/_app": {
@@ -285,9 +256,6 @@ export const routeTree = rootRoute
         "/_auth/login",
         "/_auth/signup"
       ]
-    },
-    "/about": {
-      "filePath": "about.tsx"
     },
     "/_app/chat": {
       "filePath": "_app/chat.tsx",

@@ -1,6 +1,7 @@
 import { refreshToken } from '@/api/auth/refresh';
 import { appConfig } from '@/config/app';
 import { env } from '@/config/env';
+
 import Axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
@@ -24,25 +25,38 @@ export const api = Axios.create({
 
 api.interceptors.request.use(authRequestInterceptor);
 
+type CustomAxiosRequestConfig = InternalAxiosRequestConfig & {
+  sent?: boolean;
+};
+
 api.interceptors.response.use(
   (response) => {
     return response.data;
   },
   async (error: AxiosError) => {
-    const originalRequest = error.config;
+    const prevRequest = error.config as CustomAxiosRequestConfig;
 
-    if (!originalRequest) {
-      return;
-    }
+    if (
+      error.response?.status === 401 &&
+      error.response?.data?.message !== 'Invalid Credentials' &&
+      prevRequest &&
+      !prevRequest.sent
+    ) {
+      prevRequest.sent = true;
+      try {
+        const response = await refreshToken();
 
-    //TODO: handle refresh token
-    if (error.response?.status === 401) {
-      const response = await refreshToken();
-      const newAccessToken = response.data.accessToken;
+        const newAccessToken = response?.data?.accessToken || response.accessToken;
+        console.log('New access token:', newAccessToken);
+        sessionStorage.setItem(appConfig.accessToken.name, newAccessToken);
 
-      sessionStorage.setItem(appConfig.accessToken.name, newAccessToken);
+        prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
-      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(prevRequest);
+      } catch (refreshError) {
+        console.error('Token refresh failed:', refreshError);
+        return Promise.reject(refreshError);
+      }
     }
 
     return Promise.reject(error);

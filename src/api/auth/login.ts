@@ -17,7 +17,6 @@ export function useLoginMutation({ onSuccess }: { onSuccess?: () => void }) {
     onSuccess: (data) => {
       queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
       sessionStorage.setItem(appConfig.accessToken.name, data.accessToken);
-      console.log(data);
       onSuccess?.();
     },
     onError: (error) => {
