@@ -22,14 +22,15 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
+    console.error(error);
+    // const message = error.response?.data?.message || error.message;
 
-    if (error.response?.status === 401) {
-      const searchParams = new URLSearchParams();
-      const redirectTo = searchParams.get('redirectTo') || window.location.pathname;
-      window.location.href = paths.auth.login.getHref(redirectTo);
-    }
+    // if (error.response?.status === 401) {
+    //   const searchParams = new URLSearchParams();
+    //   const redirectTo = searchParams.get('redirectTo') || window.location.pathname;
+    //   window.location.href = paths.auth.login.getHref(redirectTo);
+    // }
 
-    return Promise.reject(error);
+    // return Promise.reject(error);
   }
 );

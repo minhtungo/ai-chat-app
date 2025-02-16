@@ -1,8 +1,10 @@
+import { useSignUpMutation } from '@/api/auth/sign-up';
 import AuthFormWrapper from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { appConfig } from '@/config/app';
 import { useSignUpForm } from '@/features/hooks/use-sign-up-form';
@@ -12,8 +14,11 @@ import { z } from 'zod';
 
 export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useSignUpForm();
+  const { mutate: signUp, isPending } = useSignUpMutation({});
 
-  const onSubmit = (values: z.infer<typeof schema>) => {};
+  const onSubmit = (data: z.infer<typeof schema>) => {
+    signUp(data);
+  };
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -83,9 +88,9 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 )}
               />
             </div>
-            <Button type='submit' className='w-full'>
+            <LoaderButton isPending={isPending} className='w-full'>
               Sign up
-            </Button>
+            </LoaderButton>
             <div className='text-center text-sm'>
               Already have an account?{' '}
               <Link to='/login' className='underline underline-offset-4'>

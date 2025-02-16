@@ -1,7 +1,7 @@
 import { commonValidations } from '@/lib/validations';
 import { z } from 'zod';
 
-export const signUpSchema = z
+export const signUpInputSchema = z
   .object({
     email: commonValidations.email,
     password: commonValidations.password,
@@ -17,4 +17,4 @@ export const signUpSchema = z
     path: ['confirm_password'],
   });
 
-export type signUpProps = z.infer<typeof signUpSchema>;
+export type SignUpInput = z.infer<typeof signUpInputSchema>;

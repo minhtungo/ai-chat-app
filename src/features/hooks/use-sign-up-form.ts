@@ -1,11 +1,11 @@
-import { signUpSchema } from '@/features/auth/validations/sign-up';
+import { signUpInputSchema } from '@/features/auth/validations/sign-up';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 export function useSignUpForm() {
-  const form = useForm<z.infer<typeof signUpSchema>>({
-    resolver: zodResolver(signUpSchema),
+  const form = useForm<z.infer<typeof signUpInputSchema>>({
+    resolver: zodResolver(signUpInputSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -14,5 +14,5 @@ export function useSignUpForm() {
     },
   });
 
-  return { form, schema: signUpSchema };
+  return { form, schema: signUpInputSchema };
 }

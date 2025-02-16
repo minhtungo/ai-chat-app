@@ -1,18 +1,24 @@
+import { useLoginMutation } from '@/api/auth/login';
 import AuthFormWrapper from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { useLogInForm } from '@/features/hooks/use-log-in-form';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
+import { FormEvent } from 'react';
 import { z } from 'zod';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useLogInForm();
+  const { mutate: login, isPending } = useLoginMutation({});
 
-  const onSubmit = (values: z.infer<typeof schema>) => {};
+  const onSubmit = (data: z.infer<typeof schema>) => {
+    login(data);
+  };
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -61,9 +67,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 )}
               />
             </div>
-            <Button type='submit' className='w-full'>
+            <LoaderButton isPending={isPending} className='w-full'>
               Login
-            </Button>
+            </LoaderButton>
             <div className='text-center text-sm'>
               Don&apos;t have an account?{' '}
               <Link to='/signup' className='underline underline-offset-4'>
