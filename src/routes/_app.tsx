@@ -16,7 +16,6 @@ export const Route = createFileRoute('/_app')({
     //   });
     // }
   },
-  component: AppLayoutComponent,
 });
 
 function AppLayoutComponent() {
