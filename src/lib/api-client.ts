@@ -1,10 +1,16 @@
+import { appConfig } from '@/config/app';
 import { env } from '@/config/env';
-import { paths } from '@/config/paths';
 import Axios, { InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
     config.headers.Accept = 'application/json';
+
+    const accessToken = sessionStorage.getItem(appConfig.accessToken.name);
+
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
   }
 
   config.withCredentials = true;

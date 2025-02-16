@@ -7,4 +7,9 @@ export const apiPaths = {
       path: '/signup',
     },
   },
+  user: {
+    me: {
+      path: '/user/me',
+    },
+  },
 };

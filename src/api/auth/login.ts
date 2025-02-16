@@ -1,3 +1,4 @@
+import { getUserQueryOptions } from '@/api/user/get-user';
 import { apiPaths } from '@/config/apiPaths';
 import { appConfig } from '@/config/app';
 import { LogInInput } from '@/features/auth/validations/log-in';
@@ -14,7 +15,7 @@ export function useLoginMutation({ onSuccess }: { onSuccess?: () => void }) {
   return useMutation({
     mutationFn: loginWithEmailAndPassWord,
     onSuccess: (data) => {
-      //   queryClient.setQueryData(userQueryKey, data.user);
+      queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
       sessionStorage.setItem(appConfig.accessToken.name, data.accessToken);
       console.log(data);
       onSuccess?.();

@@ -6,15 +6,23 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { paths } from '@/config/paths';
 import { useLogInForm } from '@/features/hooks/use-log-in-form';
 import { cn } from '@/lib/utils';
-import { Link } from '@tanstack/react-router';
+import { Link, useRouter } from '@tanstack/react-router';
 import { FormEvent } from 'react';
 import { z } from 'zod';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const router = useRouter();
   const { form, schema } = useLogInForm();
-  const { mutate: login, isPending } = useLoginMutation({});
+  const { mutate: login, isPending } = useLoginMutation({
+    onSuccess: () => {
+      router.navigate({
+        to: paths.app.chat.path,
+      });
+    },
+  });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     login(data);

@@ -1,6 +1,18 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { paths } from '@/config/paths';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { z } from 'zod';
 
 export const Route = createFileRoute('/_auth')({
+  validateSearch: z.object({
+    redirect: z.string().optional(),
+  }),
+  beforeLoad: ({ context, search }) => {
+    if (context.user) {
+      throw redirect({
+        to: search.redirect || paths.app.chat.path,
+      });
+    }
+  },
   component: AuthLayoutComponent,
 });
 

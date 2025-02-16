@@ -6,13 +6,13 @@ export const paths = {
   auth: {
     register: {
       path: '/signup',
-      getHref: (redirectTo?: string | null | undefined) =>
-        `/signup${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+      getHref: (redirect?: string | null | undefined) =>
+        `/signup${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`,
     },
     login: {
       path: '/login',
-      getHref: (redirectTo?: string | null | undefined) =>
-        `/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
+      getHref: (redirect?: string | null | undefined) =>
+        `/login${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`,
     },
   },
   app: {

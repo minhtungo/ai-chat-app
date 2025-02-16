@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom/client';
-import { ErrorComponent, RouterProvider, createRouter } from '@tanstack/react-router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { routeTree } from '@/routeTree.gen';
+import { useUser } from '@/api/user/get-user';
 import { Spinner } from '@/components/ui/spinner';
+import { queryClient } from '@/lib/react-query';
+import { routeTree } from '@/routeTree.gen';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ErrorComponent, RouterProvider, createRouter } from '@tanstack/react-router';
+import ReactDOM from 'react-dom/client';
 import './styles.css';
-
-export const queryClient = new QueryClient();
 
 // Set up a Router instance
 const router = createRouter({
@@ -13,7 +13,7 @@ const router = createRouter({
   defaultPendingComponent: () => <Spinner />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
-    auth: undefined,
+    user: undefined,
     queryClient,
   },
   defaultPreload: 'intent',
@@ -31,11 +31,8 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  const { data } = useUser();
+  return <RouterProvider router={router} context={{ user: data }} />;
 }
 
 const rootElement = document.getElementById('app')!;
@@ -43,10 +40,8 @@ const rootElement = document.getElementById('app')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    // <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
-    // </React.StrictMode>
   );
 }
