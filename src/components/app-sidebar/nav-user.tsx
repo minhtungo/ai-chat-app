@@ -1,5 +1,5 @@
 import { useLogoutMutation } from '@/api/auth/logout';
-import { useUser } from '@/api/user/get-user';
+import { useUserQuery } from '@/api/user/get-user';
 import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from '@/components/icons';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -16,7 +16,7 @@ import { useSidebar } from '@/components/ui/sidebar';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { data: user } = useUser();
+  const { data: user } = useUserQuery();
   const { mutate: logout } = useLogoutMutation({});
 
   if (!user) return null;

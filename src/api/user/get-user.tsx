@@ -22,7 +22,7 @@ type UseUserOptions = {
   queryConfig?: QueryConfig<typeof getUserQueryOptions>;
 };
 
-export function useUser({ queryConfig }: UseUserOptions = {}) {
+export function useUserQuery({ queryConfig }: UseUserOptions = {}) {
   return useQuery({
     ...getUserQueryOptions(),
     ...queryConfig,
