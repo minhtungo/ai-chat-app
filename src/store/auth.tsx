@@ -15,7 +15,7 @@ export type AuthState = {
 export type AuthActions = {
   setToken: (token: AuthState['token']) => void;
   clearSession: () => void;
-  createSession: ({user, token}: {user: AuthState['user'], token: AuthState['token']}) => void;
+  createSession: ({ user, token }: { user: AuthState['user']; token: AuthState['token'] }) => void;
   initializeAuth: () => Promise<void>;
 };
 
@@ -43,18 +43,18 @@ export const authStore = createStore<AuthStore>((set) => ({
   ...initialAuthState,
   setToken: (token) => set(() => ({ token })),
   clearSession: () => set(() => initialAuthState),
-  createSession: ({user, token}) => set(() => ({ user, token, isAuthenticated: true, isLoaded: true })),
+  createSession: ({ user, token }) => set(() => ({ user, token, isAuthenticated: true, isLoaded: true })),
   initializeAuth: async () => {
     try {
       const { data } = await refreshToken();
       if (data?.accessToken) {
-         set(() => ({ token: data.accessToken }));
+        set(() => ({ token: data.accessToken }));
         const response = await getUser();
-        queryClient.setQueryData(getUserQueryOptions().queryKey, {user: response.user})
-        set(() => ({ 
-          isAuthenticated: true, 
-          user:response.user, 
-          isLoaded: true 
+        queryClient.setQueryData(getUserQueryOptions().queryKey, { user: response.user });
+        set(() => ({
+          isAuthenticated: true,
+          user: response.user,
+          isLoaded: true,
         }));
       } else {
         set(() => ({ isAuthenticated: false, isLoaded: true }));
