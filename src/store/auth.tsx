@@ -1,9 +1,8 @@
 import { refreshToken } from '@/api/auth/refresh';
-import { getUser, useUser } from '@/api/user/get-user';
-import { router } from '@/router';
+import { getUser, getUserQueryOptions } from '@/api/user/get-user';
+import { queryClient } from '@/lib/react-query';
 import { User } from '@/types/user';
-import { useRouter } from '@tanstack/react-router';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { createStore, useStore, type StoreApi } from 'zustand';
 
 export type AuthState = {
@@ -14,11 +13,10 @@ export type AuthState = {
 };
 
 export type AuthActions = {
-  setUser: (user: AuthState['user']) => void;
   setToken: (token: AuthState['token']) => void;
-  setSession: (session: { user: AuthState['user']; token: AuthState['token'] }) => void;
   clearSession: () => void;
-  createSession: () => void;
+  createSession: ({user, token}: {user: AuthState['user'], token: AuthState['token']}) => void;
+  initializeAuth: () => Promise<void>;
 };
 
 type AuthStoreProviderProps = {
@@ -43,19 +41,27 @@ export const initialAuthState: AuthState = {
 
 export const authStore = createStore<AuthStore>((set) => ({
   ...initialAuthState,
-  setUser: (user) => set(() => ({ user })),
   setToken: (token) => set(() => ({ token })),
   clearSession: () => set(() => initialAuthState),
-  setSession: ({ user, token }) => set(() => ({ user, token, isAuthenticated: true, isLoaded: true })),
-  createSession: async () => {
-    const { user } = await getUser();
-    console.log('createSession user', user);
-    if (!user) {
+  createSession: ({user, token}) => set(() => ({ user, token, isAuthenticated: true, isLoaded: true })),
+  initializeAuth: async () => {
+    try {
+      const { data } = await refreshToken();
+      if (data?.accessToken) {
+         set(() => ({ token: data.accessToken }));
+        const response = await getUser();
+        queryClient.setQueryData(getUserQueryOptions().queryKey, {user: response.user})
+        set(() => ({ 
+          isAuthenticated: true, 
+          user:response.user, 
+          isLoaded: true 
+        }));
+      } else {
+        set(() => ({ isAuthenticated: false, isLoaded: true }));
+      }
+    } catch (error) {
       set(() => ({ isAuthenticated: false, isLoaded: true }));
-    } else {
-      set(() => ({ isAuthenticated: true, user, isLoaded: true }));
     }
-    router.invalidate();
   },
 }));
 
@@ -68,14 +74,6 @@ export function AuthStoreProvider({ children }: AuthStoreProviderProps) {
 function useAuthStore(selector: AuthStoreSelector) {
   const store = useContext(AuthStoreContext);
 
-  useEffect(() => {
-    if (store) {
-      console.log('useAuthStore useEffect');
-      store?.getState().createSession();
-      console.log('useAuthStore token', store?.getState().token);
-    }
-  }, []);
-
   if (!store) {
     throw new Error('useAuthStore must be used within a AuthStoreProvider');
   }
@@ -83,8 +81,4 @@ function useAuthStore(selector: AuthStoreSelector) {
   return useStore(store, selector);
 }
 
-export const useAuth = () => useAuthStore((state) => state);
-
-export function useSession(): AuthActions {
-  return useAuthStore((state) => state);
-}
+export const useAuth = (): AuthActions & AuthState => useAuthStore((state) => state);

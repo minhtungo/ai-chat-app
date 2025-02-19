@@ -1,13 +1,14 @@
 import { apiPaths } from '@/config/api-paths';
 import { api } from '@/lib/api-client';
 import { QueryConfig } from '@/lib/react-query';
-import { useSession } from '@/store/auth';
 import { User } from '@/types/user';
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import { useRouter } from '@tanstack/react-router';
-import { useEffect } from 'react';
 
-export function getUser(): Promise<User> {
+type GetUserResponse = {
+  user: User;
+};
+
+export function getUser(): Promise<GetUserResponse> {
   return api.get(apiPaths.user.me.path);
 }
 
