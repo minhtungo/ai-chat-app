@@ -10,4 +10,13 @@ export type MutationConfig<MutationFnType extends (...args: any) => Promise<any>
   Parameters<MutationFnType>[0]
 >;
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});

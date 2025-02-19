@@ -1,14 +1,12 @@
-import { useUserQuery } from '@/api/user/get-user';
 import { queryClient } from '@/lib/react-query';
 import { router } from '@/router';
+import { AuthStoreProvider, useAuth } from '@/store/auth';
+import '@/styles/globals.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
-import '@/styles/globals.css';
-import { AuthStoreProvider, useAuth } from '@/store/auth';
 
 function App() {
-  const { data } = useUserQuery();
   const auth = useAuth();
   return <RouterProvider router={router} context={{ auth }} />;
 }

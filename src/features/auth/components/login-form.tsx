@@ -1,4 +1,4 @@
-import { useLoginMutation } from '@/api/auth/login';
+import { useLogin } from '@/api/auth/login';
 import AuthFormWrapper from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -12,16 +12,16 @@ import { Link, useRouter } from '@tanstack/react-router';
 import { z } from 'zod';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  const router = useRouter();
   const { form, schema } = useLogInForm();
-  const { mutate: login, isPending } = useLoginMutation({
-    onSuccess: () => {
-      router.invalidate();
-    },
-  });
+  const router = useRouter();
+  const { mutate: login, isPending } = useLogin();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    login(data);
+    login(data, {
+      onSuccess: () => {
+        router.invalidate();
+      },
+    });
   };
 
   return (

@@ -1,4 +1,4 @@
-import { apiPaths } from '@/config/apiPaths';
+import { apiPaths } from '@/config/api-paths';
 import { SignUpInput } from '@/features/auth/validations/sign-up';
 import { api } from '@/lib/api-client';
 import { AuthResponse } from '@/types/auth';
@@ -9,7 +9,6 @@ export function signUpWithEmailAndPassWord(data: SignUpInput): Promise<AuthRespo
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signUpWithEmailAndPassWord,
     onSuccess: (data) => {

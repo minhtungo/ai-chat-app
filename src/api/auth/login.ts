@@ -1,27 +1,35 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
-import { apiPaths } from '@/config/apiPaths';
-import { appConfig } from '@/config/app';
+import { apiPaths } from '@/config/api-paths';
 import { LogInInput } from '@/features/auth/validations/log-in';
-import { api } from '@/lib/api-client';
+import { baseApi } from '@/lib/api-client';
+import { useAuth, useSession } from '@/store/auth';
 import { AuthResponse } from '@/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
 
 export function loginWithEmailAndPassWord(data: LogInInput): Promise<AuthResponse> {
-  return api.post(apiPaths.auth.login.path, data);
+  return baseApi.post(apiPaths.auth.login.path, data);
 }
 
-export function useLoginMutation({ onSuccess }: { onSuccess?: () => void }) {
+export function useLogin() {
   const queryClient = useQueryClient();
+  const { setSession } = useSession();
+
   return useMutation({
     mutationFn: loginWithEmailAndPassWord,
     onSuccess: (data) => {
+      // queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
+      setSession({ user: data.user, token: data.accessToken });
+      // queryClient.invalidateQueries({
+      //   queryKey: getUserQueryOptions().queryKey,
+      // });
       queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
-      sessionStorage.setItem(appConfig.accessToken.name, data.accessToken);
-      onSuccess?.();
+      // router.navigate({
+      //   to: '/chat',
+      // });
     },
     onError: (error) => {
       console.log(error);
-      sessionStorage.removeItem(appConfig.accessToken.name);
     },
   });
 }

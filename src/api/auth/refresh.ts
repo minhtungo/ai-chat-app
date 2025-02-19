@@ -1,8 +1,8 @@
-import { apiPaths } from '@/config/apiPaths';
-import { api } from '@/lib/api-client';
+import { apiPaths } from '@/config/api-paths';
+import { baseApi } from '@/lib/api-client';
 import { RefreshResponse } from '@/types/auth';
 import { AxiosResponse } from 'axios';
 
 export function refreshToken(): Promise<AxiosResponse<RefreshResponse>> {
-  return api.get(apiPaths.auth.refresh.path);
+  return baseApi.get(apiPaths.auth.refresh.path);
 }

@@ -1,22 +1,22 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
-import { apiPaths } from '@/config/apiPaths';
-import { appConfig } from '@/config/app';
+import { apiPaths } from '@/config/api-paths';
 import { api } from '@/lib/api-client';
+import { useSession } from '@/store/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function logout() {
   return api.post(apiPaths.auth.logout.path);
 }
 
-export function useLogoutMutation({ onSuccess }: { onSuccess?: () => void }) {
+export function useLogout() {
   const queryClient = useQueryClient();
+  const { clearSession } = useSession();
 
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.setQueryData(getUserQueryOptions().queryKey, undefined);
-      sessionStorage.removeItem(appConfig.accessToken.name);
-      onSuccess?.();
+      clearSession();
     },
   });
 }

@@ -1,27 +1,32 @@
 import { refreshToken } from '@/api/auth/refresh';
-import { appConfig } from '@/config/app';
 import { env } from '@/config/env';
+import { authStore } from '@/store/auth';
 
 import Axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
-    config.headers.Accept = 'application/json';
-
-    const accessToken = sessionStorage.getItem(appConfig.accessToken.name);
+    const accessToken = authStore.getState().token;
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
   }
 
-  config.withCredentials = true;
   return config;
 }
 
-export const api = Axios.create({
+const baseAxiosConfig = {
   baseURL: env.API_URL,
-});
+  withCredentials: true,
+  headers: {
+    Accept: 'application/json',
+  },
+};
+
+export const baseApi = Axios.create(baseAxiosConfig);
+
+export const api = Axios.create(baseAxiosConfig);
 
 api.interceptors.request.use(authRequestInterceptor);
 
@@ -30,9 +35,7 @@ type CustomAxiosRequestConfig = InternalAxiosRequestConfig & {
 };
 
 api.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
+  (response) => response.data,
   async (error: AxiosError) => {
     const prevRequest = error.config as CustomAxiosRequestConfig;
 
@@ -43,15 +46,13 @@ api.interceptors.response.use(
       !prevRequest.sent
     ) {
       prevRequest.sent = true;
+      console.log('prevRequest', prevRequest);
       try {
         const response = await refreshToken();
-
-        const newAccessToken = response?.data?.accessToken || response.accessToken;
-        console.log('New access token:', newAccessToken);
-        sessionStorage.setItem(appConfig.accessToken.name, newAccessToken);
-
+        const newAccessToken = response?.data.accessToken;
+        console.log('prevRequest newAccessToken', newAccessToken);
+        authStore.setState(() => ({ token: newAccessToken }));
         prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-
         return api(prevRequest);
       } catch (refreshError) {
         console.error('Token refresh failed:', refreshError);

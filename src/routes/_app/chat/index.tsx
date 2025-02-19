@@ -1,4 +1,5 @@
-import { useUserQuery } from '@/api/user/get-user';
+import { useUser } from '@/api/user/get-user';
+import { useAuth } from '@/store/auth';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({
@@ -6,6 +7,7 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function RouteComponent() {
-  const { data } = useUserQuery();
-  return <div>Hello "/_app/chat/"! ${data?.name}</div>;
+  const { data } = useUser();
+
+  return <div>Hello user: {JSON.stringify(data)}</div>;
 }
