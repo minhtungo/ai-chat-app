@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
+import { appNavigations } from '@/config/navigations';
+import { Link } from '@tanstack/react-router';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -60,18 +62,14 @@ export function NavUser() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Notifications
-          </DropdownMenuItem>
+          {appNavigations.userDropdown.map((item) => (
+            <DropdownMenuItem key={item.name} asChild>
+              <Link to={item.to}>
+                <item.icon />
+                {item.name}
+              </Link>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 

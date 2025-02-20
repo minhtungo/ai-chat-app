@@ -1,8 +1,7 @@
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ChatSidebar } from '@/components/chat-sidebar';
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import ChatPanel from '@/features/chat/components/chat-panel';
-import ChatHistory from '@/features/chat/components/chat-history';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat')({
   component: ChatLayoutComponent,

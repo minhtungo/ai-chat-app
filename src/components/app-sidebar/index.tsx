@@ -1,6 +1,6 @@
 import { buttonVariants } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { navigations } from '@/config/navigations';
+import { appNavigations } from '@/config/navigations';
 import { NavUser } from '@/components/app-sidebar/nav-user';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
@@ -16,7 +16,7 @@ export function AppSideBar({ className, children, ...props }: React.ComponentPro
     >
       <div className='flex h-full w-full flex-col items-center justify-between'>
         <div className='flex flex-col gap-y-2'>
-          {navigations.appSidebar.map((item) => (
+          {appNavigations.sidebar.map((item) => (
             <Tooltip key={`app-side-nav-${item.name}`}>
               <TooltipTrigger asChild>
                 <Link
