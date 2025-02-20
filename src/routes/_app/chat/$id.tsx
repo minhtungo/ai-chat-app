@@ -1,3 +1,4 @@
+import ChatHistory from '@/features/chat/components/chat-history';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/$id')({
@@ -5,6 +6,5 @@ export const Route = createFileRoute('/_app/chat/$id')({
 });
 
 function RouteComponent() {
-  const { id } = Route.useParams();
-  return <div>{id}</div>;
+  return <ChatHistory />;
 }

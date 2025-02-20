@@ -1,4 +1,4 @@
-import { useUser } from '@/api/user/get-user';
+import ChatHistory from '@/features/chat/components/chat-history';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({
@@ -6,7 +6,5 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function RouteComponent() {
-  const { data: user } = useUser();
-
-  return <div>Hello user: {JSON.stringify(user)}</div>;
+  return <ChatHistory />;
 }

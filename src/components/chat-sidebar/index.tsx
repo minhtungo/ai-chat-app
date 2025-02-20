@@ -4,23 +4,16 @@ import { appConfig } from '@/config/app';
 import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
 import { NavChats } from '@/components/chat-sidebar/nav-chats';
 
-const data = {
-  user: {
-    name: 'Tu',
-    email: 'm@example.com',
-    avatar: '',
+const chats = [
+  {
+    name: 'Design Engineering',
+    id: 1,
   },
-  chats: [
-    {
-      name: 'Design Engineering',
-      id: 1,
-    },
-    {
-      name: 'Sales & Marketing',
-      id: 2,
-    },
-  ],
-};
+  {
+    name: 'Sales & Marketing',
+    id: 2,
+  },
+];
 
 export function ChatSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -37,11 +30,8 @@ export function ChatSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <NavChats chats={data.chats} />
+        <NavChats chats={chats} />
       </SidebarContent>
-      {/* <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
   );
