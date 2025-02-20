@@ -6,6 +6,7 @@ import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
 import '@/styles/globals.css';
 import reportWebVitals from '@/reportWebVitals';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 function App() {
   const auth = useAuth();
@@ -19,7 +20,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <QueryClientProvider client={queryClient}>
       <AuthStoreProvider>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </AuthStoreProvider>
     </QueryClientProvider>
   );

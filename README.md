@@ -23,6 +23,8 @@
 
 - `/src`
   - `/api` - API client and endpoints
+  - `/assets` - Assets
+  - `/providers` - Application-level providers
   - `/components` - Reusable UI components
   - `/config` - Application configuration
   - `/features` - Feature-specific components and logic

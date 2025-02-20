@@ -1,20 +1,19 @@
 import { AppSideBar } from '@/components/app-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { paths } from '@/config/paths';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app')({
-  beforeLoad: async ({ context, location }) => {
+  beforeLoad: async ({ context }) => {
     console.log('AppLayoutComponent beforeLoad', context.auth);
 
-    if (context.auth.isLoaded && !context.auth.isAuthenticated) {
-      throw redirect({
-        to: paths.auth.login.path,
-        search: {
-          redirect: location.href,
-        },
-      });
-    }
+    // if (context.auth.isLoaded && !context.auth.isAuthenticated) {
+    //   throw redirect({
+    //     to: paths.auth.login.path,
+    //     search: {
+    //       redirect: location.href,
+    //     },
+    //   });
+    // }
   },
   component: AppLayoutComponent,
 });
