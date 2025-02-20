@@ -5,24 +5,6 @@ import { NavUser } from '@/components/app-sidebar/nav-user';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
 
-const data = {
-  user: {
-    name: 'Tu',
-    email: 'm@example.com',
-    avatar: '',
-  },
-  chats: [
-    {
-      name: 'Design Engineering',
-      id: 1,
-    },
-    {
-      name: 'Sales & Marketing',
-      id: 2,
-    },
-  ],
-};
-
 export function AppSideBar({ className, children, ...props }: React.ComponentProps<'div'>) {
   return (
     <div

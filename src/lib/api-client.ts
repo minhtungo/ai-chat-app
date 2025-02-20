@@ -2,7 +2,7 @@ import { refreshToken } from '@/api/auth/refresh';
 import { env } from '@/config/env';
 import { authStore } from '@/store/auth';
 
-import Axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import Axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {

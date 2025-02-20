@@ -1,7 +1,7 @@
 import { apiPaths } from '@/config/api-paths';
 import { api } from '@/lib/api-client';
-import { QueryConfig } from '@/lib/react-query';
-import { User } from '@/types/user';
+import { type QueryConfig } from '@/lib/react-query';
+import { type User } from '@/types/user';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
 type GetUserResponse = {

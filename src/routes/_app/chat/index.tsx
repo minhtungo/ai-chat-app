@@ -1,5 +1,4 @@
 import { useUser } from '@/api/user/get-user';
-import { useAuth } from '@/store/auth';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({

@@ -1,7 +1,7 @@
 import { refreshToken } from '@/api/auth/refresh';
 import { getUser, getUserQueryOptions } from '@/api/user/get-user';
 import { queryClient } from '@/lib/react-query';
-import { User } from '@/types/user';
+import { type User } from '@/types/user';
 import { createContext, useContext, useState } from 'react';
 import { createStore, useStore, type StoreApi } from 'zustand';
 

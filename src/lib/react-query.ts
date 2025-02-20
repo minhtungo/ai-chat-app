@@ -1,4 +1,4 @@
-import { QueryClient, UseMutationOptions } from '@tanstack/react-query';
+import { QueryClient, type UseMutationOptions } from '@tanstack/react-query';
 
 export type ApiFnReturnType<FnType extends (...args: any) => Promise<any>> = Awaited<ReturnType<FnType>>;
 
