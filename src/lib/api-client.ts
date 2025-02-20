@@ -1,4 +1,4 @@
-import { refreshToken } from '@/api/auth/refresh';
+import { refreshToken } from '@/api/auth/refresh-token';
 import { env } from '@/config/env';
 import { authStore } from '@/store/auth';
 

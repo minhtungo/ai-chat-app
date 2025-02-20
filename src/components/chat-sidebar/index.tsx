@@ -1,4 +1,4 @@
-import { CreateNewChatLink } from '@/components/create-new-chat-link';
+import { CreateNewChatLink } from '@/components/chat/create-new-chat-link';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 import { appConfig } from '@/config/app';
 import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';

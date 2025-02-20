@@ -1,7 +1,7 @@
 import { Spinner } from '@/components/ui/spinner';
 import { queryClient } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';
-import { type AuthActions, type AuthState } from '@/store/auth';
+import { initialAuthState, type AuthActions, type AuthState } from '@/store/auth';
 import type { QueryClient } from '@tanstack/react-query';
 import { ErrorComponent, createRouter } from '@tanstack/react-router';
 
@@ -16,7 +16,7 @@ export const router = createRouter({
   defaultPendingComponent: () => <Spinner />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
-    auth: undefined,
+    auth: initialAuthState as AuthState & AuthActions,
     queryClient,
   },
   defaultPreload: 'intent',

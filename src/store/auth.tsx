@@ -1,4 +1,4 @@
-import { refreshToken } from '@/api/auth/refresh';
+import { refreshToken } from '@/api/auth/refresh-token';
 import { getUser, getUserQueryOptions } from '@/api/user/get-user';
 import { queryClient } from '@/lib/react-query';
 import { type User } from '@/types/user';

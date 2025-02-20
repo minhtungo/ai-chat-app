@@ -4,11 +4,7 @@ import { type QueryConfig } from '@/lib/react-query';
 import { type User } from '@/types/user';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
-type GetUserResponse = {
-  user: User;
-};
-
-export function getUser(): Promise<GetUserResponse> {
+export function getUser(): Promise<User> {
   return api.get(apiPaths.user.me.path);
 }
 
@@ -25,24 +21,10 @@ type UseUserOptions = {
   queryConfig?: QueryConfig<typeof getUserQueryOptions>;
 };
 
-export function useUserQuery({ queryConfig }: UseUserOptions = {}) {
+export function useUser({ queryConfig }: UseUserOptions = {}) {
   return useQuery({
     ...getUserQueryOptions(),
     retry: 1,
     ...queryConfig,
   });
-}
-
-export function useUser() {
-  const userQuery = useUserQuery();
-  // const router = useRouter();
-  // const { setUser } = useSession();
-
-  // useEffect(() => {
-  //   if (userQuery.data) {
-  //     setUser(userQuery.data);
-  //   }
-  // }, [userQuery.data, setUser]);
-
-  return userQuery;
 }

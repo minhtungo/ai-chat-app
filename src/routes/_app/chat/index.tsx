@@ -6,7 +6,7 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function RouteComponent() {
-  const { data } = useUser();
+  const { data: user } = useUser();
 
-  return <div>Hello user: {JSON.stringify(data)}</div>;
+  return <div>Hello user: {JSON.stringify(user)}</div>;
 }

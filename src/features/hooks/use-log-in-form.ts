@@ -1,7 +1,7 @@
-import { logInInputSchema } from '@/features/auth/validations/log-in';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { logInInputSchema } from '@/api/auth/login';
 
 export function useLogInForm() {
   const form = useForm<z.infer<typeof logInInputSchema>>({
