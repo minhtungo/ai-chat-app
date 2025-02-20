@@ -18,3 +18,17 @@
   - TypeScript
   - Vite
   - ESLint
+
+## Project Structure
+
+- `/src`
+  - `/api` - API client and endpoints
+  - `/components` - Reusable UI components
+  - `/config` - Application configuration
+  - `/features` - Feature-specific components and logic
+  - `/hooks` - Custom React hooks
+  - `/lib` - Utility functions and shared code
+  - `/routes` - Application routes
+  - `/store` - Global state management
+  - `/styles` - Global styles and Tailwind configuration
+  - `/types` - TypeScript type definitions
