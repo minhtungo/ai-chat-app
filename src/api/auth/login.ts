@@ -1,5 +1,4 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
-import { apiPaths } from '@/config/api-paths';
 import { baseApi } from '@/lib/api-client';
 import { useAuth } from '@/store/auth';
 import { type AuthResponse } from '@/types/auth';
@@ -7,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { commonValidations } from '@/lib/validations';
 import { z } from 'zod';
+import { apiRoutes } from '@/config/routes';
 
 export const logInInputSchema = z.object({
   email: commonValidations.email,
@@ -17,7 +17,7 @@ export const logInInputSchema = z.object({
 export type LogInInput = z.infer<typeof logInInputSchema>;
 
 export function loginWithEmailAndPassWord(data: LogInInput): Promise<AuthResponse> {
-  return baseApi.post(apiPaths.auth.login.path, data);
+  return baseApi.post(apiRoutes.auth.login.path, data);
 }
 
 export function useLogin() {

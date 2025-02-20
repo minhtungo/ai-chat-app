@@ -1,4 +1,4 @@
-import { paths } from '@/config/paths';
+import { appRoutes } from '@/config/routes';
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 
@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_auth')({
 
     if (context.auth.isLoaded && context.auth.isAuthenticated) {
       throw redirect({
-        to: search.redirect || paths.app.chat.path,
+        to: search.redirect || appRoutes.app.chat.path,
       });
     }
   },

@@ -5,6 +5,7 @@ const createEnv = () => {
     API_URL: z.string(),
     APP_URL: z.string(),
     ACCESS_TOKEN_COOKIE: z.string(),
+    APP_NAME: z.string(),
   });
 
   const envVars = Object.entries(import.meta.env).reduce<Record<string, string>>((acc, curr) => {

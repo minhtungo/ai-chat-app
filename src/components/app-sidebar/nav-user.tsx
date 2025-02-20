@@ -1,6 +1,6 @@
 import { useLogout } from '@/api/auth/logout';
 import { useUser } from '@/api/user/get-user';
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from '@/components/icons';
+import { LogOut, Sparkles } from '@/components/icons';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -64,7 +64,7 @@ export function NavUser() {
         <DropdownMenuGroup>
           {appNavigations.userDropdown.map((item) => (
             <DropdownMenuItem key={item.name} asChild>
-              <Link to={item.to}>
+              <Link to={item.path}>
                 <item.icon />
                 {item.name}
               </Link>

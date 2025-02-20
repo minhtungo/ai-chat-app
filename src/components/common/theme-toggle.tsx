@@ -1,14 +1,9 @@
 import { Moon, Sun } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useIsMounted } from '@/hooks/use-is-mounted';
 import { useTheme } from 'next-themes';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const isMounted = useIsMounted();
-
-  if (!isMounted) return <Skeleton className='!size-7 sm:!size-8' />;
 
   return (
     <Button

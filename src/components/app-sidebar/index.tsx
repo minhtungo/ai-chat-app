@@ -20,7 +20,7 @@ export function AppSideBar({ className, children, ...props }: React.ComponentPro
             <Tooltip key={`app-side-nav-${item.name}`}>
               <TooltipTrigger asChild>
                 <Link
-                  to={item.to}
+                  to={item.path}
                   className={buttonVariants({
                     size: 'icon',
                     variant: 'ghost',

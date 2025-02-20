@@ -1,4 +1,4 @@
-export const apiPaths = {
+export const apiRoutes = {
   auth: {
     login: {
       path: '/login',
@@ -18,4 +18,4 @@ export const apiPaths = {
       path: '/user/me',
     },
   },
-};
+} as const;

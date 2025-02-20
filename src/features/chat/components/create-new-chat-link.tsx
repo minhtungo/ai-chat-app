@@ -1,13 +1,13 @@
 import { buttonVariants } from '@/components/ui/button';
-import { paths } from '@/config/paths';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
 import { MessageSquarePlus } from '@/components/icons';
+import { appRoutes } from '@/config/routes';
 
 export function CreateNewChatLink({ className, ...props }: React.ComponentProps<'a'>) {
   return (
     <Link
-      to={paths.app.chat.path}
+      to={appRoutes.app.chat.path}
       className={cn(
         buttonVariants({
           size: 'icon',

@@ -1,13 +1,12 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
-import { apiPaths } from '@/config/api-paths';
 import { api } from '@/lib/api-client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/store/auth';
 import { useLocation, useRouter } from '@tanstack/react-router';
-import { paths } from '@/config/paths';
+import { apiRoutes, appRoutes } from '@/config/routes';
 
 export function logout() {
-  return api.post(apiPaths.auth.logout.path);
+  return api.post(apiRoutes.auth.logout.path);
 }
 
 export function useLogout() {
@@ -22,10 +21,10 @@ export function useLogout() {
       queryClient.setQueryData(getUserQueryOptions().queryKey, undefined);
       clearSession();
       router.navigate({
-        to: paths.auth.login.path,
+        to: appRoutes.auth.login.path,
         search: {
-          redirect: location.href
-        }
+          redirect: location.href,
+        },
       });
     },
   });

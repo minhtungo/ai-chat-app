@@ -1,9 +1,9 @@
-import { apiPaths } from '@/config/api-paths';
 import { api } from '@/lib/api-client';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
 import { commonValidations } from '@/lib/validations';
 import { z } from 'zod';
+import { apiRoutes } from '@/config/routes';
 
 export const signUpInputSchema = z
   .object({
@@ -24,7 +24,7 @@ export const signUpInputSchema = z
 export type SignUpInput = z.infer<typeof signUpInputSchema>;
 
 export function signUpWithEmailAndPassWord(data: SignUpInput): Promise<AuthResponse> {
-  return api.post(apiPaths.auth.login.path, data);
+  return api.post(apiRoutes.auth.login.path, data);
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {

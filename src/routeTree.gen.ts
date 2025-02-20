@@ -16,6 +16,7 @@ import { Route as AppImport } from './routes/_app'
 import { Route as AppIndexImport } from './routes/_app/index'
 import { Route as AuthSignupImport } from './routes/_auth/signup'
 import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as AppSettingsImport } from './routes/_app/settings'
 import { Route as AppProfileImport } from './routes/_app/profile'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppProfileIndexImport } from './routes/_app/profile/index'
@@ -52,6 +53,12 @@ const AuthLoginRoute = AuthLoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRoute,
+} as any)
+
+const AppSettingsRoute = AppSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
 } as any)
 
 const AppProfileRoute = AppProfileImport.update({
@@ -126,6 +133,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof AppProfileImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsImport
       parentRoute: typeof AppImport
     }
     '/_auth/login': {
@@ -219,6 +233,7 @@ const AppProfileRouteWithChildren = AppProfileRoute._addFileChildren(
 interface AppRouteChildren {
   AppChatRoute: typeof AppChatRouteWithChildren
   AppProfileRoute: typeof AppProfileRouteWithChildren
+  AppSettingsRoute: typeof AppSettingsRoute
   AppIndexRoute: typeof AppIndexRoute
   AppFilesIndexRoute: typeof AppFilesIndexRoute
 }
@@ -226,6 +241,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppChatRoute: AppChatRouteWithChildren,
   AppProfileRoute: AppProfileRouteWithChildren,
+  AppSettingsRoute: AppSettingsRoute,
   AppIndexRoute: AppIndexRoute,
   AppFilesIndexRoute: AppFilesIndexRoute,
 }
@@ -248,6 +264,7 @@ export interface FileRoutesByFullPath {
   '': typeof AuthRouteWithChildren
   '/chat': typeof AppChatRouteWithChildren
   '/profile': typeof AppProfileRouteWithChildren
+  '/settings': typeof AppSettingsRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
@@ -260,6 +277,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
+  '/settings': typeof AppSettingsRoute
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
@@ -276,6 +294,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_app/chat': typeof AppChatRouteWithChildren
   '/_app/profile': typeof AppProfileRouteWithChildren
+  '/_app/settings': typeof AppSettingsRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/_app/': typeof AppIndexRoute
@@ -292,6 +311,7 @@ export interface FileRouteTypes {
     | ''
     | '/chat'
     | '/profile'
+    | '/settings'
     | '/login'
     | '/signup'
     | '/'
@@ -303,6 +323,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/settings'
     | '/login'
     | '/signup'
     | '/'
@@ -317,6 +338,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_app/chat'
     | '/_app/profile'
+    | '/_app/settings'
     | '/_auth/login'
     | '/_auth/signup'
     | '/_app/'
@@ -357,6 +379,7 @@ export const routeTree = rootRoute
       "children": [
         "/_app/chat",
         "/_app/profile",
+        "/_app/settings",
         "/_app/",
         "/_app/files/"
       ]
@@ -383,6 +406,10 @@ export const routeTree = rootRoute
         "/_app/profile/billing",
         "/_app/profile/"
       ]
+    },
+    "/_app/settings": {
+      "filePath": "_app/settings.tsx",
+      "parent": "/_app"
     },
     "/_auth/login": {
       "filePath": "_auth/login.tsx",

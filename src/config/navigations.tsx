@@ -1,33 +1,6 @@
-import { CreditCard, File, MessageSquare, Settings, User } from '@/components/icons';
+import { appRoutes } from '@/config/routes';
 
 export const appNavigations = {
-  sidebar: [
-    {
-      name: 'Chat',
-      to: '/chat',
-      icon: MessageSquare,
-    },
-    {
-      name: 'Files',
-      to: '/files',
-      icon: File,
-    },
-  ],
-  userDropdown: [
-    {
-      name: 'Profile',
-      to: '/profile',
-      icon: User,
-    },
-    {
-      name: 'Billing',
-      to: '/billing',
-      icon: CreditCard,
-    },
-    {
-      name: 'Settings',
-      to: '/settings',
-      icon: Settings,
-    },
-  ],
+  sidebar: [appRoutes.app.chat, appRoutes.app.files],
+  userDropdown: [appRoutes.app.profile, appRoutes.app.billing, appRoutes.app.settings],
 };
