@@ -30,6 +30,7 @@
   - `/features` - Feature-specific components and logic
   - `/hooks` - Custom React hooks
   - `/lib` - Utility functions and shared code
+  - `/utils` - Utility functions
   - `/routes` - Application routes
   - `/store` - Global state management
   - `/styles` - Global styles and Tailwind configuration

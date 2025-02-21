@@ -40,6 +40,9 @@ export function NavChats({
                 params={{
                   id: chat.id.toString(),
                 }}
+                activeProps={{
+                  className: 'bg-accent',
+                }}
               >
                 <span>{chat.name}</span>
               </Link>

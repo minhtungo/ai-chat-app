@@ -14,9 +14,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
 import { appNavigations } from '@/config/navigations';
+import { getNameInitials } from '@/utils/name';
 import { Link } from '@tanstack/react-router';
 
-export function NavUser() {
+export function UserMenu() {
   const { isMobile } = useSidebar();
   const { data: user } = useUser();
   const { mutate: logout } = useLogout();
@@ -32,7 +33,7 @@ export function NavUser() {
       <DropdownMenuTrigger asChild>
         <Avatar className='h-8 w-8 rounded-lg cursor-pointer'>
           <AvatarImage src={user.avatar} alt={user.name} />
-          <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+          <AvatarFallback className='rounded-lg'>{getNameInitials(user.name)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -45,7 +46,7 @@ export function NavUser() {
           <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
             <Avatar className='h-8 w-8 rounded-lg'>
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+              <AvatarFallback className='rounded-lg'>{getNameInitials(user.name)}</AvatarFallback>
             </Avatar>
             <div className='grid flex-1 text-left text-sm leading-tight'>
               <span className='truncate font-semibold'>{user.name}</span>

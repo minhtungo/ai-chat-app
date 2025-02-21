@@ -29,7 +29,6 @@ export function ChatHeader({ className, ...props }: ChatHeaderProps) {
             </Button>
           </>
         )}
-        {JSON.stringify(user)}
         <ThemeToggle />
       </div>
     </div>

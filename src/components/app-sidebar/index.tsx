@@ -1,7 +1,7 @@
 import { buttonVariants } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { appNavigations } from '@/config/navigations';
-import { NavUser } from '@/components/app-sidebar/nav-user';
+import { UserMenu } from '@/components/app-sidebar/user-menu';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
 
@@ -35,7 +35,7 @@ export function AppSideBar({ className, children, ...props }: React.ComponentPro
             </Tooltip>
           ))}
         </div>
-        <NavUser />
+        <UserMenu />
       </div>
     </div>
   );
