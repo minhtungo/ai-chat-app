@@ -27,7 +27,8 @@ const mockMessages: ChatMessageType[] = [
   },
   {
     id: '4',
-    content: 'The weather in Tokyo is sunny.',
+    content:
+      'TLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     role: 'assistant',
     createdAt: new Date(),
   },
@@ -125,7 +126,7 @@ export function ChatHistory({
   return (
     <div
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto p-4',
+        'flex min-h-0 flex-1 flex-col overflow-auto px-4 pb-12',
         className,
       )}
       ref={(el) => {
@@ -136,11 +137,15 @@ export function ChatHistory({
       {...props}
     >
       {messages.length > 0 && (
-        <div className='space-y-4'>
+        <>
           {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
+            <ChatMessage
+              key={message.id}
+              message={message}
+              isLatest={message.id === messages[messages.length - 1].id}
+            />
           ))}
-        </div>
+        </>
       )}
     </div>
   );
