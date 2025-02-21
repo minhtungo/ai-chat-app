@@ -1,10 +1,9 @@
 import { useUser } from '@/api/user/get-user';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { AuthActions } from '@/components/common/auth-actions';
+import { Share2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { appRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
-import { Link } from '@tanstack/react-router';
 
 interface ChatHeaderProps extends React.ComponentProps<'div'> {}
 
@@ -14,35 +13,24 @@ export function ChatHeader({ className, ...props }: ChatHeaderProps) {
   return (
     <div
       className={cn(
-        'border-border flex w-full items-center justify-between border-b',
+        'border-border flex w-full items-center justify-between gap-x-2 border-b',
         className,
       )}
       {...props}
     >
       <SidebarTrigger />
-      <div className='flex items-center gap-2'>
-        {!user && (
-          <>
-            <Button size='sm' asChild>
-              <Link
-                to={appRoutes.auth.login.path}
-                className={cn('text-muted-foreground text-sm', className)}
-              >
-                Login
-              </Link>
-            </Button>
-            <Button variant='outline' size='sm' asChild>
-              <Link
-                to={appRoutes.auth.signup.path}
-                className={cn('text-muted-foreground text-sm', className)}
-              >
-                Sign Up
-              </Link>
-            </Button>
-          </>
-        )}
-        <ThemeToggle />
-      </div>
+      {!user && <AuthActions />}
+      <ChatHeaderActions />
+    </div>
+  );
+}
+
+function ChatHeaderActions() {
+  return (
+    <div className='flex items-center gap-2'>
+      <Button variant='ghost' size='icon'>
+        <Share2 className='size-5' />
+      </Button>
     </div>
   );
 }
