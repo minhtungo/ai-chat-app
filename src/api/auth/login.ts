@@ -6,7 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { commonValidations } from '@/lib/validations';
 import { z } from 'zod';
-import { apiRoutes } from '@/config/routes';
+import { apiRoutes, appRoutes } from '@/config/routes';
+import { useRouter } from '@tanstack/react-router';
 
 export const logInInputSchema = z.object({
   email: commonValidations.email,
@@ -23,12 +24,14 @@ export function loginWithEmailAndPassWord(data: LogInInput): Promise<AuthRespons
 export function useLogin() {
   const queryClient = useQueryClient();
   const { createSession } = useAuth();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: loginWithEmailAndPassWord,
-    onSuccess: (data) => {
-      createSession({ user: data.user, token: data.accessToken });
+    onSuccess: async (data) => {
       queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
+      router.navigate({ to: appRoutes.app.chat.path, replace: true });
+      createSession(data.accessToken, data.user.id);
     },
     onError: (error: AxiosError) => {
       throw error;

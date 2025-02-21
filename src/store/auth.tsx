@@ -1,21 +1,20 @@
 import { refreshToken } from '@/api/auth/refresh-token';
 import { getUser, getUserQueryOptions } from '@/api/user/get-user';
 import { queryClient } from '@/lib/react-query';
-import { type User } from '@/types/user';
 import { createContext, useContext, useState } from 'react';
 import { createStore, useStore, type StoreApi } from 'zustand';
 
 export type AuthState = {
   isAuthenticated: boolean;
-  user: User | undefined;
   token: string;
+  userId: string;
   isLoaded: boolean;
 };
 
 export type AuthActions = {
   setToken: (token: AuthState['token']) => void;
   clearSession: () => void;
-  createSession: ({ user, token }: { user: AuthState['user']; token: AuthState['token'] }) => void;
+  createSession: (token: AuthState['token'], userId: AuthState['userId']) => void;
   initializeAuth: () => Promise<void>;
 };
 
@@ -36,25 +35,25 @@ export const initialAuthState: AuthState = {
   isAuthenticated: false,
   isLoaded: false,
   token: '',
-  user: undefined,
+  userId: '',
 };
 
 export const authStore = createStore<AuthStore>((set) => ({
   ...initialAuthState,
   setToken: (token) => set(() => ({ token })),
   clearSession: () => set(() => initialAuthState),
-  createSession: ({ user, token }) => set(() => ({ user, token, isAuthenticated: true, isLoaded: true })),
+  createSession: (token, userId) => set(() => ({ token, userId, isAuthenticated: true, isLoaded: true })),
   initializeAuth: async () => {
     try {
       const { data } = await refreshToken();
       if (data?.accessToken) {
         set(() => ({ token: data.accessToken }));
-        const response = await getUser();
-        queryClient.setQueryData(getUserQueryOptions().queryKey, { user: response.user });
+        const user = await getUser();
+        queryClient.setQueryData(getUserQueryOptions().queryKey, { ...user });
         set(() => ({
           isAuthenticated: true,
-          user: response.user,
           isLoaded: true,
+          userId: user.id,
         }));
       } else {
         set(() => ({ isAuthenticated: false, isLoaded: true }));

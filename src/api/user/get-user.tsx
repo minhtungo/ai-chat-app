@@ -24,7 +24,6 @@ type UseUserOptions = {
 export function useUser({ queryConfig }: UseUserOptions = {}) {
   return useQuery({
     ...getUserQueryOptions(),
-    retry: 1,
     ...queryConfig,
   });
 }

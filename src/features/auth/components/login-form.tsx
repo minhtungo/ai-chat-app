@@ -8,22 +8,16 @@ import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { useLogInForm } from '@/features/auth/hooks/use-log-in-form';
 import { cn } from '@/lib/utils';
-import { Link, useRouter } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useLogInForm();
-  const router = useRouter();
   const { mutate: login, isPending } = useLogin();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    login(data, {
-      onSuccess: () => {
-        router.invalidate();
-      },
-    });
+    login(data);
   };
-
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <AuthFormWrapper title='Welcome back' description='Login with your Google account'>
