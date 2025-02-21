@@ -3,9 +3,9 @@ import { AppLoadingScreen } from '@/components/loading/app-loading-screen';
 import { queryClient } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';
 import {
-  initialAuthState,
   type AuthActions,
   type AuthState,
+  initialAuthState,
 } from '@/store/auth';
 import type { QueryClient } from '@tanstack/react-query';
 import { ErrorComponent, createRouter } from '@tanstack/react-router';

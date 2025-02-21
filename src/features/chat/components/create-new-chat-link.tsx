@@ -1,8 +1,8 @@
+import { MessageSquarePlus } from '@/components/icons';
 import { buttonVariants } from '@/components/ui/button';
+import { appRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
-import { MessageSquarePlus } from '@/components/icons';
-import { appRoutes } from '@/config/routes';
 
 export function CreateNewChatLink({
   className,

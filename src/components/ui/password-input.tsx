@@ -1,5 +1,5 @@
-import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from '@/components/icons';
+import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
 export function PasswordInput(props: React.ComponentProps<'input'>) {

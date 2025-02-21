@@ -1,4 +1,5 @@
-import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
+import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
+import { NavChats } from '@/components/chat-sidebar/nav-chats';
 import {
   Sidebar,
   SidebarContent,
@@ -6,8 +7,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar';
 import { appConfig } from '@/config/app';
-import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
-import { NavChats } from '@/components/chat-sidebar/nav-chats';
+import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
 
 const chats = [
   {

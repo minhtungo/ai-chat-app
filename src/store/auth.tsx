@@ -2,7 +2,7 @@ import { refreshToken } from '@/api/auth/refresh-token';
 import { getUser, getUserQueryOptions } from '@/api/user/get-user';
 import { queryClient } from '@/lib/react-query';
 import { createContext, useContext, useState } from 'react';
-import { createStore, useStore, type StoreApi } from 'zustand';
+import { type StoreApi, createStore, useStore } from 'zustand';
 
 export type AuthState = {
   isAuthenticated: boolean;

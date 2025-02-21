@@ -1,12 +1,12 @@
 import { queryClient } from '@/lib/react-query';
+import { ThemeProvider } from '@/providers/theme-provider';
+import reportWebVitals from '@/reportWebVitals';
 import { router } from '@/router';
 import { AuthStoreProvider, useAuth, useSession } from '@/store/auth';
+import '@/styles/globals.css';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
-import '@/styles/globals.css';
-import reportWebVitals from '@/reportWebVitals';
-import { ThemeProvider } from '@/providers/theme-provider';
 
 function App() {
   const auth = useAuth();

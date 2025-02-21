@@ -1,9 +1,9 @@
+import { apiRoutes } from '@/config/routes';
 import { api } from '@/lib/api-client';
+import { commonValidations } from '@/lib/validations';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
-import { commonValidations } from '@/lib/validations';
 import { z } from 'zod';
-import { apiRoutes } from '@/config/routes';
 
 export const signUpInputSchema = z
   .object({

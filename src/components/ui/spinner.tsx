@@ -1,6 +1,6 @@
-import { cn } from '@/utils/cn';
-import { cva, type VariantProps } from 'class-variance-authority';
 import { Loader2Icon } from '@/components/icons';
+import { cn } from '@/utils/cn';
+import { type VariantProps, cva } from 'class-variance-authority';
 
 const spinnerVariants = cva('animate-spin', {
   variants: {

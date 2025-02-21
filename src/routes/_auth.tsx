@@ -1,5 +1,5 @@
 import { appRoutes } from '@/config/routes';
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 
 export const Route = createFileRoute('/_auth')({

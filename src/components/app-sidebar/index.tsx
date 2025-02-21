@@ -1,3 +1,4 @@
+import { UserMenu } from '@/components/app-sidebar/user-menu';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Tooltip,
@@ -5,7 +6,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { appNavigations } from '@/config/navigations';
-import { UserMenu } from '@/components/app-sidebar/user-menu';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 

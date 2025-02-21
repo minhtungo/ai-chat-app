@@ -1,8 +1,7 @@
-import * as React from 'react';
-import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { XIcon } from '@/components/icons';
-
 import { cn } from '@/utils/cn';
+import * as SheetPrimitive from '@radix-ui/react-dialog';
+import * as React from 'react';
 
 function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot='sheet' {...props} />;

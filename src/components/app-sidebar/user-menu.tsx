@@ -1,7 +1,6 @@
 import { useLogout } from '@/api/auth/logout';
 import { useUser } from '@/api/user/get-user';
 import { LogOut, Sparkles } from '@/components/icons';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,

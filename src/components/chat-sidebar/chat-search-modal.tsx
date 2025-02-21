@@ -1,3 +1,4 @@
+import { Search, XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -6,7 +7,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { Search, XIcon } from '@/components/icons';
 
 interface ChatSearchModalProps {}
 
