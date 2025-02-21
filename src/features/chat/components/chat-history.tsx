@@ -1,5 +1,5 @@
 import ChatMessage from '@/features/chat/components/chat-message';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 
 interface ChatHistoryProps extends React.ComponentProps<'div'> {

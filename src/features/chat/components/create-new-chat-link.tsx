@@ -1,5 +1,5 @@
 import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { MessageSquarePlus } from '@/components/icons';
 import { appRoutes } from '@/config/routes';

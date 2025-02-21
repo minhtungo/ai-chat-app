@@ -3,7 +3,7 @@ import { ThemeToggle } from '@/components/common/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { appRoutes } from '@/config/routes';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
 interface ChatHeaderProps extends React.ComponentProps<'div'> {}

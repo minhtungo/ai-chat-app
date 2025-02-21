@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { useLogInForm } from '@/features/auth/hooks/use-log-in-form';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 

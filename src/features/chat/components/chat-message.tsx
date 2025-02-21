@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 
 interface ChatMessageProps extends React.ComponentProps<'div'> {
