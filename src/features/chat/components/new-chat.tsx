@@ -4,7 +4,7 @@ import { Clock } from 'lucide-react';
 
 interface NewChatProps extends React.ComponentProps<'div'> {}
 
-export default function NewChat({}: NewChatProps) {
+export function NewChat({}: NewChatProps) {
   const { data: user } = useUser();
   return (
     <div className='flex flex-1 flex-col items-center justify-center gap-y-6 p-4'>

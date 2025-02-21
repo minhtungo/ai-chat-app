@@ -1,5 +1,5 @@
 import { useLogin } from '@/api/auth/login';
-import AuthFormWrapper from '@/components/form/AuthFormWrapper';
+import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {

@@ -1,4 +1,4 @@
-import ChatMessage from '@/features/chat/components/chat-message';
+import { ChatMessage } from '@/features/chat/components/chat-message';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
@@ -117,7 +117,7 @@ const mockMessages: ChatMessageType[] = [
   },
 ];
 
-export default function ChatHistory({
+export function ChatHistory({
   messages = mockMessages,
   className,
   ...props

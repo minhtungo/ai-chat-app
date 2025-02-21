@@ -12,7 +12,7 @@ interface AuthFormWrapperProps extends React.ComponentProps<'div'> {
   description: string;
 }
 
-export default function AuthFormWrapper({
+export function AuthFormWrapper({
   title,
   description,
   className,

@@ -5,7 +5,7 @@ interface ChatMessageProps extends React.ComponentProps<'div'> {
   message: ChatMessageType;
 }
 
-export default function ChatMessage({ message }: ChatMessageProps) {
+export function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div
       className={cn(

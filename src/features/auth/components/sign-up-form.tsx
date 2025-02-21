@@ -1,5 +1,5 @@
 import { useSignUpMutation } from '@/api/auth/sign-up';
-import AuthFormWrapper from '@/components/form/AuthFormWrapper';
+import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
