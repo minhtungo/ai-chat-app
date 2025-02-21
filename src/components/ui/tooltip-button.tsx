@@ -3,6 +3,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { cn } from '@/utils/cn';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
 interface TooltipButtonProps
@@ -13,11 +14,14 @@ interface TooltipButtonProps
 export function TooltipButton({
   children,
   tooltip,
+  className,
   ...props
 }: TooltipButtonProps) {
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipTrigger className={cn(className)} asChild>
+        {children}
+      </TooltipTrigger>
       <TooltipContent {...props}>{tooltip}</TooltipContent>
     </Tooltip>
   );

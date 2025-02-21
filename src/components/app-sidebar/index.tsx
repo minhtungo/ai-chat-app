@@ -19,24 +19,36 @@ export function AppSideBar({
       {...props}
     >
       <div className='flex h-full w-full flex-col items-center justify-between'>
-        <div className='flex flex-col gap-y-2'>
+        <div className='flex flex-col gap-y-4'>
           <UserMenu />
-          {appNavigations.sidebar.map((item) => (
-            <TooltipButton
-              tooltip={item.name}
-              key={`app-side-nav-${item.name}`}
-            >
-              <Link
-                to={item.path}
-                className={buttonVariants({
-                  size: 'icon',
-                  variant: 'ghost',
-                })}
+          <div className='flex flex-col gap-2'>
+            {appNavigations.sidebar.map((item) => (
+              <TooltipButton
+                tooltip={item.name}
+                key={`app-side-nav-${item.name}`}
               >
-                <item.icon className='size-6 shrink-0' aria-hidden='true' />
-              </Link>
-            </TooltipButton>
-          ))}
+                <Link
+                  to={item.path}
+                  className='flex flex-col items-center gap-y-1 text-[13px]'
+                  activeProps={{
+                    className: '[&>div]:bg-accent',
+                  }}
+                >
+                  <div
+                    className={cn(
+                      buttonVariants({
+                        size: 'icon',
+                        variant: 'ghost',
+                      }),
+                    )}
+                  >
+                    <item.icon className='size-6 shrink-0' aria-hidden='true' />
+                  </div>
+                  <span>{item.name}</span>
+                </Link>
+              </TooltipButton>
+            ))}
+          </div>
         </div>
       </div>
     </div>
