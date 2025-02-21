@@ -11,6 +11,7 @@ export function ChatPanel({}: ChatPanelProps) {
       <Textarea
         placeholder='Type a message...'
         className='ring-none max-h-[200px] min-h-20 resize-none border-none focus-visible:ring-0 focus-visible:outline-none'
+        autoFocus
       />
       <div className='flex items-center justify-between'>
         <div className='flex gap-x-1'>

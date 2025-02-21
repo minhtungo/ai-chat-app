@@ -1,4 +1,4 @@
-import ChatHistory from '@/features/chat/components/chat-history';
+import NewChat from '@/features/chat/components/new-chat';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({
@@ -6,5 +6,5 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function ChatRouteComponent() {
-  return <ChatHistory />;
+  return <NewChat />;
 }
