@@ -1,3 +1,5 @@
+import { NotFound } from '@/components/errors/not-found';
+import { AppLoadingScreen } from '@/components/loading/app-loading-screen';
 import { Spinner } from '@/components/ui/spinner';
 import { queryClient } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';
@@ -14,7 +16,8 @@ export type RouterContext = {
 // Set up a Router instance
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => <Spinner />,
+  defaultPendingComponent: () => <AppLoadingScreen />,
+  defaultNotFoundComponent: () => <NotFound />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
     auth: initialAuthState as AuthState,

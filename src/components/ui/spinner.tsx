@@ -6,10 +6,10 @@ const spinnerVariants = cva('animate-spin', {
   variants: {
     size: {
       default: 'h-4 w-4',
-      sm: 'h-3 w-3',
-      md: 'size-8',
-      lg: 'size-12',
-      xl: 'size-16',
+      sm: 'size-3',
+      md: 'size-6',
+      lg: 'size-8',
+      xl: 'size-10',
     },
   },
   defaultVariants: {
