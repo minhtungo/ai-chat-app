@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { appRoutes } from '@/config/routes';
 import { cn } from '@/lib/utils';
-import { useAuth } from '@/store/auth';
 import { Link } from '@tanstack/react-router';
 
 interface ChatHeaderProps extends React.ComponentProps<'div'> {}

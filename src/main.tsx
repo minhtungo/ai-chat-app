@@ -1,6 +1,6 @@
 import { queryClient } from '@/lib/react-query';
 import { router } from '@/router';
-import { AuthStoreProvider, useAuth } from '@/store/auth';
+import { AuthStoreProvider, useAuth, useSession } from '@/store/auth';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
@@ -10,7 +10,9 @@ import { ThemeProvider } from '@/providers/theme-provider';
 
 function App() {
   const auth = useAuth();
-  return <RouterProvider router={router} context={{ auth }} />;
+  const session = useSession();
+
+  return <RouterProvider router={router} context={{ auth, session }} />;
 }
 
 const rootElement = document.getElementById('app')!;

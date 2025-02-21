@@ -1,9 +1,9 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
-import { api } from '@/lib/api-client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '@/store/auth';
-import { useLocation, useRouter } from '@tanstack/react-router';
 import { apiRoutes, appRoutes } from '@/config/routes';
+import { api } from '@/lib/api-client';
+import { useSession } from '@/store/auth';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocation, useRouter } from '@tanstack/react-router';
 
 export function logout() {
   return api.post(apiRoutes.auth.logout.path);
@@ -11,7 +11,7 @@ export function logout() {
 
 export function useLogout() {
   const queryClient = useQueryClient();
-  const { clearSession } = useAuth();
+  const { clearSession } = useSession();
   const router = useRouter();
   const location = useLocation();
 

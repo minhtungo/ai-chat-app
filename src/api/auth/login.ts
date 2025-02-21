@@ -1,6 +1,6 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
 import { baseApi } from '@/lib/api-client';
-import { useAuth } from '@/store/auth';
+import { useAuth, useSession } from '@/store/auth';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
@@ -23,7 +23,7 @@ export function loginWithEmailAndPassWord(data: LogInInput): Promise<AuthRespons
 
 export function useLogin() {
   const queryClient = useQueryClient();
-  const { createSession } = useAuth();
+  const { createSession } = useSession();
   const router = useRouter();
 
   return useMutation({

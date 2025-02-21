@@ -23,7 +23,10 @@ type AuthStoreProviderProps = {
   initialState?: AuthState;
 };
 
-type AuthStore = AuthState & AuthActions;
+type AuthStore = {
+  state: AuthState;
+  actions: AuthActions;
+};
 
 type AuthContext = StoreApi<AuthStore> | null;
 
@@ -39,28 +42,30 @@ export const initialAuthState: AuthState = {
 };
 
 export const authStore = createStore<AuthStore>((set) => ({
-  ...initialAuthState,
-  setToken: (token) => set(() => ({ token })),
-  clearSession: () => set(() => initialAuthState),
-  createSession: (token, userId) => set(() => ({ token, userId, isAuthenticated: true, isLoaded: true })),
-  initializeAuth: async () => {
-    try {
-      const { data } = await refreshToken();
-      if (data?.accessToken) {
-        set(() => ({ token: data.accessToken }));
-        const user = await getUser();
-        queryClient.setQueryData(getUserQueryOptions().queryKey, { ...user });
-        set(() => ({
-          isAuthenticated: true,
-          isLoaded: true,
-          userId: user.id,
-        }));
-      } else {
-        set(() => ({ isAuthenticated: false, isLoaded: true }));
+  state: {
+    ...initialAuthState,
+  },
+  actions: {
+    setToken: (token) => set((state) => ({ state: { ...state.state, token } })),
+    clearSession: () => set(() => ({ state: initialAuthState })),
+    createSession: (token, userId) => set(() => ({ state: { token, userId, isAuthenticated: true, isLoaded: true } })),
+    initializeAuth: async () => {
+      try {
+        const { data } = await refreshToken();
+        if (data?.accessToken) {
+          set((state) => ({ state: { ...state.state, token: data.accessToken } }));
+          const user = await getUser();
+          queryClient.setQueryData(getUserQueryOptions().queryKey, { ...user });
+          set((state) => ({
+            state: { ...state.state, isAuthenticated: true, isLoaded: true, userId: user.id },
+          }));
+        } else {
+          set((state) => ({ state: { ...state.state, isAuthenticated: false, isLoaded: true } }));
+        }
+      } catch (error) {
+        set((state) => ({ state: { ...state.state, isAuthenticated: false, isLoaded: true } }));
       }
-    } catch (error) {
-      set(() => ({ isAuthenticated: false, isLoaded: true }));
-    }
+    },
   },
 }));
 
@@ -80,4 +85,6 @@ function useAuthStore(selector: AuthStoreSelector) {
   return useStore(store, selector);
 }
 
-export const useAuth = (): AuthActions & AuthState => useAuthStore((state) => state);
+export const useAuth = (): AuthState => useAuthStore((state) => state.state);
+
+export const useSession = (): AuthActions => useAuthStore((state) => state.actions);

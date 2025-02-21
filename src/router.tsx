@@ -6,7 +6,8 @@ import type { QueryClient } from '@tanstack/react-query';
 import { ErrorComponent, createRouter } from '@tanstack/react-router';
 
 export type RouterContext = {
-  auth: AuthState & AuthActions;
+  auth: AuthState;
+  session: AuthActions;
   queryClient: QueryClient;
 };
 
@@ -16,7 +17,8 @@ export const router = createRouter({
   defaultPendingComponent: () => <Spinner />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
-    auth: initialAuthState as AuthState & AuthActions,
+    auth: initialAuthState as AuthState,
+    session: {} as AuthActions,
     queryClient,
   },
   defaultPreload: 'intent',

@@ -3,10 +3,10 @@ import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-    beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context }) => {
     console.log('RootComponent beforeLoad', context.auth);
     if (!context.auth.isLoaded) {
-      await context.auth.initializeAuth();
+      await context.session.initializeAuth();
     }
   },
   component: RootLayoutComponent,
