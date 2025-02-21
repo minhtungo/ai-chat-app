@@ -1,10 +1,5 @@
 import { UserMenu } from '@/components/app-sidebar/user-menu';
 import { buttonVariants } from '@/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { appNavigations } from '@/config/navigations';
 import { cn } from '@/utils/cn';

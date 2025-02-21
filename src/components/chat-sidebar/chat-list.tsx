@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Link } from '@tanstack/react-router';
 
-export function NavChats({
+export function ChatList({
   chats,
 }: {
   chats: {
@@ -28,7 +28,7 @@ export function NavChats({
   const { isMobile } = useSidebar();
 
   return (
-    <SidebarGroup className='group-data-[collapsible=icon]:hidden'>
+    <SidebarGroup>
       <SidebarGroupLabel>Today</SidebarGroupLabel>
       <SidebarMenu>
         {chats.map((chat) => (

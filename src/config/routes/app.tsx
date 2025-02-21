@@ -9,52 +9,49 @@ import {
 export const appRoutes = {
   home: {
     path: '/',
-    getHref: () => '/',
   },
   auth: {
     signup: {
       path: '/signup',
       name: 'Signup',
-      getHref: (redirect?: string | null | undefined) =>
-        `/signup${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`,
     },
     login: {
       path: '/login',
       name: 'Login',
-      getHref: (redirect?: string | null | undefined) =>
-        `/login${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`,
     },
   },
   app: {
     chat: {
       path: '/chat',
       name: 'Chat',
-      getHref: () => '/chat',
       icon: MessageSquare,
     },
-    files: {
-      path: '/files',
-      name: 'Files',
-      getHref: () => '/files',
-      icon: File,
+  },
+  account: {
+    root: {
+      path: '/account',
+      name: 'Account',
+      icon: User,
     },
     profile: {
-      path: '/profile',
+      path: '/account/profile',
       name: 'Profile',
-      getHref: () => '/profile',
       icon: User,
     },
     billing: {
-      path: '/profile/billing',
+      path: '/account/billing',
       name: 'Billing',
-      getHref: () => '/profile/billing',
       icon: CreditCard,
     },
     settings: {
-      path: '/settings',
+      path: '/account/settings',
       name: 'Settings',
-      getHref: () => '/settings',
       icon: Settings,
+    },
+    files: {
+      path: '/account/files',
+      name: 'Files',
+      icon: File,
     },
   },
 } as const;

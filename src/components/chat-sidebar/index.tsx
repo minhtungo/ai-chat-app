@@ -1,5 +1,5 @@
+import { ChatList } from '@/components/chat-sidebar/chat-list';
 import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
-import { NavChats } from '@/components/chat-sidebar/nav-chats';
 import {
   Sidebar,
   SidebarContent,
@@ -29,7 +29,7 @@ export function ChatSidebar({
       className='left-[56px] group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1+56px)]'
       {...props}
     >
-      <SidebarHeader className='flex flex-row items-center justify-between'>
+      <SidebarHeader className='flex-row items-center justify-between'>
         <span>{appConfig.appName}</span>
         <div className='flex'>
           <ChatSearchModal />
@@ -37,7 +37,7 @@ export function ChatSidebar({
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <NavChats chats={chats} />
+        <ChatList chats={chats} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

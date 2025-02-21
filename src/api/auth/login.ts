@@ -2,7 +2,7 @@ import { getUserQueryOptions } from '@/api/user/get-user';
 import { apiRoutes, appRoutes } from '@/config/routes';
 import { baseApi } from '@/lib/api-client';
 import { commonValidations } from '@/lib/validations';
-import { useAuth, useSession } from '@/store/auth';
+import { useSession } from '@/store/auth';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';

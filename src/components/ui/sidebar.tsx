@@ -190,15 +190,18 @@ function Sidebar({
 
   if (collapsible === 'none') {
     return (
-      <div
-        data-slot='sidebar'
-        className={cn(
-          'bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col',
-          className,
-        )}
-        {...props}
-      >
-        {children}
+      <div className='group text-sidebar-foreground relative hidden md:block'>
+        <div
+          data-slot='sidebar'
+          className={cn(
+            'bg-sidebar border-sidebar-border flex h-svh w-(--sidebar-width) flex-col',
+            side === 'left' ? 'border-r' : 'border-l',
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </div>
       </div>
     );
   }

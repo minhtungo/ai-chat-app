@@ -5,7 +5,7 @@ import Axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   if (config.headers) {
-    const accessToken = authStore.getState().token;
+    const accessToken = authStore.getState().state.token;
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -50,7 +50,10 @@ api.interceptors.response.use(
         const response = await refreshToken();
         const newAccessToken = response?.data.accessToken;
         console.log('prevRequest newAccessToken', newAccessToken);
-        authStore.setState(() => ({ token: newAccessToken }));
+        authStore.setState((state) => ({
+          ...state,
+          state: { ...state.state, token: newAccessToken },
+        }));
         prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return api(prevRequest);
       } catch (refreshError) {
