@@ -5,6 +5,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 import { appNavigations } from '@/config/navigations';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
@@ -17,33 +18,31 @@ export function AppSideBar({
   return (
     <div
       className={cn(
-        'text-sidebar-foreground border-border bg-sidebar relative z-50 hidden h-svh min-w-12 border-r py-2 md:block',
+        'text-sidebar-foreground border-border bg-sidebar relative z-50 hidden h-svh min-w-14 border-r py-2 md:block',
         className,
       )}
       {...props}
     >
       <div className='flex h-full w-full flex-col items-center justify-between'>
         <div className='flex flex-col gap-y-2'>
+          <UserMenu />
           {appNavigations.sidebar.map((item) => (
-            <Tooltip key={`app-side-nav-${item.name}`}>
-              <TooltipTrigger asChild>
-                <Link
-                  to={item.path}
-                  className={buttonVariants({
-                    size: 'icon',
-                    variant: 'ghost',
-                  })}
-                >
-                  <item.icon className='size-5 shrink-0' aria-hidden='true' />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side='right' align='center'>
-                {item.name}
-              </TooltipContent>
-            </Tooltip>
+            <TooltipButton
+              tooltip={item.name}
+              key={`app-side-nav-${item.name}`}
+            >
+              <Link
+                to={item.path}
+                className={buttonVariants({
+                  size: 'icon',
+                  variant: 'ghost',
+                })}
+              >
+                <item.icon className='size-6 shrink-0' aria-hidden='true' />
+              </Link>
+            </TooltipButton>
           ))}
         </div>
-        <UserMenu />
       </div>
     </div>
   );
