@@ -12,7 +12,7 @@ interface ChatMessageProps extends React.ComponentProps<'div'> {
 export function ChatMessage({ message, isLatest }: ChatMessageProps) {
   return (
     <article className='group m-auto w-full pt-3.5 pb-3 md:px-3 md:py-5'>
-      <div className='relative mx-auto w-full md:max-w-3xl lg:max-w-4xl xl:max-w-5xl'>
+      <div className='relative mx-auto w-full xl:max-w-5xl'>
         <div className='flex flex-col gap-1 md:gap-3'>
           <div
             className={cn(
