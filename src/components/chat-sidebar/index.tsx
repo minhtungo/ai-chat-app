@@ -26,7 +26,7 @@ export function ChatSidebar({
   return (
     <Sidebar
       collapsible='offcanvas'
-      className='left-12 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1+48px)]'
+      className='left-[56px] group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1+56px)]'
       {...props}
     >
       <SidebarHeader className='flex flex-row items-center justify-between'>

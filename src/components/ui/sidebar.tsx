@@ -1,4 +1,5 @@
 import {
+  ChevronLeft,
   PanelLeftClose,
   PanelLeftOpen,
   PanelRightClose,
@@ -325,16 +326,21 @@ function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
       onClick={toggleSidebar}
       title='Toggle Sidebar'
       className={cn(
-        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
-        'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
-        '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
-        'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
+        'bg-sidebar border-sidebar-border absolute top-1/2 -right-4 z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border transition-all ease-linear',
+        'scale-80 opacity-0 transition-all duration-200 ease-in-out',
+        'group-hover:block group-hover:scale-100 group-hover:opacity-100',
         '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
         '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
+        // 'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
+        // 'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
+        // '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
+        // 'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
         className,
       )}
       {...props}
-    />
+    >
+      <ChevronLeft className='size-4' />
+    </button>
   );
 }
 
