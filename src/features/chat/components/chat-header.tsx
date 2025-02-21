@@ -1,5 +1,5 @@
 import { useUser } from '@/api/user/get-user';
-import { ThemeToggle } from '@/components/common/theme-toggle';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { appRoutes } from '@/config/routes';

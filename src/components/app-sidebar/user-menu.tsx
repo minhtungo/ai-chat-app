@@ -1,6 +1,7 @@
 import { useLogout } from '@/api/auth/logout';
 import { useUser } from '@/api/user/get-user';
-import { LogOut, Sparkles } from '@/components/icons';
+import { LogOut, Paintbrush, Sparkles } from '@/components/icons';
+import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -76,7 +77,17 @@ export function UserMenu() {
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-
+        <DropdownMenuGroup>
+          <div
+            data-slot='dropdown-menu-item'
+            className="[&_svg:not([class*='text-'])]:text-muted-foreground relative flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+          >
+            <Paintbrush />
+            Theme
+            <ThemeSwitcher className='ml-auto' />
+          </div>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={onLogout}>
           <LogOut />
           Log out
