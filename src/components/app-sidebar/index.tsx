@@ -1,16 +1,24 @@
 import { buttonVariants } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { appNavigations } from '@/config/navigations';
 import { UserMenu } from '@/components/app-sidebar/user-menu';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
-export function AppSideBar({ className, children, ...props }: React.ComponentProps<'div'>) {
+export function AppSideBar({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<'div'>) {
   return (
     <div
       className={cn(
-        'text-sidebar-foreground hidden md:block relative z-50 h-svh min-w-12 border-r border-border bg-sidebar py-2',
-        className
+        'text-sidebar-foreground border-border bg-sidebar relative z-50 hidden h-svh min-w-12 border-r py-2 md:block',
+        className,
       )}
       {...props}
     >

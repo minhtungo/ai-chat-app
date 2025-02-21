@@ -4,9 +4,9 @@ import { Link } from '@tanstack/react-router';
 
 export function Unauthorized() {
   return (
-    <div className='flex min-h-svh items-center justify-center flex-col'>
+    <div className='flex min-h-svh flex-col items-center justify-center'>
       <h2 className='text-2xl font-bold'>Unauthorized</h2>
-      <p className='text-lg text-muted-foreground mt-2'>
+      <p className='text-muted-foreground mt-2 text-lg'>
         You are not authorized to access this page. Please login to continue.
       </p>
       <Button size='lg' className='mt-6' asChild>

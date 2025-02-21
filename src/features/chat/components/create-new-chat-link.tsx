@@ -4,7 +4,10 @@ import { Link } from '@tanstack/react-router';
 import { MessageSquarePlus } from '@/components/icons';
 import { appRoutes } from '@/config/routes';
 
-export function CreateNewChatLink({ className, ...props }: React.ComponentProps<'a'>) {
+export function CreateNewChatLink({
+  className,
+  ...props
+}: React.ComponentProps<'a'>) {
   return (
     <Link
       to={appRoutes.app.chat.path}
@@ -13,7 +16,7 @@ export function CreateNewChatLink({ className, ...props }: React.ComponentProps<
           size: 'icon',
           variant: 'ghost',
         }),
-        className
+        className,
       )}
       {...props}
     >

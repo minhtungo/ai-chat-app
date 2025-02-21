@@ -1,4 +1,10 @@
-import { CreditCard, File, MessageSquare, Settings, User } from '@/components/icons';
+import {
+  CreditCard,
+  File,
+  MessageSquare,
+  Settings,
+  User,
+} from '@/components/icons';
 
 export const appRoutes = {
   home: {

@@ -117,9 +117,19 @@ const mockMessages: ChatMessageType[] = [
   },
 ];
 
-export default function ChatHistory({ messages = mockMessages, className, ...props }: ChatHistoryProps) {
+export default function ChatHistory({
+  messages = mockMessages,
+  className,
+  ...props
+}: ChatHistoryProps) {
   return (
-    <div className={cn('flex min-h-0 flex-1 flex-col gap-2 overflow-auto p-4', className)} {...props}>
+    <div
+      className={cn(
+        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto p-4',
+        className,
+      )}
+      {...props}
+    >
       {messages.length > 0 && (
         <div className='space-y-4'>
           {messages.map((message) => (

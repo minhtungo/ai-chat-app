@@ -12,18 +12,30 @@ export function ChatHeader({ className, ...props }: ChatHeaderProps) {
   const { data: user } = useUser();
 
   return (
-    <div className={cn('border-b border-border w-full flex items-center justify-between', className)} {...props}>
+    <div
+      className={cn(
+        'border-border flex w-full items-center justify-between border-b',
+        className,
+      )}
+      {...props}
+    >
       <SidebarTrigger />
       <div className='flex items-center gap-2'>
         {!user && (
           <>
             <Button size='sm' asChild>
-              <Link to={appRoutes.auth.login.path} className={cn('text-sm text-muted-foreground', className)}>
+              <Link
+                to={appRoutes.auth.login.path}
+                className={cn('text-muted-foreground text-sm', className)}
+              >
                 Login
               </Link>
             </Button>
             <Button variant='outline' size='sm' asChild>
-              <Link to={appRoutes.auth.signup.path} className={cn('text-sm text-muted-foreground', className)}>
+              <Link
+                to={appRoutes.auth.signup.path}
+                className={cn('text-muted-foreground text-sm', className)}
+              >
                 Sign Up
               </Link>
             </Button>

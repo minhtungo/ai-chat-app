@@ -14,7 +14,12 @@ export function LoaderButton({
   ...props
 }: LoaderButtonProps) {
   return (
-    <Button type={type} disabled={disabled || isPending} className={className} {...props}>
+    <Button
+      type={type}
+      disabled={disabled || isPending}
+      className={className}
+      {...props}
+    >
       {children}
       {isPending && <Spinner />}
     </Button>

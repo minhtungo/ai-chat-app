@@ -2,7 +2,14 @@ import { useSignUpMutation } from '@/api/auth/sign-up';
 import AuthFormWrapper from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
@@ -12,7 +19,10 @@ import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
-export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+export function SignUpForm({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useSignUpForm();
   const { mutate: signUp, isPending } = useSignUpMutation({});
 
@@ -22,7 +32,10 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <AuthFormWrapper title='Create an account' description={`Sign up for a ${appConfig.appName} account`}>
+      <AuthFormWrapper
+        title='Create an account'
+        description={`Sign up for a ${appConfig.appName} account`}
+      >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <div className='flex flex-col gap-4'>
@@ -31,8 +44,10 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
                 Sign up with Google
               </Button>
             </div>
-            <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
-              <span className='relative z-10 bg-background px-2 text-muted-foreground'>Or continue with</span>
+            <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
+              <span className='bg-background text-muted-foreground relative z-10 px-2'>
+                Or continue with
+              </span>
             </div>
             <div className='space-y-4'>
               <FormField
@@ -100,8 +115,9 @@ export function SignUpForm({ className, ...props }: React.ComponentPropsWithoutR
           </form>
         </Form>
       </AuthFormWrapper>
-      <div className='text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  '>
-        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
+      <div className='text-muted-foreground [&_a]:hover:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4'>
+        By clicking continue, you agree to our <a href='#'>Terms of Service</a>{' '}
+        and <a href='#'>Privacy Policy</a>.
       </div>
     </div>
   );

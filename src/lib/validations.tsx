@@ -21,6 +21,7 @@ export const commonValidations = {
     })
     .max(64, 'Password must be at most 64 characters')
     .regex(passwordRegex, {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      message:
+        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
     }),
 };

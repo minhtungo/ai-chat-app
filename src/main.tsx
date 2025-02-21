@@ -26,7 +26,7 @@ if (!rootElement.innerHTML) {
           <App />
         </ThemeProvider>
       </AuthStoreProvider>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 }
 

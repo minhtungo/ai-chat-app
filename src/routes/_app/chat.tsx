@@ -11,7 +11,7 @@ function ChatLayoutComponent() {
   return (
     <>
       <ChatSidebar />
-      <main className='flex flex-col relative w-full h-svh'>
+      <main className='relative flex h-svh w-full flex-col'>
         <ChatHeader className='p-2' />
         <Outlet />
         <ChatPanel />

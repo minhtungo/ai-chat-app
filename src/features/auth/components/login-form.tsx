@@ -2,7 +2,14 @@ import { useLogin } from '@/api/auth/login';
 import AuthFormWrapper from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
@@ -11,7 +18,10 @@ import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
-export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
+export function LoginForm({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useLogInForm();
   const { mutate: login, isPending } = useLogin();
 
@@ -20,7 +30,10 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
   };
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <AuthFormWrapper title='Welcome back' description='Login with your Google account'>
+      <AuthFormWrapper
+        title='Welcome back'
+        description='Login with your Google account'
+      >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <div className='flex flex-col gap-4'>
@@ -29,8 +42,10 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                 Login with Google
               </Button>
             </div>
-            <div className='relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
-              <span className='relative z-10 bg-background px-2 text-muted-foreground'>Or continue with</span>
+            <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
+              <span className='bg-background text-muted-foreground relative z-10 px-2'>
+                Or continue with
+              </span>
             </div>
             <div className='space-y-4'>
               <FormField
@@ -40,7 +55,12 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input autoComplete='email' type='email' autoFocus {...field} />
+                      <Input
+                        autoComplete='email'
+                        type='email'
+                        autoFocus
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -53,12 +73,18 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
                   <FormItem>
                     <div className='flex items-center justify-between'>
                       <FormLabel>Password</FormLabel>
-                      <Link to='/' className='inline-block text-sm underline-offset-4 hover:underline'>
+                      <Link
+                        to='/'
+                        className='inline-block text-sm underline-offset-4 hover:underline'
+                      >
                         Forgot password?
                       </Link>
                     </div>
                     <FormControl>
-                      <PasswordInput autoComplete='current-password password' {...field} />
+                      <PasswordInput
+                        autoComplete='current-password password'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -77,8 +103,9 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
           </form>
         </Form>
       </AuthFormWrapper>
-      <div className='text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  '>
-        By clicking continue, you agree to our <a href='#'>Terms of Service</a> and <a href='#'>Privacy Policy</a>.
+      <div className='text-muted-foreground [&_a]:hover:text-primary text-center text-xs text-balance [&_a]:underline [&_a]:underline-offset-4'>
+        By clicking continue, you agree to our <a href='#'>Terms of Service</a>{' '}
+        and <a href='#'>Privacy Policy</a>.
       </div>
     </div>
   );

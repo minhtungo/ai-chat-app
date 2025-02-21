@@ -10,7 +10,9 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     <div
       className={cn(
         'flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-4 py-3 text-sm',
-        message.role === 'user' ? 'ml-auto bg-muted text-foreground' : 'bg-transparent'
+        message.role === 'user'
+          ? 'bg-muted text-foreground ml-auto'
+          : 'bg-transparent',
       )}
     >
       {message.content}

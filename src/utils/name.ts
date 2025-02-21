@@ -5,7 +5,9 @@ export function getNameInitials(name: string): string {
   if (parts.length === 0) return '';
 
   return parts
-    .map((part, index, arr) => (index === 0 || index === arr.length - 1 ? part[0] : ''))
+    .map((part, index, arr) =>
+      index === 0 || index === arr.length - 1 ? part[0] : '',
+    )
     .join('')
     .toUpperCase();
 }

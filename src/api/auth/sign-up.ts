@@ -23,7 +23,9 @@ export const signUpInputSchema = z
 
 export type SignUpInput = z.infer<typeof signUpInputSchema>;
 
-export function signUpWithEmailAndPassWord(data: SignUpInput): Promise<AuthResponse> {
+export function signUpWithEmailAndPassWord(
+  data: SignUpInput,
+): Promise<AuthResponse> {
   return api.post(apiRoutes.auth.login.path, data);
 }
 

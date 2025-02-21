@@ -14,7 +14,10 @@ export type AuthState = {
 export type AuthActions = {
   setToken: (token: AuthState['token']) => void;
   clearSession: () => void;
-  createSession: (token: AuthState['token'], userId: AuthState['userId']) => void;
+  createSession: (
+    token: AuthState['token'],
+    userId: AuthState['userId'],
+  ) => void;
   initializeAuth: () => Promise<void>;
 };
 
@@ -48,22 +51,36 @@ export const authStore = createStore<AuthStore>((set) => ({
   actions: {
     setToken: (token) => set((state) => ({ state: { ...state.state, token } })),
     clearSession: () => set(() => ({ state: initialAuthState })),
-    createSession: (token, userId) => set(() => ({ state: { token, userId, isAuthenticated: true, isLoaded: true } })),
+    createSession: (token, userId) =>
+      set(() => ({
+        state: { token, userId, isAuthenticated: true, isLoaded: true },
+      })),
     initializeAuth: async () => {
       try {
         const { data } = await refreshToken();
         if (data?.accessToken) {
-          set((state) => ({ state: { ...state.state, token: data.accessToken } }));
+          set((state) => ({
+            state: { ...state.state, token: data.accessToken },
+          }));
           const user = await getUser();
           queryClient.setQueryData(getUserQueryOptions().queryKey, { ...user });
           set((state) => ({
-            state: { ...state.state, isAuthenticated: true, isLoaded: true, userId: user.id },
+            state: {
+              ...state.state,
+              isAuthenticated: true,
+              isLoaded: true,
+              userId: user.id,
+            },
           }));
         } else {
-          set((state) => ({ state: { ...state.state, isAuthenticated: false, isLoaded: true } }));
+          set((state) => ({
+            state: { ...state.state, isAuthenticated: false, isLoaded: true },
+          }));
         }
       } catch (error) {
-        set((state) => ({ state: { ...state.state, isAuthenticated: false, isLoaded: true } }));
+        set((state) => ({
+          state: { ...state.state, isAuthenticated: false, isLoaded: true },
+        }));
       }
     },
   },
@@ -87,4 +104,5 @@ function useAuthStore(selector: AuthStoreSelector) {
 
 export const useAuth = (): AuthState => useAuthStore((state) => state.state);
 
-export const useSession = (): AuthActions => useAuthStore((state) => state.actions);
+export const useSession = (): AuthActions =>
+  useAuthStore((state) => state.actions);

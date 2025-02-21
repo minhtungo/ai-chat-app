@@ -17,7 +17,9 @@ export const logInInputSchema = z.object({
 
 export type LogInInput = z.infer<typeof logInInputSchema>;
 
-export function loginWithEmailAndPassWord(data: LogInInput): Promise<AuthResponse> {
+export function loginWithEmailAndPassWord(
+  data: LogInInput,
+): Promise<AuthResponse> {
   return baseApi.post(apiRoutes.auth.login.path, data);
 }
 

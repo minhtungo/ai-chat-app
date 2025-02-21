@@ -1,5 +1,10 @@
 import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
-import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarRail,
+} from '@/components/ui/sidebar';
 import { appConfig } from '@/config/app';
 import { ChatSearchModal } from '@/components/chat-sidebar/chat-search-modal';
 import { NavChats } from '@/components/chat-sidebar/nav-chats';
@@ -15,7 +20,9 @@ const chats = [
   },
 ];
 
-export function ChatSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function ChatSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
       collapsible='offcanvas'

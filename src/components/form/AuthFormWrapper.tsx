@@ -1,4 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { cn } from '@/utils/cn';
 
 interface AuthFormWrapperProps extends React.ComponentProps<'div'> {
@@ -6,7 +12,13 @@ interface AuthFormWrapperProps extends React.ComponentProps<'div'> {
   description: string;
 }
 
-export default function AuthFormWrapper({ title, description, className, children, ...props }: AuthFormWrapperProps) {
+export default function AuthFormWrapper({
+  title,
+  description,
+  className,
+  children,
+  ...props
+}: AuthFormWrapperProps) {
   return (
     <Card className='max-w-[500px]' {...props}>
       <CardHeader className='text-center'>
