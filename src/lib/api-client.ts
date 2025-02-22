@@ -38,18 +38,11 @@ api.interceptors.response.use(
   async (error: AxiosError) => {
     const prevRequest = error.config as CustomAxiosRequestConfig;
 
-    if (
-      error.response?.status === 401 &&
-      error.response?.data?.message !== 'Invalid Credentials' &&
-      prevRequest &&
-      !prevRequest.sent
-    ) {
+    if (error.response?.status === 401 && prevRequest && !prevRequest.sent) {
       prevRequest.sent = true;
-      console.log('prevRequest', prevRequest);
       try {
         const response = await refreshToken();
         const newAccessToken = response?.data.accessToken;
-        console.log('prevRequest newAccessToken', newAccessToken);
         authStore.setState((state) => ({
           ...state,
           state: { ...state.state, token: newAccessToken },

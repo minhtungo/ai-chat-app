@@ -1,5 +1,5 @@
 import { apiRoutes } from '@/config/routes';
-import { api } from '@/lib/api-client';
+import { baseApi } from '@/lib/api-client';
 import { commonValidations } from '@/lib/validations';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
@@ -26,13 +26,13 @@ export type SignUpInput = z.infer<typeof signUpInputSchema>;
 export function signUpWithEmailAndPassWord(
   data: SignUpInput,
 ): Promise<AuthResponse> {
-  return api.post(apiRoutes.auth.login.path, data);
+  return baseApi.post(apiRoutes.auth.login.path, data);
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {
   return useMutation({
     mutationFn: signUpWithEmailAndPassWord,
-    onSuccess: (data) => {
+    onSuccess: () => {
       //   queryClient.setQueryData(userQueryKey, data.user);
       onSuccess?.();
     },

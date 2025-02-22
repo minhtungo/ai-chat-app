@@ -11,7 +11,7 @@
     "start": "vite",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "prepare": "husky",
-    "lint": "eslint src --ignore-pattern .gitignore"
+    "lint": "eslint . --ignore-pattern 'node_modules/**'"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-router": "^1.105.0",

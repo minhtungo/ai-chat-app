@@ -1,4 +1,4 @@
-import TextHighlighter from '@/components/common/text-highlighter';
+import { TextHighlighter } from '@/components/common/text-highlighter';
 import { ChatMessage } from '@/features/chat/components/chat-message';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
