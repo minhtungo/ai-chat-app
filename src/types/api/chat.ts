@@ -17,3 +17,8 @@ export type ChatListResponse = {
   nextPage: number;
   hasNextPage: boolean;
 };
+
+export type PromptSuggestion = {
+  name: string;
+  description: string;
+};

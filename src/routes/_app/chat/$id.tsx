@@ -4,7 +4,7 @@ import {
   useChatHistory,
 } from '@/api/chat/chat-history';
 import { ChatHistory } from '@/features/chat/components/chat-history';
-import { NewChat } from '@/features/chat/components/new-chat';
+import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useChat, useChatActions } from '@/store/chat';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
@@ -38,7 +38,7 @@ function RouteComponent() {
   ];
 
   if (allMessages.length === 0) {
-    return <NewChat />;
+    return <NewChatScreen />;
   }
 
   return <ChatHistory messages={allMessages} />;

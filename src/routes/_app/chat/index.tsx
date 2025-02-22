@@ -1,5 +1,5 @@
 import { ChatHistory } from '@/features/chat/components/chat-history';
-import { NewChat } from '@/features/chat/components/new-chat';
+import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useChat } from '@/store/chat';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -14,5 +14,5 @@ function ChatRouteComponent() {
     return <ChatHistory messages={messages} />;
   }
 
-  return <NewChat />;
+  return <NewChatScreen />;
 }

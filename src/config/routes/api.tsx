@@ -25,5 +25,8 @@ export const apiRoutes = {
     list: {
       path: '/chat/list',
     },
+    suggestions: {
+      path: '/chat/suggestions',
+    },
   },
 } as const;
