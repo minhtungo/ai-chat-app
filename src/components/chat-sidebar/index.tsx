@@ -5,8 +5,8 @@ import {
   SidebarContent,
   SidebarHeader,
   SidebarRail,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { appConfig } from '@/config/app';
 import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
 
 export function ChatSidebar({
@@ -19,7 +19,7 @@ export function ChatSidebar({
       {...props}
     >
       <SidebarHeader className='flex-row items-center justify-between'>
-        <span>{appConfig.appName}</span>
+        <SidebarTrigger />
         <div className='flex'>
           <ChatSearchModal />
           <CreateNewChatLink />

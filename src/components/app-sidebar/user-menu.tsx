@@ -31,7 +31,7 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className='h-8 w-8 cursor-pointer rounded-lg'>
+        <Avatar className='size-9 cursor-pointer rounded-md'>
           <AvatarImage src={user.avatar} alt={user.name} />
           <AvatarFallback className='rounded-lg'>
             {getNameInitials(user.name)}

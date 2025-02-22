@@ -6,7 +6,7 @@ import {
 import { cn } from '@/utils/cn';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
-type TooltipButtonProps = React.ComponentProps<
+export type TooltipButtonProps = React.ComponentProps<
   typeof TooltipPrimitive.Content
 > & {
   tooltip: string;

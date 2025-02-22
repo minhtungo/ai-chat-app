@@ -22,6 +22,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/utils/cn';
 import { Slot } from '@radix-ui/react-slot';
@@ -289,31 +290,35 @@ function SidebarTrigger({
   const { toggleSidebar, state } = useSidebar();
 
   return (
-    <Button
-      data-sidebar='trigger'
-      data-slot='sidebar-trigger'
-      variant='ghost'
-      size='icon'
-      className={cn(className)}
-      onClick={(event) => {
-        onClick?.(event);
-        toggleSidebar();
-      }}
-      {...props}
+    <TooltipButton
+      tooltip={state === 'collapsed' ? 'Open Sidebar' : 'Close Sidebar'}
     >
-      {state === 'collapsed' ? (
-        side === 'left' ? (
-          <PanelLeftOpen className='size-5' />
+      <Button
+        data-sidebar='trigger'
+        data-slot='sidebar-trigger'
+        variant='ghost'
+        size='icon'
+        className={cn(className)}
+        onClick={(event) => {
+          onClick?.(event);
+          toggleSidebar();
+        }}
+        {...props}
+      >
+        {state === 'collapsed' ? (
+          side === 'left' ? (
+            <PanelLeftOpen className='size-5' />
+          ) : (
+            <PanelRightOpen className='size-5' />
+          )
+        ) : side === 'left' ? (
+          <PanelLeftClose className='size-5' />
         ) : (
-          <PanelRightOpen className='size-5' />
-        )
-      ) : side === 'left' ? (
-        <PanelLeftClose className='size-5' />
-      ) : (
-        <PanelRightClose className='size-5' />
-      )}
-      <span className='sr-only'>Toggle Sidebar</span>
-    </Button>
+          <PanelRightClose className='size-5' />
+        )}
+        <span className='sr-only'>Toggle Sidebar</span>
+      </Button>
+    </TooltipButton>
   );
 }
 
@@ -321,29 +326,30 @@ function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <button
-      data-sidebar='rail'
-      data-slot='sidebar-rail'
-      aria-label='Toggle Sidebar'
-      tabIndex={-1}
-      onClick={toggleSidebar}
-      title='Toggle Sidebar'
-      className={cn(
-        'bg-sidebar border-sidebar-border absolute top-1/2 -right-4 z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border transition-all ease-linear',
-        'scale-80 opacity-0 transition-all duration-200 ease-in-out',
-        'group-hover:block group-hover:scale-100 group-hover:opacity-100',
-        '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
-        '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
-        // 'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
-        // 'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
-        // '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
-        // 'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
-        className,
-      )}
-      {...props}
-    >
-      <ChevronLeft className='size-4' />
-    </button>
+    <TooltipButton tooltip='Close Sidebar'>
+      <button
+        data-sidebar='rail'
+        data-slot='sidebar-rail'
+        aria-label='Toggle Sidebar'
+        tabIndex={-1}
+        onClick={toggleSidebar}
+        className={cn(
+          'bg-sidebar border-sidebar-border absolute top-1/2 -right-4 z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border transition-all ease-linear',
+          'scale-80 opacity-0 transition-all duration-200 ease-in-out',
+          'group-hover:block group-hover:scale-100 group-hover:opacity-100',
+          '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
+          '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
+          // 'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
+          // 'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
+          // '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
+          // 'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
+          className,
+        )}
+        {...props}
+      >
+        <ChevronLeft className='size-4' />
+      </button>
+    </TooltipButton>
   );
 }
 

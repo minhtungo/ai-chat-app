@@ -7,17 +7,20 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 
 type ChatSearchModalProps = {};
 
 export function ChatSearchModal({}: ChatSearchModalProps) {
   return (
     <Dialog modal={false}>
-      <DialogTrigger asChild>
-        <Button variant='ghost' size='icon'>
-          <Search className='size-4.5' />
-        </Button>
-      </DialogTrigger>
+      <TooltipButton tooltip='Search'>
+        <DialogTrigger asChild>
+          <Button variant='ghost' size='icon'>
+            <Search className='size-4.5' />
+          </Button>
+        </DialogTrigger>
+      </TooltipButton>
       <DialogContent
         className='bg-muted p-0 sm:max-w-[680px]'
         hideDefaultCloseButton
