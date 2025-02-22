@@ -11,7 +11,7 @@ import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-li
 
 const chats = [
   {
-    name: 'Design Engineering',
+    name: 'Design Engineering Design Engineering',
     id: 1,
   },
   {

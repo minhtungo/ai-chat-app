@@ -1,7 +1,3 @@
-import { ArrowUp, Camera, Image, Mic } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { TooltipButton } from '@/components/ui/tooltip-button';
 import { appConfig } from '@/config/app';
 import { ChatInput } from '@/features/chat/components/chat-input';
 import { useChatActions } from '@/store/chat';
@@ -13,13 +9,13 @@ type ChatPanelProps = React.ComponentProps<'div'>;
 export function ChatPanel({ className, ...props }: ChatPanelProps) {
   const { addMessage } = useChatActions();
 
-  const handleSendMessage = (message: string, files: Attachment[]) => {
+  const handleSendMessage = (message: string, attachments: Attachment[]) => {
     addMessage({
       id: crypto.randomUUID(),
       content: message,
       role: 'user',
       createdAt: new Date(),
-      attachments: files,
+      attachments,
     });
   };
 

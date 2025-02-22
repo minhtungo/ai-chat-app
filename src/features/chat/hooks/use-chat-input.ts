@@ -26,6 +26,12 @@ export function useChatInput(
     }
   };
 
+  const handleRemoveAttachment = (id: string) => {
+    setAttachments((currentAttachments) =>
+      currentAttachments.filter((attachment) => attachment.id !== id),
+    );
+  };
+
   return {
     message,
     setMessage,
@@ -33,5 +39,6 @@ export function useChatInput(
     setAttachments,
     handleSubmit,
     handleFileChange,
+    handleRemoveAttachment,
   };
 }

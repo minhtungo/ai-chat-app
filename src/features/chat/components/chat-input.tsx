@@ -12,15 +12,24 @@ type ChatInputProps = React.ComponentProps<'div'> & {
 };
 
 export function ChatInput({ onSend }: ChatInputProps) {
-  const { message, setMessage, attachments, handleSubmit, handleFileChange } =
-    useChatInput(onSend);
+  const {
+    message,
+    setMessage,
+    attachments,
+    handleSubmit,
+    handleFileChange,
+    handleRemoveAttachment,
+  } = useChatInput(onSend);
 
   return (
     <form
       onSubmit={handleSubmit}
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
-      <ChatAttachments attachments={attachments} />
+      <ChatAttachments
+        attachments={attachments}
+        onRemoveAttachment={handleRemoveAttachment}
+      />
       <Textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
