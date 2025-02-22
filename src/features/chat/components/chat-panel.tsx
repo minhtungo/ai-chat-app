@@ -3,12 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { appConfig } from '@/config/app';
+import { cn } from '@/utils/cn';
 
 interface ChatPanelProps extends React.ComponentProps<'div'> {}
 
-export function ChatPanel({}: ChatPanelProps) {
+export function ChatPanel({ className, ...props }: ChatPanelProps) {
   return (
-    <div className='group m-auto w-full'>
+    <div className={cn('group m-auto w-full', className)} {...props}>
       <div className='bg-background relative z-10 mx-auto flex flex-1 flex-col xl:max-w-5xl'>
         <form className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'>
           <Textarea
@@ -42,7 +43,8 @@ export function ChatPanel({}: ChatPanelProps) {
           </div>
         </form>
         <p className='text-muted-foreground py-2 text-center text-xs'>
-          {appConfig.appName} may make mistakes. Please use with discretion.
+          {appConfig.appName} Tutor can make mistakes. Consider checking
+          important information.
         </p>
       </div>
     </div>
