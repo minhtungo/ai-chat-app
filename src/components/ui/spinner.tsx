@@ -17,9 +17,8 @@ const spinnerVariants = cva('animate-spin', {
   },
 });
 
-export interface SpinnerProps
-  extends VariantProps<typeof spinnerVariants>,
-    React.ComponentProps<'svg'> {}
+export type SpinnerProps = VariantProps<typeof spinnerVariants> &
+  React.ComponentProps<'svg'>;
 
 const Spinner = ({ className, size }: SpinnerProps) => {
   return <Loader2Icon className={cn(spinnerVariants({ size, className }))} />;

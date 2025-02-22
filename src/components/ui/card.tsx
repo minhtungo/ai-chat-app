@@ -1,9 +1,9 @@
 import { cn } from '@/utils/cn';
 import * as React from 'react';
 
-interface CardProps extends React.ComponentProps<'div'> {
+type CardProps = React.ComponentProps<'div'> & {
   keepPaddingOnMobile?: boolean;
-}
+};
 
 function Card({ className, keepPaddingOnMobile, ...props }: CardProps) {
   return (
@@ -21,9 +21,9 @@ function Card({ className, keepPaddingOnMobile, ...props }: CardProps) {
   );
 }
 
-interface CardHeaderProps extends React.ComponentProps<'div'> {
+type CardHeaderProps = React.ComponentProps<'div'> & {
   keepPaddingOnMobile?: boolean;
-}
+};
 
 function CardHeader({
   className,
@@ -63,9 +63,9 @@ function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-interface CardContentProps extends React.ComponentProps<'div'> {
+type CardContentProps = React.ComponentProps<'div'> & {
   keepPaddingOnMobile?: boolean;
-}
+};
 
 function CardContent({
   className,
@@ -84,9 +84,9 @@ function CardContent({
   );
 }
 
-interface CardFooterProps extends React.ComponentProps<'div'> {
+type CardFooterProps = React.ComponentProps<'div'> & {
   keepPaddingOnMobile?: boolean;
-}
+};
 
 function CardFooter({
   className,

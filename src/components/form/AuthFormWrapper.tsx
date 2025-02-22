@@ -7,10 +7,10 @@ import {
 } from '@/components/ui/card';
 import { cn } from '@/utils/cn';
 
-interface AuthFormWrapperProps extends React.ComponentProps<'div'> {
+type AuthFormWrapperProps = React.ComponentProps<'div'> & {
   title: string;
   description: string;
-}
+};
 
 export function AuthFormWrapper({
   title,

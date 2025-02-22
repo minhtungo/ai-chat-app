@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
-interface LoaderButtonProps extends React.ComponentProps<'button'> {
+type LoaderButtonProps = React.ComponentProps<'button'> & {
   isPending: boolean;
-}
+};
 
 export function LoaderButton({
   className,

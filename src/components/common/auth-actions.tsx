@@ -3,9 +3,10 @@ import { appRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
-interface AuthActionsProps extends React.ComponentProps<'div'> {}
-
-export function AuthActions({ className, ...props }: AuthActionsProps) {
+export function AuthActions({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) {
   return (
     <div className={cn('flex items-center gap-2', className)} {...props}>
       <Button size='sm' asChild>

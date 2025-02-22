@@ -6,10 +6,11 @@ import {
 import { cn } from '@/utils/cn';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
-interface TooltipButtonProps
-  extends React.ComponentProps<typeof TooltipPrimitive.Content> {
+type TooltipButtonProps = React.ComponentProps<
+  typeof TooltipPrimitive.Content
+> & {
   tooltip: string;
-}
+};
 
 export function TooltipButton({
   children,

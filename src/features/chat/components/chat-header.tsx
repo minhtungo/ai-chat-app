@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { cn } from '@/utils/cn';
 
-interface ChatHeaderProps extends React.ComponentProps<'div'> {}
+type ChatHeaderProps = React.ComponentProps<'div'>;
 
 export function ChatHeader({ className, ...props }: ChatHeaderProps) {
   const { data: user } = useUser();

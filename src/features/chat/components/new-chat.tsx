@@ -2,9 +2,7 @@ import { useUser } from '@/api/user/get-user';
 import { Button } from '@/components/ui/button';
 import { Clock } from 'lucide-react';
 
-interface NewChatProps extends React.ComponentProps<'div'> {}
-
-export function NewChat({}: NewChatProps) {
+export function NewChat({}: React.ComponentProps<'div'>) {
   const { data: user } = useUser();
   return (
     <div className='flex flex-1 flex-col items-center justify-center gap-y-6 p-4'>

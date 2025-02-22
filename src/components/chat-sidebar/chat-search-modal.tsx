@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 
-interface ChatSearchModalProps {}
+type ChatSearchModalProps = {};
 
 export function ChatSearchModal({}: ChatSearchModalProps) {
   return (

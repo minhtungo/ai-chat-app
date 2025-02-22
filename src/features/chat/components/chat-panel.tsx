@@ -5,7 +5,7 @@ import { TooltipButton } from '@/components/ui/tooltip-button';
 import { appConfig } from '@/config/app';
 import { cn } from '@/utils/cn';
 
-interface ChatPanelProps extends React.ComponentProps<'div'> {}
+type ChatPanelProps = React.ComponentProps<'div'>;
 
 export function ChatPanel({ className, ...props }: ChatPanelProps) {
   return (

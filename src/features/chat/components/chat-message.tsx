@@ -4,10 +4,10 @@ import { chatMessageActions } from '@/features/chat/lib/actions';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
-interface ChatMessageProps extends React.ComponentProps<'div'> {
+type ChatMessageProps = React.ComponentProps<'div'> & {
   message: ChatMessageType;
   isLatest: boolean;
-}
+};
 
 export function ChatMessage({ message, isLatest }: ChatMessageProps) {
   return (
@@ -54,10 +54,10 @@ function ChatMessageContent({ message }: { message: ChatMessageType }) {
   );
 }
 
-interface ChatMessageActionsProps extends React.ComponentProps<'div'> {
+type ChatMessageActionsProps = React.ComponentProps<'div'> & {
   messageId: string;
   isLatest: boolean;
-}
+};
 
 function ChatMessageActions({
   className,
