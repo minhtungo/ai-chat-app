@@ -20,7 +20,7 @@ export async function getChatHistory({
   offset: number;
   chatId: string;
 }): Promise<ChatHistoryResponse> {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   const PAGE_SIZE = 20;
   // Mock data

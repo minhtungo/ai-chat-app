@@ -9,7 +9,7 @@ import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { ChatStoreProvider } from '@/store/chat-store';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_app/chat')({
+export const Route = createFileRoute('/app/chat')({
   component: ChatLayoutComponent,
   beforeLoad: async ({ context }) => {
     await Promise.all([

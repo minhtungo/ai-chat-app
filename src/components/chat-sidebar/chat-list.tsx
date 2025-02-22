@@ -33,7 +33,7 @@ export function ChatList() {
           <SidebarMenuItem key={chat.name}>
             <SidebarMenuButton asChild>
               <Link
-                to='/chat/$id'
+                to='/app/chat/$id'
                 params={{
                   id: chat.id.toString(),
                 }}

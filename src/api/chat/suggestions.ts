@@ -6,7 +6,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 // }
 
 export async function getPromptSuggestions(): Promise<PromptSuggestion[]> {
-  await new Promise((resolve) => setTimeout(resolve, 500));
+  // await new Promise((resolve) => setTimeout(resolve, 500));
 
   return [
     {

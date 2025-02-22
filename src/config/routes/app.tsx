@@ -6,9 +6,25 @@ import {
   User,
 } from '@/components/icons';
 
+const appRootPath = '/app';
+
 export const appRoutes = {
   home: {
     path: '/',
+  },
+  public: {
+    home: {
+      path: '/',
+      name: 'Home',
+    },
+    about: {
+      path: '/',
+      name: 'About',
+    },
+    pricing: {
+      path: '/',
+      name: 'Pricing',
+    },
   },
   auth: {
     signup: {
@@ -22,34 +38,33 @@ export const appRoutes = {
   },
   app: {
     chat: {
-      path: '/chat',
+      path: `${appRootPath}/chat`,
       name: 'Chat',
       icon: MessageSquare,
     },
   },
   account: {
     root: {
-      path: '/account',
       name: 'Account',
       icon: User,
     },
     profile: {
-      path: '/account/profile',
+      path: `${appRootPath}/account/profile`,
       name: 'Profile',
       icon: User,
     },
     billing: {
-      path: '/account/billing',
+      path: `${appRootPath}/account/billing`,
       name: 'Billing',
       icon: CreditCard,
     },
     settings: {
-      path: '/account/settings',
+      path: `${appRootPath}/account/settings`,
       name: 'Settings',
       icon: Settings,
     },
     files: {
-      path: '/account/files',
+      path: `${appRootPath}/account/files`,
       name: 'Files',
       icon: File,
     },

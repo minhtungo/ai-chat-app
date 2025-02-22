@@ -9,7 +9,7 @@ import { useChat, useChatActions } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
-export const Route = createFileRoute('/_app/chat/$id')({
+export const Route = createFileRoute('/app/chat/$id')({
   component: RouteComponent,
   beforeLoad: async ({ context, params }) => {
     await context.queryClient.prefetchInfiniteQuery({
