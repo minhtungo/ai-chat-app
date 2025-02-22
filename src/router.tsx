@@ -6,7 +6,7 @@ import {
   type AuthActions,
   type AuthState,
   initialAuthState,
-} from '@/store/auth';
+} from '@/store/auth-store';
 import type { QueryClient } from '@tanstack/react-query';
 import { ErrorComponent, createRouter } from '@tanstack/react-router';
 

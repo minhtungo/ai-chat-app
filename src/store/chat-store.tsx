@@ -4,12 +4,14 @@ import { type StoreApi, createStore, useStore } from 'zustand';
 
 export type ChatState = {
   messages: ChatMessage[];
+  chatName: string;
 };
 
 export type ChatActions = {
   addMessage: (message: ChatMessage) => void;
   setMessages: (messages: ChatMessage[]) => void;
   clearMessages: () => void;
+  setChatName: (chatName: string) => void;
 };
 
 type ChatStoreProviderProps = {
@@ -30,6 +32,7 @@ const ChatStoreContext = createContext<ChatContext>(null);
 
 export const initialChatState: ChatState = {
   messages: [],
+  chatName: '',
 };
 
 export const chatStore = createStore<ChatStore>((set) => ({
@@ -45,7 +48,14 @@ export const chatStore = createStore<ChatStore>((set) => ({
       set((state) => ({
         state: { ...state.state, messages },
       })),
-    clearMessages: () => set(() => ({ state: initialChatState })),
+    clearMessages: () =>
+      set((state) => ({
+        state: { ...state.state, messages: initialChatState.messages },
+      })),
+    setChatName: (chatName: string) =>
+      set((state) => ({
+        state: { ...state.state, chatName },
+      })),
   },
 }));
 
@@ -69,3 +79,6 @@ export const useChat = (): ChatState => useChatStore((state) => state.state);
 
 export const useChatActions = (): ChatActions =>
   useChatStore((state) => state.actions);
+
+export const useChatName = (): string =>
+  useChatStore((state) => state.state.chatName);

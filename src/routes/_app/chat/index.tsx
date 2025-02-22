@@ -1,6 +1,6 @@
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { useChat } from '@/store/chat';
+import { useChat } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({

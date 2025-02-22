@@ -3,12 +3,14 @@ import { AuthActions } from '@/components/common/auth-actions';
 import { Share2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { useChatName } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 
 type ChatHeaderProps = React.ComponentProps<'div'>;
 
 export function ChatHeader({ className, ...props }: ChatHeaderProps) {
   const { data: user } = useUser();
+  const chatName = useChatName();
 
   return (
     <div
@@ -18,6 +20,7 @@ export function ChatHeader({ className, ...props }: ChatHeaderProps) {
       )}
       {...props}
     >
+      <h1 className='text-base font-medium'>{chatName || 'New Chat'}</h1>
       <div className='ml-auto flex items-center gap-x-3'>
         {user ? <ChatHeaderActions /> : <AuthActions />}
       </div>

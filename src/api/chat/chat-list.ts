@@ -2,9 +2,9 @@ import type { ChatListResponse } from '@/types/api/chat';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 // export function getChatList({
-//   pageParam = 0,
+//   offset = 0,
 // }: {
-//   pageParam: number;
+//   offset: number;
 //   chatId: string;
 // }): Promise<ChatListResponse> {
 //   return api.get(apiRoutes.chat.list.path, {
@@ -13,25 +13,24 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 // }
 
 export async function getChatList({
-  pageParam = 0,
+  offset = 0,
 }: {
-  pageParam: number;
+  offset: number;
 }): Promise<ChatListResponse> {
   await new Promise((resolve) => setTimeout(resolve, 500));
-
   const PAGE_SIZE = 20;
   // Mock data
 
   const mockChats = Array.from({ length: PAGE_SIZE }, (_, i) => ({
-    id: `chat-${pageParam}-${i}`,
-    name: `Chat ${pageParam * PAGE_SIZE + i}`,
+    id: `chat-${offset}-${i}`,
+    name: `Chat ${offset * PAGE_SIZE + i}`,
     lastMessageTime: new Date(),
   }));
 
   const mockData: ChatListResponse = {
     chats: mockChats,
-    nextPage: pageParam + 1,
-    hasNextPage: pageParam < 2,
+    nextOffset: offset + PAGE_SIZE,
+    hasNextPage: offset + PAGE_SIZE < 60,
   };
 
   // Return a promise that resolves with the mock data
@@ -48,8 +47,8 @@ export function useChatList() {
   return useSuspenseInfiniteQuery({
     ...getChatListQueryOptions(),
     initialPageParam: 0,
-    queryFn: ({ pageParam }) => getChatList({ pageParam }),
+    queryFn: ({ pageParam }) => getChatList({ offset: pageParam }),
     getNextPageParam: (lastPage) =>
-      lastPage.hasNextPage ? lastPage.nextPage : undefined,
+      lastPage.hasNextPage ? lastPage.nextOffset : undefined,
   });
 }

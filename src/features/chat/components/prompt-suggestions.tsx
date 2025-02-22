@@ -1,7 +1,7 @@
 import { usePromptSuggestions } from '@/api/chat/suggestions';
 import { Info } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { useChatActions } from '@/store/chat';
+import { useChatActions } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 
 export function PromptSuggestions({

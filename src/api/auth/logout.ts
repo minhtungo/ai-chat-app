@@ -1,7 +1,7 @@
 import { getUserQueryOptions } from '@/api/user/get-user';
 import { apiRoutes, appRoutes } from '@/config/routes';
 import { api } from '@/lib/api-client';
-import { useSession } from '@/store/auth';
+import { useSession } from '@/store/auth-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 

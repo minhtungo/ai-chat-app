@@ -16,12 +16,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { useChatActions } from '@/store/chat-store';
 import { Link } from '@tanstack/react-router';
 
 export function ChatList() {
   const { data } = useChatList();
   const { isMobile } = useSidebar();
-
+  const { setChatName } = useChatActions();
   const chats = data?.pages.flatMap((page) => page.chats) ?? [];
 
   return (
@@ -39,6 +40,7 @@ export function ChatList() {
                 activeProps={{
                   className: 'bg-accent',
                 }}
+                onClick={() => setChatName(chat.name)}
               >
                 <span>{chat.name}</span>
               </Link>

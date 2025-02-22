@@ -5,7 +5,7 @@ import {
 } from '@/api/chat/chat-history';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { useChat, useChatActions } from '@/store/chat';
+import { useChat, useChatActions } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_app/chat/$id')({
       queryKey: getChatHistoryQueryOptions(params.id).queryKey,
       initialPageParam: 0,
       queryFn: ({ pageParam }) =>
-        getChatHistory({ pageParam, chatId: params.id }),
+        getChatHistory({ offset: pageParam, chatId: params.id }),
     });
   },
 });

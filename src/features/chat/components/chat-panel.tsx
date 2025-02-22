@@ -1,6 +1,6 @@
 import { appConfig } from '@/config/app';
 import { ChatInput } from '@/features/chat/components/chat-input';
-import { useChatActions } from '@/store/chat';
+import { useChatActions } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
