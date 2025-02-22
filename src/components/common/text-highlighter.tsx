@@ -1,50 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { useTextHighlighter } from '@/hooks/use-text-highligher';
 import { Quote } from 'lucide-react';
 import type React from 'react';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo } from 'react';
 
-interface PopupPosition {
-  top: number;
-  left: number;
-}
-
-export default function TextHighlighter({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupPosition, setPopupPosition] = useState<PopupPosition>({
-    top: 0,
-    left: 0,
-  });
-  const [selectedText, setSelectedText] = useState('');
-
-  const handleTextSelection = useCallback(() => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().length > 0) {
-      const range = selection.getRangeAt(0);
-      const rect = range.getBoundingClientRect();
-      const scrollY = window.scrollY || window.pageYOffset;
-
-      // Calculate position to appear above the selection
-      const top = rect.top + scrollY - 40; // Increased offset to position higher above text
-      const left = rect.left + rect.width / 2;
-
-      setPopupPosition({ top, left });
-      setSelectedText(selection.toString());
-      setShowPopup(true);
-    } else {
-      setShowPopup(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('selectionchange', handleTextSelection);
-    return () => {
-      document.removeEventListener('selectionchange', handleTextSelection);
-    };
-  }, [handleTextSelection]);
+export function TextHighlighter({ children }: { children: React.ReactNode }) {
+  const { showPopup, popupPosition } = useTextHighlighter();
 
   return (
     <>
