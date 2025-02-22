@@ -18,4 +18,9 @@ export const apiRoutes = {
       path: '/user/me',
     },
   },
+  chat: {
+    history: {
+      path: '/chat/history',
+    },
+  },
 } as const;

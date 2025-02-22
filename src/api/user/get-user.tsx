@@ -8,11 +8,9 @@ export function getUser(): Promise<User> {
   return api.get(apiRoutes.user.me.path);
 }
 
-export const userQueryKey = 'user';
-
 export function getUserQueryOptions() {
   return queryOptions({
-    queryKey: [userQueryKey],
+    queryKey: ['user'],
     queryFn: getUser,
   });
 }
