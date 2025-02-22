@@ -9,7 +9,9 @@
     "build": "vite build && tsc",
     "serve": "vite preview",
     "start": "vite",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "prepare": "husky",
+    "lint": "eslint src --ignore-path .gitignore"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-router": "^1.105.0",
@@ -19,7 +21,9 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
+    "lint-staged": "^15.4.3",
     "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "vite": "^6.1.1",
@@ -60,5 +64,14 @@
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.2",
     "zustand": "^5.0.3"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }

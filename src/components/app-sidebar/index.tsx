@@ -42,7 +42,7 @@ export function AppSideBar({
                       }),
                     )}
                   >
-                    <item.icon className='size-6 shrink-0' aria-hidden='true' />
+                    <item.icon className='size-5 shrink-0' aria-hidden='true' />
                   </div>
                   <span>{item.name}</span>
                 </Link>
