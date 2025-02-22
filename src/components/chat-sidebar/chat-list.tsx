@@ -1,3 +1,4 @@
+import { useChatList } from '@/api/chat/chat-list';
 import { MoreHorizontal, Pencil, Share, Trash2 } from '@/components/icons';
 import {
   DropdownMenu,
@@ -17,15 +18,11 @@ import {
 } from '@/components/ui/sidebar';
 import { Link } from '@tanstack/react-router';
 
-export function ChatList({
-  chats,
-}: {
-  chats: {
-    name: string;
-    id: number;
-  }[];
-}) {
+export function ChatList() {
+  const { data } = useChatList();
   const { isMobile } = useSidebar();
+
+  const chats = data?.pages.flatMap((page) => page.chats) ?? [];
 
   return (
     <SidebarGroup>

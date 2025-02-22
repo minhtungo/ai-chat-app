@@ -9,17 +9,6 @@ import {
 import { appConfig } from '@/config/app';
 import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
 
-const chats = [
-  {
-    name: 'Design Engineering Design Engineering',
-    id: 1,
-  },
-  {
-    name: 'Sales & Marketing',
-    id: 2,
-  },
-];
-
 export function ChatSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
@@ -37,7 +26,7 @@ export function ChatSidebar({
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <ChatList chats={chats} />
+        <ChatList />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

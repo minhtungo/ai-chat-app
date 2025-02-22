@@ -22,5 +22,8 @@ export const apiRoutes = {
     history: {
       path: '/chat/history',
     },
+    list: {
+      path: '/chat/list',
+    },
   },
 } as const;
