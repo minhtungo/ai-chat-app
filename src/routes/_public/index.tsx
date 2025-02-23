@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/home/hero-section';
+import { PricingSection } from '@/components/home/pricing-section';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_public/')({
@@ -6,5 +7,10 @@ export const Route = createFileRoute('/_public/')({
 });
 
 function RouteComponent() {
-  return <HeroSection />;
+  return (
+    <>
+      <HeroSection />
+      {/* <PricingSection /> */}
+    </>
+  );
 }
