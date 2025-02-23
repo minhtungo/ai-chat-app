@@ -1,3 +1,4 @@
+import { PublicFooter } from '@/components/layouts/public-footer';
 import { PublicHeader } from '@/components/layouts/public-header';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
@@ -10,6 +11,7 @@ function RouteComponent() {
     <>
       <PublicHeader />
       <Outlet />
+      <PublicFooter />
     </>
   );
 }

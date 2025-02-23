@@ -1,3 +1,4 @@
+import heroBackground from '@/assets/images/hero-background.svg';
 import heroImage from '@/assets/images/hero-image.png';
 import { BorderTrail } from '@/components/ui/border-trail';
 import { buttonVariants } from '@/components/ui/button';
@@ -7,8 +8,14 @@ import { Link } from '@tanstack/react-router';
 
 export function HeroSection() {
   return (
-    <section className='py-32'>
-      <div className='container'>
+    <section className='relative overflow-hidden py-32'>
+      <div className='absolute inset-x-0 top-0 flex h-full w-full items-center justify-center select-none dark:opacity-40'>
+        <img
+          src={heroBackground}
+          className='[mask-image:radial-gradient(ellipse_at_center,white,transparent)]'
+        />
+      </div>
+      <div className='relative z-10 container'>
         <div className='z-10 mx-auto flex max-w-4xl flex-col items-center gap-6 text-center'>
           <div>
             <h1 className='mb-4 text-3xl font-medium text-pretty lg:text-6xl'>

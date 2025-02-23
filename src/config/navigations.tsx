@@ -6,6 +6,7 @@ export const publicNavigations = {
     appRoutes.public.about,
     appRoutes.public.pricing,
   ],
+  footer: [appRoutes.public.privacyPolicy, appRoutes.public.termsOfService],
 };
 
 export const appNavigations = {

@@ -1,4 +1,5 @@
 import { AuthActions } from '@/components/common/auth-actions';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { buttonVariants } from '@/components/ui/button';
 import { publicNavigations } from '@/config/navigations';
 import { appRoutes } from '@/config/routes';
@@ -11,7 +12,7 @@ export function PublicHeader({
 }: React.ComponentProps<'header'>) {
   return (
     <header className={cn('fixed inset-x-0 top-0 z-50', className)} {...props}>
-      <div className='bg-background/80 relative shadow-sm backdrop-blur-sm'>
+      <div className='bg-background/80 border-border/30 relative border-b shadow-sm backdrop-blur-sm'>
         <div className='container flex h-14 items-center justify-between'>
           <div className='flex items-center gap-2'>
             <Link to={appRoutes.home.path} className='flex items-center gap-3'>
@@ -29,7 +30,10 @@ export function PublicHeader({
               </Link>
             ))}
           </nav>
-          <AuthActions />
+          <div className='flex items-center gap-2'>
+            <AuthActions />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

@@ -26,7 +26,7 @@ export function ThemeToggleGroup({ className }: React.ComponentProps<'div'>) {
       value={theme}
       onValueChange={setTheme}
       type='single'
-      className={cn('w-fit rounded-full border', className)}
+      className={cn('w-fit overflow-visible rounded-full border', className)}
     >
       {THEME_OPTIONS.map(({ value, icon }) => (
         <ToggleGroupItem

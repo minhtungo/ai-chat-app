@@ -25,6 +25,14 @@ export const appRoutes = {
       path: '/',
       name: 'Pricing',
     },
+    privacyPolicy: {
+      path: '/',
+      name: 'Privacy Policy',
+    },
+    termsOfService: {
+      path: '/',
+      name: 'Terms',
+    },
   },
   auth: {
     signup: {
