@@ -26,17 +26,14 @@ export function ChatHistory({
         }}
         {...props}
       >
-        {messages.length > 0 && (
-          <>
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                message={message}
-                isLatest={message.id === messages[messages.length - 1].id}
-              />
-            ))}
-          </>
-        )}
+        {messages.length > 0 &&
+          messages.map((message) => (
+            <ChatMessage
+              key={message.id}
+              message={message}
+              isLatest={message.id === messages[messages.length - 1].id}
+            />
+          ))}
       </div>
     </TextHighlighter>
   );

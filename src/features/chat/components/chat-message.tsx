@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { ChatAttachment } from '@/features/chat/components/chat-attachment';
 import { chatMessageActions } from '@/features/chat/lib/actions';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
@@ -22,6 +23,16 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
             )}
           >
             <ChatMessageContent message={message} />
+            {message.attachments.length > 0 &&
+              message.attachments.map((attachment) => (
+                <div className='mt-2 flex flex-col gap-1'>
+                  <ChatAttachment
+                    key={`chat-message-attachment-${attachment.id}`}
+                    attachment={attachment}
+                    onRemoveAttachment={() => {}}
+                  />
+                </div>
+              ))}
             <div className='empty:hidden md:absolute'>
               {message.role === 'assistant' && (
                 <ChatMessageActions
