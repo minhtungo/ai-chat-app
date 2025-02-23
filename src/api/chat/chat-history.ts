@@ -1,5 +1,5 @@
 import type { ChatHistoryResponse } from '@/types/api/chat';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { queryOptions, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 // export function getChatHistory({
 //   offset = 0,
@@ -20,7 +20,7 @@ export async function getChatHistory({
   offset: number;
   chatId: string;
 }): Promise<ChatHistoryResponse> {
-  // await new Promise((resolve) => setTimeout(resolve, 500));
+  await new Promise((resolve) => setTimeout(resolve, 1200));
 
   const PAGE_SIZE = 20;
   // Mock data
@@ -45,14 +45,14 @@ export async function getChatHistory({
 }
 
 export function getChatHistoryQueryOptions(chatId: string) {
-  return {
+  return queryOptions({
     queryKey: ['chatHistory', chatId],
-  };
+  });
 }
 
 export function useChatHistory(chatId: string) {
   return useSuspenseInfiniteQuery({
-    queryKey: ['chatHistory', chatId],
+    queryKey: getChatHistoryQueryOptions(chatId).queryKey,
     initialPageParam: 0,
     queryFn: ({ pageParam }) => getChatHistory({ offset: pageParam, chatId }),
     getNextPageParam: (lastPage) =>

@@ -11,18 +11,17 @@ import { Outlet, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/app/chat')({
   component: ChatLayoutComponent,
-  beforeLoad: async ({ context }) => {
-    await Promise.all([
-      context.queryClient.prefetchInfiniteQuery({
-        queryKey: getChatListQueryOptions().queryKey,
-        queryFn: ({ pageParam }) => getChatList({ offset: pageParam }),
-        initialPageParam: 0,
-      }),
-      context.queryClient.prefetchQuery({
-        queryKey: getPromptSuggestionsQueryOptions().queryKey,
-        queryFn: getPromptSuggestions,
-      }),
-    ]);
+  loader: ({ context }) => {
+    context.queryClient.ensureInfiniteQueryData({
+      queryKey: getChatListQueryOptions().queryKey,
+      initialPageParam: 0,
+      queryFn: ({ pageParam }) => getChatList({ offset: pageParam }),
+    });
+
+    context.queryClient.ensureQueryData({
+      queryKey: getPromptSuggestionsQueryOptions().queryKey,
+      queryFn: getPromptSuggestions,
+    });
   },
 });
 
