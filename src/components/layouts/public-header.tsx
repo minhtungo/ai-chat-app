@@ -3,6 +3,7 @@ import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { buttonVariants } from '@/components/ui/button';
 import { publicNavigations } from '@/config/navigations';
 import { appRoutes } from '@/config/routes';
+import { useAuth } from '@/store/auth-store';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
@@ -10,11 +11,12 @@ export function PublicHeader({
   className,
   ...props
 }: React.ComponentProps<'header'>) {
+  const { isAuthenticated } = useAuth();
   return (
     <header className={cn('fixed inset-x-0 top-0 z-50', className)} {...props}>
       <div className='bg-background/80 border-border/30 relative border-b shadow-sm backdrop-blur-sm'>
         <div className='container flex h-14 items-center justify-between'>
-          <div className='flex items-center gap-2'>
+          <div className='flex w-2/12 items-center gap-2'>
             <Link to={appRoutes.home.path} className='flex items-center gap-3'>
               <span className='text-foreground text-lg font-medium'>Lumi</span>
             </Link>
@@ -30,9 +32,22 @@ export function PublicHeader({
               </Link>
             ))}
           </nav>
-          <div className='flex items-center gap-2'>
-            <AuthActions />
+          <div className='flex items-center gap-3'>
             <ThemeToggle />
+            {isAuthenticated ? (
+              <Link
+                className={cn(
+                  buttonVariants({
+                    size: 'sm',
+                  }),
+                )}
+                to={appRoutes.app.chat.path}
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <AuthActions />
+            )}
           </div>
         </div>
       </div>

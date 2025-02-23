@@ -1,5 +1,4 @@
 import { HeroSection } from '@/components/home/hero-section';
-import { PricingSection } from '@/components/home/pricing-section';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_public/')({
