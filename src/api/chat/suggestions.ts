@@ -1,9 +1,5 @@
 import type { PromptSuggestion } from '@/types/api/chat';
-import {
-  queryOptions,
-  useQuery,
-  useSuspenseQuery,
-} from '@tanstack/react-query';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
 // export function getPromptSuggestions(): Promise<PromptSuggestion[]> {
 //   return api.get(apiRoutes.chat.suggestions.path);

@@ -23,10 +23,21 @@ export const signUpInputSchema = z
 
 export type SignUpInput = z.infer<typeof signUpInputSchema>;
 
+type SignUpRequestDto = Omit<SignUpInput, 'confirm_password'>;
+
+const dtoToSignUpRequest = (data: SignUpInput): SignUpRequestDto => {
+  return {
+    email: data.email,
+    password: data.password,
+    name: data.name,
+  };
+};
+
 export function signUpWithEmailAndPassWord(
   data: SignUpInput,
 ): Promise<AuthResponse> {
-  return baseApi.post(apiRoutes.auth.login.path, data);
+  const requestDto = dtoToSignUpRequest(data);
+  return baseApi.post(apiRoutes.auth.login.path, requestDto);
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {

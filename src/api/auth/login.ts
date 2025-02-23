@@ -17,10 +17,21 @@ export const logInInputSchema = z.object({
 
 export type LogInInput = z.infer<typeof logInInputSchema>;
 
+type LogInRequestDto = LogInInput;
+
+const dtoToLogInRequest = (data: LogInInput): LogInRequestDto => {
+  return {
+    email: data.email,
+    password: data.password,
+    code: data.code,
+  };
+};
+
 export function loginWithEmailAndPassWord(
   data: LogInInput,
 ): Promise<AuthResponse> {
-  return baseApi.post(apiRoutes.auth.login.path, data);
+  const requestDto = dtoToLogInRequest(data);
+  return baseApi.post(apiRoutes.auth.login.path, requestDto);
 }
 
 export function useLogin() {
