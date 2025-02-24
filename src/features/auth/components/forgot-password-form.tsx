@@ -9,12 +9,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
-import { PasswordInput } from '@/components/ui/password-input';
-import { appConfig } from '@/config/app';
 import { appRoutes } from '@/config/routes';
-import { useSignIn } from '@/features/auth/api/sign-in';
-import { OAuthActions } from '@/features/auth/components/oauth-actions';
-import { useSignInForm } from '@/features/auth/hooks/use-sign-in-form';
+import { useForgotPassword } from '@/features/auth/api/forgot-password';
+import { useForgotPasswordForm } from '@/features/auth/hooks/use-forgot-password';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
@@ -23,12 +20,13 @@ export function ForgotPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-  const { form, schema } = useSignInForm();
-  const { mutate: signIn, isPending } = useSignIn();
+  const { form, schema } = useForgotPasswordForm();
+  const { mutate: forgotPassword, isPending } = useForgotPassword();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    signIn(data);
+    forgotPassword(data.email);
   };
+
   return (
     <div className={cn('space-y-6', className)} {...props}>
       <AuthFormWrapper
