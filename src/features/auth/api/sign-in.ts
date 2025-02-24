@@ -1,21 +1,12 @@
 import { apiRoutes, appRoutes } from '@/config/routes';
+import type { SignInInput } from '@/features/auth/hooks/use-sign-in-form';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
 import { publicApi } from '@/lib/api-client';
-import { commonValidations } from '@/lib/validations';
 import { useSession } from '@/store/auth-store';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import type { AxiosError } from 'axios';
-import { z } from 'zod';
-
-export const signInInputSchema = z.object({
-  email: commonValidations.email,
-  password: z.string().min(1, 'Password is required'),
-  code: z.optional(z.string()),
-});
-
-export type SignInInput = z.infer<typeof signInInputSchema>;
 
 type SignInRequestDto = SignInInput;
 
