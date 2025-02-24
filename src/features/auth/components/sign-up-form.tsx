@@ -1,4 +1,5 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
+import FormResponse from '@/components/form/FormResponse';
 import {
   Form,
   FormControl,
@@ -23,7 +24,12 @@ export function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useSignUpForm();
-  const { mutate: signUp, isPending } = useSignUpMutation({});
+  const {
+    mutate: signUp,
+    isPending,
+    isSuccess,
+    isError,
+  } = useSignUpMutation({});
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     signUp(data);
@@ -84,8 +90,22 @@ export function SignUpForm({
                 )}
               />
             </div>
+            {isSuccess && (
+              <FormResponse
+                title='Success'
+                variant='success'
+                description='If the email you provided is not already in use, you will receive a verification email. The verification link expires in 10 minutes.'
+              />
+            )}
+            {isError && (
+              <FormResponse
+                title='Error'
+                variant='destructive'
+                description='Something went wrong. Please try again later.'
+              />
+            )}
             <LoaderButton isPending={isPending} className='w-full'>
-              Sign up
+              Sign Up
             </LoaderButton>
             <div className='text-center text-sm'>
               Already have an account?{' '}

@@ -1,4 +1,5 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
+import FormResponse from '@/components/form/FormResponse';
 import {
   Form,
   FormControl,
@@ -21,7 +22,12 @@ export function ForgotPasswordForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useForgotPasswordForm();
-  const { mutate: forgotPassword, isPending } = useForgotPassword();
+  const {
+    mutate: forgotPassword,
+    isPending,
+    isSuccess,
+    isError,
+  } = useForgotPassword();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     forgotPassword(data.email);
@@ -53,6 +59,20 @@ export function ForgotPasswordForm({
                 </FormItem>
               )}
             />
+            {isSuccess && (
+              <FormResponse
+                title='Success'
+                variant='success'
+                description='If you signed up using your email and password, you will receive a password reset email. The password reset link expires in 10 minutes.'
+              />
+            )}
+            {isError && (
+              <FormResponse
+                title='Error'
+                variant='destructive'
+                description='Something went wrong. Please try again later.'
+              />
+            )}
             <LoaderButton isPending={isPending} className='w-full'>
               Send Reset Email
             </LoaderButton>

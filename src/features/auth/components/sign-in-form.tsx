@@ -88,7 +88,7 @@ export function SignInForm({
               />
             </div>
             <LoaderButton isPending={isPending} className='w-full'>
-              Login
+              Sign In
             </LoaderButton>
             <div className='text-center text-sm'>
               Don&apos;t have an account?{' '}
