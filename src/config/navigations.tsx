@@ -10,7 +10,7 @@ export const publicNavigations = {
 };
 
 export const appNavigations = {
-  sidebar: [appRoutes.app.chat, appRoutes.account.files],
+  sidebar: [appRoutes.app.chat, appRoutes.app.quiz, appRoutes.app.lesson],
   userDropdown: [
     appRoutes.account.profile,
     appRoutes.account.billing,

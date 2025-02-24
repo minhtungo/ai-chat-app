@@ -10,12 +10,12 @@ export function AppSidebarContent({
 }: React.ComponentProps<'div'>) {
   return (
     <div className={cn('flex flex-1 flex-col gap-y-4', className)} {...props}>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2.5'>
         {appNavigations.sidebar.map((item) => (
           <TooltipButton tooltip={item.name} key={`app-side-nav-${item.name}`}>
             <Link
               to={item.path}
-              className='flex flex-col items-center gap-y-1 text-[13px]'
+              className='group flex flex-col items-center text-[13px]'
               activeProps={{
                 className: '[&>div]:bg-accent',
               }}
@@ -26,6 +26,7 @@ export function AppSidebarContent({
                     size: 'icon',
                     variant: 'ghost',
                   }),
+                  'group-hover:bg-accent',
                 )}
               >
                 <item.icon className='size-5 shrink-0' aria-hidden='true' />

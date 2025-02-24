@@ -19,6 +19,8 @@ import { Route as AuthSignupImport } from './routes/_auth/signup'
 import { Route as AuthLoginImport } from './routes/_auth/login'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppAccountImport } from './routes/_app/account'
+import { Route as AppQuizIndexImport } from './routes/_app/quiz/index'
+import { Route as AppLessonIndexImport } from './routes/_app/lesson/index'
 import { Route as AppChatIndexImport } from './routes/_app/chat/index'
 import { Route as AppAccountIndexImport } from './routes/_app/account/index'
 import { Route as AppChatIdImport } from './routes/_app/chat/$id'
@@ -72,6 +74,18 @@ const AppChatRoute = AppChatImport.update({
 const AppAccountRoute = AppAccountImport.update({
   id: '/account',
   path: '/account',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppQuizIndexRoute = AppQuizIndexImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppLessonIndexRoute = AppLessonIndexImport.update({
+  id: '/lesson/',
+  path: '/lesson/',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -232,6 +246,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChatIndexImport
       parentRoute: typeof AppChatImport
     }
+    '/_app/lesson/': {
+      id: '/_app/lesson/'
+      path: '/lesson'
+      fullPath: '/lesson'
+      preLoaderRoute: typeof AppLessonIndexImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/quiz/': {
+      id: '/_app/quiz/'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof AppQuizIndexImport
+      parentRoute: typeof AppImport
+    }
     '/_app/account/files/': {
       id: '/_app/account/files/'
       path: '/files'
@@ -282,11 +310,15 @@ const AppChatRouteWithChildren =
 interface AppRouteChildren {
   AppAccountRoute: typeof AppAccountRouteWithChildren
   AppChatRoute: typeof AppChatRouteWithChildren
+  AppLessonIndexRoute: typeof AppLessonIndexRoute
+  AppQuizIndexRoute: typeof AppQuizIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppAccountRoute: AppAccountRouteWithChildren,
   AppChatRoute: AppChatRouteWithChildren,
+  AppLessonIndexRoute: AppLessonIndexRoute,
+  AppQuizIndexRoute: AppQuizIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -328,6 +360,8 @@ export interface FileRoutesByFullPath {
   '/chat/$id': typeof AppChatIdRoute
   '/account/': typeof AppAccountIndexRoute
   '/chat/': typeof AppChatIndexRoute
+  '/lesson': typeof AppLessonIndexRoute
+  '/quiz': typeof AppQuizIndexRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
 
@@ -343,6 +377,8 @@ export interface FileRoutesByTo {
   '/chat/$id': typeof AppChatIdRoute
   '/account': typeof AppAccountIndexRoute
   '/chat': typeof AppChatIndexRoute
+  '/lesson': typeof AppLessonIndexRoute
+  '/quiz': typeof AppQuizIndexRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
 
@@ -363,6 +399,8 @@ export interface FileRoutesById {
   '/_app/chat/$id': typeof AppChatIdRoute
   '/_app/account/': typeof AppAccountIndexRoute
   '/_app/chat/': typeof AppChatIndexRoute
+  '/_app/lesson/': typeof AppLessonIndexRoute
+  '/_app/quiz/': typeof AppQuizIndexRoute
   '/_app/account/files/': typeof AppAccountFilesIndexRoute
 }
 
@@ -382,6 +420,8 @@ export interface FileRouteTypes {
     | '/chat/$id'
     | '/account/'
     | '/chat/'
+    | '/lesson'
+    | '/quiz'
     | '/account/files'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -396,6 +436,8 @@ export interface FileRouteTypes {
     | '/chat/$id'
     | '/account'
     | '/chat'
+    | '/lesson'
+    | '/quiz'
     | '/account/files'
   id:
     | '__root__'
@@ -414,6 +456,8 @@ export interface FileRouteTypes {
     | '/_app/chat/$id'
     | '/_app/account/'
     | '/_app/chat/'
+    | '/_app/lesson/'
+    | '/_app/quiz/'
     | '/_app/account/files/'
   fileRoutesById: FileRoutesById
 }
@@ -449,7 +493,9 @@ export const routeTree = rootRoute
       "filePath": "_app.tsx",
       "children": [
         "/_app/account",
-        "/_app/chat"
+        "/_app/chat",
+        "/_app/lesson/",
+        "/_app/quiz/"
       ]
     },
     "/_auth": {
@@ -524,6 +570,14 @@ export const routeTree = rootRoute
     "/_app/chat/": {
       "filePath": "_app/chat/index.tsx",
       "parent": "/_app/chat"
+    },
+    "/_app/lesson/": {
+      "filePath": "_app/lesson/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/quiz/": {
+      "filePath": "_app/quiz/index.tsx",
+      "parent": "/_app"
     },
     "/_app/account/files/": {
       "filePath": "_app/account/files/index.tsx",

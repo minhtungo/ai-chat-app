@@ -1,4 +1,6 @@
 import {
+  Book,
+  Brain,
   CreditCard,
   File,
   MessageSquare,
@@ -50,9 +52,20 @@ export const appRoutes = {
       name: 'Chat',
       icon: MessageSquare,
     },
+    quiz: {
+      path: `${appRootPath}/quiz`,
+      name: 'Quiz',
+      icon: Brain,
+    },
+    lesson: {
+      path: `${appRootPath}/lesson`,
+      name: 'Lesson',
+      icon: Book,
+    },
   },
   account: {
     root: {
+      path: `${appRootPath}/account`,
       name: 'Account',
       icon: User,
     },
