@@ -3,7 +3,7 @@ import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useChat } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/app/chat/')({
+export const Route = createFileRoute('/_app/chat/')({
   component: ChatRouteComponent,
 });
 

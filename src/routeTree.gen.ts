@@ -11,31 +11,24 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AppImport } from './routes/app'
 import { Route as PublicImport } from './routes/_public'
 import { Route as AuthImport } from './routes/_auth'
-import { Route as AppIndexImport } from './routes/app/index'
+import { Route as AppImport } from './routes/_app'
 import { Route as PublicIndexImport } from './routes/_public/index'
-import { Route as AppChatImport } from './routes/app/chat'
-import { Route as AppAccountImport } from './routes/app/account'
 import { Route as AuthSignupImport } from './routes/_auth/signup'
 import { Route as AuthLoginImport } from './routes/_auth/login'
-import { Route as AppChatIndexImport } from './routes/app/chat/index'
-import { Route as AppAccountIndexImport } from './routes/app/account/index'
-import { Route as AppChatIdImport } from './routes/app/chat/$id'
-import { Route as AppAccountSettingsImport } from './routes/app/account/settings'
-import { Route as AppAccountProfileImport } from './routes/app/account/profile'
-import { Route as AppAccountPreferencesImport } from './routes/app/account/preferences'
-import { Route as AppAccountBillingImport } from './routes/app/account/billing'
-import { Route as AppAccountFilesIndexImport } from './routes/app/account/files/index'
+import { Route as AppChatImport } from './routes/_app/chat'
+import { Route as AppAccountImport } from './routes/_app/account'
+import { Route as AppChatIndexImport } from './routes/_app/chat/index'
+import { Route as AppAccountIndexImport } from './routes/_app/account/index'
+import { Route as AppChatIdImport } from './routes/_app/chat/$id'
+import { Route as AppAccountSettingsImport } from './routes/_app/account/settings'
+import { Route as AppAccountProfileImport } from './routes/_app/account/profile'
+import { Route as AppAccountPreferencesImport } from './routes/_app/account/preferences'
+import { Route as AppAccountBillingImport } from './routes/_app/account/billing'
+import { Route as AppAccountFilesIndexImport } from './routes/_app/account/files/index'
 
 // Create/Update Routes
-
-const AppRoute = AppImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const PublicRoute = PublicImport.update({
   id: '/_public',
@@ -47,28 +40,15 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AppIndexRoute = AppIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
+const AppRoute = AppImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PublicRoute,
-} as any)
-
-const AppChatRoute = AppChatImport.update({
-  id: '/chat',
-  path: '/chat',
-  getParentRoute: () => AppRoute,
-} as any)
-
-const AppAccountRoute = AppAccountImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => AppRoute,
 } as any)
 
 const AuthSignupRoute = AuthSignupImport.update({
@@ -81,6 +61,18 @@ const AuthLoginRoute = AuthLoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRoute,
+} as any)
+
+const AppChatRoute = AppChatImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AppRoute,
+} as any)
+
+const AppAccountRoute = AppAccountImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AppRoute,
 } as any)
 
 const AppChatIndexRoute = AppChatIndexImport.update({
@@ -135,6 +127,13 @@ const AppAccountFilesIndexRoute = AppAccountFilesIndexImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth': {
       id: '/_auth'
       path: ''
@@ -149,12 +148,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppImport
-      parentRoute: typeof rootRoute
+    '/_app/account': {
+      id: '/_app/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AppAccountImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/chat': {
+      id: '/_app/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AppChatImport
+      parentRoute: typeof AppImport
     }
     '/_auth/login': {
       id: '/_auth/login'
@@ -170,20 +176,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignupImport
       parentRoute: typeof AuthImport
     }
-    '/app/account': {
-      id: '/app/account'
-      path: '/account'
-      fullPath: '/app/account'
-      preLoaderRoute: typeof AppAccountImport
-      parentRoute: typeof AppImport
-    }
-    '/app/chat': {
-      id: '/app/chat'
-      path: '/chat'
-      fullPath: '/app/chat'
-      preLoaderRoute: typeof AppChatImport
-      parentRoute: typeof AppImport
-    }
     '/_public/': {
       id: '/_public/'
       path: '/'
@@ -191,66 +183,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexImport
       parentRoute: typeof PublicImport
     }
-    '/app/': {
-      id: '/app/'
-      path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexImport
-      parentRoute: typeof AppImport
-    }
-    '/app/account/billing': {
-      id: '/app/account/billing'
+    '/_app/account/billing': {
+      id: '/_app/account/billing'
       path: '/billing'
-      fullPath: '/app/account/billing'
+      fullPath: '/account/billing'
       preLoaderRoute: typeof AppAccountBillingImport
       parentRoute: typeof AppAccountImport
     }
-    '/app/account/preferences': {
-      id: '/app/account/preferences'
+    '/_app/account/preferences': {
+      id: '/_app/account/preferences'
       path: '/preferences'
-      fullPath: '/app/account/preferences'
+      fullPath: '/account/preferences'
       preLoaderRoute: typeof AppAccountPreferencesImport
       parentRoute: typeof AppAccountImport
     }
-    '/app/account/profile': {
-      id: '/app/account/profile'
+    '/_app/account/profile': {
+      id: '/_app/account/profile'
       path: '/profile'
-      fullPath: '/app/account/profile'
+      fullPath: '/account/profile'
       preLoaderRoute: typeof AppAccountProfileImport
       parentRoute: typeof AppAccountImport
     }
-    '/app/account/settings': {
-      id: '/app/account/settings'
+    '/_app/account/settings': {
+      id: '/_app/account/settings'
       path: '/settings'
-      fullPath: '/app/account/settings'
+      fullPath: '/account/settings'
       preLoaderRoute: typeof AppAccountSettingsImport
       parentRoute: typeof AppAccountImport
     }
-    '/app/chat/$id': {
-      id: '/app/chat/$id'
+    '/_app/chat/$id': {
+      id: '/_app/chat/$id'
       path: '/$id'
-      fullPath: '/app/chat/$id'
+      fullPath: '/chat/$id'
       preLoaderRoute: typeof AppChatIdImport
       parentRoute: typeof AppChatImport
     }
-    '/app/account/': {
-      id: '/app/account/'
+    '/_app/account/': {
+      id: '/_app/account/'
       path: '/'
-      fullPath: '/app/account/'
+      fullPath: '/account/'
       preLoaderRoute: typeof AppAccountIndexImport
       parentRoute: typeof AppAccountImport
     }
-    '/app/chat/': {
-      id: '/app/chat/'
+    '/_app/chat/': {
+      id: '/_app/chat/'
       path: '/'
-      fullPath: '/app/chat/'
+      fullPath: '/chat/'
       preLoaderRoute: typeof AppChatIndexImport
       parentRoute: typeof AppChatImport
     }
-    '/app/account/files/': {
-      id: '/app/account/files/'
+    '/_app/account/files/': {
+      id: '/_app/account/files/'
       path: '/files'
-      fullPath: '/app/account/files'
+      fullPath: '/account/files'
       preLoaderRoute: typeof AppAccountFilesIndexImport
       parentRoute: typeof AppAccountImport
     }
@@ -258,29 +243,6 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
-
-interface AuthRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthSignupRoute: typeof AuthSignupRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthLoginRoute: AuthLoginRoute,
-  AuthSignupRoute: AuthSignupRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
-interface PublicRouteChildren {
-  PublicIndexRoute: typeof PublicIndexRoute
-}
-
-const PublicRouteChildren: PublicRouteChildren = {
-  PublicIndexRoute: PublicIndexRoute,
-}
-
-const PublicRouteWithChildren =
-  PublicRoute._addFileChildren(PublicRouteChildren)
 
 interface AppAccountRouteChildren {
   AppAccountBillingRoute: typeof AppAccountBillingRoute
@@ -320,34 +282,53 @@ const AppChatRouteWithChildren =
 interface AppRouteChildren {
   AppAccountRoute: typeof AppAccountRouteWithChildren
   AppChatRoute: typeof AppChatRouteWithChildren
-  AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppAccountRoute: AppAccountRouteWithChildren,
   AppChatRoute: AppChatRouteWithChildren,
-  AppIndexRoute: AppIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface AuthRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
+interface PublicRouteChildren {
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
-  '/app': typeof AppRouteWithChildren
+  '/account': typeof AppAccountRouteWithChildren
+  '/chat': typeof AppChatRouteWithChildren
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
-  '/app/account': typeof AppAccountRouteWithChildren
-  '/app/chat': typeof AppChatRouteWithChildren
   '/': typeof PublicIndexRoute
-  '/app/': typeof AppIndexRoute
-  '/app/account/billing': typeof AppAccountBillingRoute
-  '/app/account/preferences': typeof AppAccountPreferencesRoute
-  '/app/account/profile': typeof AppAccountProfileRoute
-  '/app/account/settings': typeof AppAccountSettingsRoute
-  '/app/chat/$id': typeof AppChatIdRoute
-  '/app/account/': typeof AppAccountIndexRoute
-  '/app/chat/': typeof AppChatIndexRoute
-  '/app/account/files': typeof AppAccountFilesIndexRoute
+  '/account/billing': typeof AppAccountBillingRoute
+  '/account/preferences': typeof AppAccountPreferencesRoute
+  '/account/profile': typeof AppAccountProfileRoute
+  '/account/settings': typeof AppAccountSettingsRoute
+  '/chat/$id': typeof AppChatIdRoute
+  '/account/': typeof AppAccountIndexRoute
+  '/chat/': typeof AppChatIndexRoute
+  '/account/files': typeof AppAccountFilesIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -355,104 +336,98 @@ export interface FileRoutesByTo {
   '/login': typeof AuthLoginRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof PublicIndexRoute
-  '/app': typeof AppIndexRoute
-  '/app/account/billing': typeof AppAccountBillingRoute
-  '/app/account/preferences': typeof AppAccountPreferencesRoute
-  '/app/account/profile': typeof AppAccountProfileRoute
-  '/app/account/settings': typeof AppAccountSettingsRoute
-  '/app/chat/$id': typeof AppChatIdRoute
-  '/app/account': typeof AppAccountIndexRoute
-  '/app/chat': typeof AppChatIndexRoute
-  '/app/account/files': typeof AppAccountFilesIndexRoute
+  '/account/billing': typeof AppAccountBillingRoute
+  '/account/preferences': typeof AppAccountPreferencesRoute
+  '/account/profile': typeof AppAccountProfileRoute
+  '/account/settings': typeof AppAccountSettingsRoute
+  '/chat/$id': typeof AppChatIdRoute
+  '/account': typeof AppAccountIndexRoute
+  '/chat': typeof AppChatIndexRoute
+  '/account/files': typeof AppAccountFilesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/_app': typeof AppRouteWithChildren
   '/_auth': typeof AuthRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
-  '/app': typeof AppRouteWithChildren
+  '/_app/account': typeof AppAccountRouteWithChildren
+  '/_app/chat': typeof AppChatRouteWithChildren
   '/_auth/login': typeof AuthLoginRoute
   '/_auth/signup': typeof AuthSignupRoute
-  '/app/account': typeof AppAccountRouteWithChildren
-  '/app/chat': typeof AppChatRouteWithChildren
   '/_public/': typeof PublicIndexRoute
-  '/app/': typeof AppIndexRoute
-  '/app/account/billing': typeof AppAccountBillingRoute
-  '/app/account/preferences': typeof AppAccountPreferencesRoute
-  '/app/account/profile': typeof AppAccountProfileRoute
-  '/app/account/settings': typeof AppAccountSettingsRoute
-  '/app/chat/$id': typeof AppChatIdRoute
-  '/app/account/': typeof AppAccountIndexRoute
-  '/app/chat/': typeof AppChatIndexRoute
-  '/app/account/files/': typeof AppAccountFilesIndexRoute
+  '/_app/account/billing': typeof AppAccountBillingRoute
+  '/_app/account/preferences': typeof AppAccountPreferencesRoute
+  '/_app/account/profile': typeof AppAccountProfileRoute
+  '/_app/account/settings': typeof AppAccountSettingsRoute
+  '/_app/chat/$id': typeof AppChatIdRoute
+  '/_app/account/': typeof AppAccountIndexRoute
+  '/_app/chat/': typeof AppChatIndexRoute
+  '/_app/account/files/': typeof AppAccountFilesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
-    | '/app'
+    | '/account'
+    | '/chat'
     | '/login'
     | '/signup'
-    | '/app/account'
-    | '/app/chat'
     | '/'
-    | '/app/'
-    | '/app/account/billing'
-    | '/app/account/preferences'
-    | '/app/account/profile'
-    | '/app/account/settings'
-    | '/app/chat/$id'
-    | '/app/account/'
-    | '/app/chat/'
-    | '/app/account/files'
+    | '/account/billing'
+    | '/account/preferences'
+    | '/account/profile'
+    | '/account/settings'
+    | '/chat/$id'
+    | '/account/'
+    | '/chat/'
+    | '/account/files'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
     | '/login'
     | '/signup'
     | '/'
-    | '/app'
-    | '/app/account/billing'
-    | '/app/account/preferences'
-    | '/app/account/profile'
-    | '/app/account/settings'
-    | '/app/chat/$id'
-    | '/app/account'
-    | '/app/chat'
-    | '/app/account/files'
+    | '/account/billing'
+    | '/account/preferences'
+    | '/account/profile'
+    | '/account/settings'
+    | '/chat/$id'
+    | '/account'
+    | '/chat'
+    | '/account/files'
   id:
     | '__root__'
+    | '/_app'
     | '/_auth'
     | '/_public'
-    | '/app'
+    | '/_app/account'
+    | '/_app/chat'
     | '/_auth/login'
     | '/_auth/signup'
-    | '/app/account'
-    | '/app/chat'
     | '/_public/'
-    | '/app/'
-    | '/app/account/billing'
-    | '/app/account/preferences'
-    | '/app/account/profile'
-    | '/app/account/settings'
-    | '/app/chat/$id'
-    | '/app/account/'
-    | '/app/chat/'
-    | '/app/account/files/'
+    | '/_app/account/billing'
+    | '/_app/account/preferences'
+    | '/_app/account/profile'
+    | '/_app/account/settings'
+    | '/_app/chat/$id'
+    | '/_app/account/'
+    | '/_app/chat/'
+    | '/_app/account/files/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   PublicRoute: typeof PublicRouteWithChildren
-  AppRoute: typeof AppRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   PublicRoute: PublicRouteWithChildren,
-  AppRoute: AppRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -465,9 +440,16 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/_app",
         "/_auth",
-        "/_public",
-        "/app"
+        "/_public"
+      ]
+    },
+    "/_app": {
+      "filePath": "_app.tsx",
+      "children": [
+        "/_app/account",
+        "/_app/chat"
       ]
     },
     "/_auth": {
@@ -483,12 +465,24 @@ export const routeTree = rootRoute
         "/_public/"
       ]
     },
-    "/app": {
-      "filePath": "app.tsx",
+    "/_app/account": {
+      "filePath": "_app/account.tsx",
+      "parent": "/_app",
       "children": [
-        "/app/account",
-        "/app/chat",
-        "/app/"
+        "/_app/account/billing",
+        "/_app/account/preferences",
+        "/_app/account/profile",
+        "/_app/account/settings",
+        "/_app/account/",
+        "/_app/account/files/"
+      ]
+    },
+    "/_app/chat": {
+      "filePath": "_app/chat.tsx",
+      "parent": "/_app",
+      "children": [
+        "/_app/chat/$id",
+        "/_app/chat/"
       ]
     },
     "/_auth/login": {
@@ -499,65 +493,41 @@ export const routeTree = rootRoute
       "filePath": "_auth/signup.tsx",
       "parent": "/_auth"
     },
-    "/app/account": {
-      "filePath": "app/account.tsx",
-      "parent": "/app",
-      "children": [
-        "/app/account/billing",
-        "/app/account/preferences",
-        "/app/account/profile",
-        "/app/account/settings",
-        "/app/account/",
-        "/app/account/files/"
-      ]
-    },
-    "/app/chat": {
-      "filePath": "app/chat.tsx",
-      "parent": "/app",
-      "children": [
-        "/app/chat/$id",
-        "/app/chat/"
-      ]
-    },
     "/_public/": {
       "filePath": "_public/index.tsx",
       "parent": "/_public"
     },
-    "/app/": {
-      "filePath": "app/index.tsx",
-      "parent": "/app"
+    "/_app/account/billing": {
+      "filePath": "_app/account/billing.tsx",
+      "parent": "/_app/account"
     },
-    "/app/account/billing": {
-      "filePath": "app/account/billing.tsx",
-      "parent": "/app/account"
+    "/_app/account/preferences": {
+      "filePath": "_app/account/preferences.tsx",
+      "parent": "/_app/account"
     },
-    "/app/account/preferences": {
-      "filePath": "app/account/preferences.tsx",
-      "parent": "/app/account"
+    "/_app/account/profile": {
+      "filePath": "_app/account/profile.tsx",
+      "parent": "/_app/account"
     },
-    "/app/account/profile": {
-      "filePath": "app/account/profile.tsx",
-      "parent": "/app/account"
+    "/_app/account/settings": {
+      "filePath": "_app/account/settings.tsx",
+      "parent": "/_app/account"
     },
-    "/app/account/settings": {
-      "filePath": "app/account/settings.tsx",
-      "parent": "/app/account"
+    "/_app/chat/$id": {
+      "filePath": "_app/chat/$id.tsx",
+      "parent": "/_app/chat"
     },
-    "/app/chat/$id": {
-      "filePath": "app/chat/$id.tsx",
-      "parent": "/app/chat"
+    "/_app/account/": {
+      "filePath": "_app/account/index.tsx",
+      "parent": "/_app/account"
     },
-    "/app/account/": {
-      "filePath": "app/account/index.tsx",
-      "parent": "/app/account"
+    "/_app/chat/": {
+      "filePath": "_app/chat/index.tsx",
+      "parent": "/_app/chat"
     },
-    "/app/chat/": {
-      "filePath": "app/chat/index.tsx",
-      "parent": "/app/chat"
-    },
-    "/app/account/files/": {
-      "filePath": "app/account/files/index.tsx",
-      "parent": "/app/account"
+    "/_app/account/files/": {
+      "filePath": "_app/account/files/index.tsx",
+      "parent": "/_app/account"
     }
   }
 }

@@ -6,7 +6,7 @@ import {
   User,
 } from '@/components/icons';
 
-const appRootPath = '/app';
+const appRootPath = '';
 
 export const appRoutes = {
   home: {
