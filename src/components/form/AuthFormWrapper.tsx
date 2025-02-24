@@ -1,3 +1,4 @@
+import { Logo } from '@/components/common/logo';
 import {
   Card,
   CardContent,
@@ -5,7 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { appRoutes } from '@/config/routes';
 import { cn } from '@/utils/cn';
+import { Link } from '@tanstack/react-router';
 
 type AuthFormWrapperProps = React.ComponentProps<'div'> & {
   title: string;
@@ -20,12 +23,17 @@ export function AuthFormWrapper({
   ...props
 }: AuthFormWrapperProps) {
   return (
-    <Card className='max-w-[500px]' {...props}>
-      <CardHeader className='text-center'>
+    <Card className='w-full' {...props}>
+      <CardHeader className='text-center sm:px-8'>
+        <Link to={appRoutes.home.path}>
+          <Logo className='mb-1 text-2xl text-blue-500' />
+        </Link>
         <CardTitle className='text-xl'>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent className={cn(className)}>{children}</CardContent>
+      <CardContent className={cn('w-full sm:px-8', className)}>
+        {children}
+      </CardContent>
     </Card>
   );
 }

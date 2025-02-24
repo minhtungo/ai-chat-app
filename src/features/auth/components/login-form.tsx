@@ -1,6 +1,4 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
-import { Google } from '@/components/icons';
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,7 +10,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { appConfig } from '@/config/app';
 import { useLogin } from '@/features/auth/api/login';
+import { OAuthActions } from '@/features/auth/components/oauth-actions';
 import { useLogInForm } from '@/features/auth/hooks/use-log-in-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
@@ -31,17 +31,12 @@ export function LoginForm({
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <AuthFormWrapper
-        title='Welcome back'
-        description='Login with your Google account'
+        title={`Sign in to ${appConfig.appName}`}
+        description='Welcome back! Please sign in to continue'
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-            <div className='flex flex-col gap-4'>
-              <Button variant='outline' type='button' className='w-full'>
-                <Google />
-                Login with Google
-              </Button>
-            </div>
+            <OAuthActions />
             <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
               <span className='bg-background text-muted-foreground relative z-10 px-2'>
                 Or continue with
@@ -75,7 +70,7 @@ export function LoginForm({
                       <FormLabel>Password</FormLabel>
                       <Link
                         to='/'
-                        className='inline-block text-sm underline-offset-4 hover:underline'
+                        className='text-muted-foreground inline-block text-sm underline-offset-4 hover:underline'
                       >
                         Forgot password?
                       </Link>
@@ -97,7 +92,7 @@ export function LoginForm({
             <div className='text-center text-sm'>
               Don&apos;t have an account?{' '}
               <Link to='/signup' className='underline underline-offset-4'>
-                Sign up
+                Sign Up
               </Link>
             </div>
           </form>

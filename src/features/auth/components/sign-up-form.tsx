@@ -1,6 +1,4 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
-import { Google } from '@/components/icons';
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,8 +10,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
-import { appConfig } from '@/config/app';
 import { useSignUpMutation } from '@/features/auth/api/sign-up';
+import { OAuthActions } from '@/features/auth/components/oauth-actions';
 import { useSignUpForm } from '@/features/auth/hooks/use-sign-up-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
@@ -31,38 +29,20 @@ export function SignUpForm({
   };
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('w-full space-y-6', className)} {...props}>
       <AuthFormWrapper
-        title='Create an account'
-        description={`Sign up for a ${appConfig.appName} account`}
+        title='Create your account'
+        description={`Welcome! Please fill in the details to get started.`}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-            <div className='flex flex-col gap-4'>
-              <Button variant='outline' type='button' className='w-full'>
-                <Google />
-                Sign up with Google
-              </Button>
-            </div>
+            <OAuthActions />
             <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
               <span className='bg-background text-muted-foreground relative z-10 px-2'>
                 Or continue with
               </span>
             </div>
             <div className='space-y-4'>
-              <FormField
-                control={form.control}
-                name='name'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input autoFocus {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name='email'
