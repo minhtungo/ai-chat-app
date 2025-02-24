@@ -1,5 +1,5 @@
 import { apiRoutes } from '@/config/routes';
-import { baseApi } from '@/lib/api-client';
+import { publicApi } from '@/lib/api-client';
 import { commonValidations } from '@/lib/validations';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
@@ -35,7 +35,7 @@ export function signUpWithEmailAndPassWord(
   data: SignUpInput,
 ): Promise<AuthResponse> {
   const requestDto = dtoToSignUpRequest(data);
-  return baseApi.post(apiRoutes.auth.signUp.path, requestDto);
+  return publicApi.post(apiRoutes.auth.signUp.path, requestDto);
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {

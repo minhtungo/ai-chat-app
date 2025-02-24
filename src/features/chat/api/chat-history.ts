@@ -8,7 +8,7 @@ import { queryOptions, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 //   offset: number;
 //   chatId: string;
 // }): Promise<ChatHistoryResponse> {
-//   return api.get(apiRoutes.chat.history.path, {
+//   return privateApi.get(apiRoutes.chat.history.path, {
 //     params: { page: pageParam, chatId },
 //   });
 // }

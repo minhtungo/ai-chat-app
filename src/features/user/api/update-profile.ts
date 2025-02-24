@@ -1,6 +1,6 @@
 import { apiRoutes } from '@/config/routes';
 import type { UpdateProfileInput } from '@/features/user/hooks/use-update-profile-form';
-import { api } from '@/lib/api-client';
+import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
 
@@ -17,7 +17,7 @@ const dtoToUpdateProfileRequest = (
 
 export function updateProfile(data: UpdateProfileInput): Promise<User> {
   const requestDto = dtoToUpdateProfileRequest(data);
-  return api.put(apiRoutes.user.profile.path, requestDto);
+  return privateApi.put(apiRoutes.user.profile.path, requestDto);
 }
 
 export function useUpdateProfile(onSuccess?: () => void) {

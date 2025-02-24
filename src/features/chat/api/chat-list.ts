@@ -7,7 +7,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 //   offset: number;
 //   chatId: string;
 // }): Promise<ChatListResponse> {
-//   return api.get(apiRoutes.chat.list.path, {
+//   return privateApi.get(apiRoutes.chat.list.path, {
 //     params: { page: pageParam },
 //   });
 // }

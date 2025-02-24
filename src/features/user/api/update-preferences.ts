@@ -1,6 +1,6 @@
 import { apiRoutes } from '@/config/routes';
 import type { UpdatePreferencesInput } from '@/features/user/hooks/use-update-preferences-form';
-import { api } from '@/lib/api-client';
+import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
 
@@ -18,7 +18,7 @@ const dtoToUpdatePreferencesRequest = (
 
 export function updatePreferences(data: UpdatePreferencesInput): Promise<User> {
   const requestDto = dtoToUpdatePreferencesRequest(data);
-  return api.put(apiRoutes.user.preferences.path, requestDto);
+  return privateApi.put(apiRoutes.user.preferences.path, requestDto);
 }
 
 export function useUpdatePreferences(onSuccess?: () => void) {

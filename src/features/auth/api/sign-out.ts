@@ -1,12 +1,12 @@
 import { apiRoutes, appRoutes } from '@/config/routes';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
-import { api } from '@/lib/api-client';
+import { privateApi } from '@/lib/api-client';
 import { useSession } from '@/store/auth-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 
 export function signOut() {
-  return api.post(apiRoutes.auth.signOut.path);
+  return privateApi.post(apiRoutes.auth.signOut.path);
 }
 
 export function useSignOut() {

@@ -23,17 +23,17 @@ const baseAxiosConfig = {
   },
 };
 
-export const baseApi = Axios.create(baseAxiosConfig);
+export const publicApi = Axios.create(baseAxiosConfig);
 
-export const api = Axios.create(baseAxiosConfig);
+export const privateApi = Axios.create(baseAxiosConfig);
 
-api.interceptors.request.use(authRequestInterceptor);
+privateApi.interceptors.request.use(authRequestInterceptor);
 
 type CustomAxiosRequestConfig = InternalAxiosRequestConfig & {
   sent?: boolean;
 };
 
-api.interceptors.response.use(
+privateApi.interceptors.response.use(
   (response) => response.data,
   async (error: AxiosError) => {
     const prevRequest = error.config as CustomAxiosRequestConfig;

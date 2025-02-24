@@ -1,6 +1,6 @@
 import { apiRoutes, appRoutes } from '@/config/routes';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
-import { baseApi } from '@/lib/api-client';
+import { publicApi } from '@/lib/api-client';
 import { commonValidations } from '@/lib/validations';
 import { useSession } from '@/store/auth-store';
 import { type AuthResponse } from '@/types/auth';
@@ -31,7 +31,7 @@ export function signInWithEmailAndPassWord(
   data: SignInInput,
 ): Promise<AuthResponse> {
   const requestDto = dtoToSignInRequest(data);
-  return baseApi.post(apiRoutes.auth.signIn.path, requestDto);
+  return publicApi.post(apiRoutes.auth.signIn.path, requestDto);
 }
 
 export function useSignIn() {
