@@ -91,7 +91,6 @@ export function UpdateProfileForm({
                   className='lg:w-[30%] lg:max-w-[240px]'
                   autoComplete='name'
                   type='text'
-                  autoFocus
                   {...field}
                 />
               </SettingFormItem>

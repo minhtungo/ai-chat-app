@@ -1,4 +1,11 @@
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from '@/components/ui/form';
+import { Label } from '@/components/ui/label';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useUser } from '@/features/user/api/get-user';
@@ -46,18 +53,22 @@ export function UpdatePreferencesForm({
                   className='flex flex-wrap gap-2'
                 >
                   {themes.map((theme) => (
-                    <FormItem key={theme.value} className='block w-fit'>
+                    <FormItem key={theme.value}>
                       <FormControl>
                         <RadioGroupItem
                           value={theme.value}
                           noIndicator
-                          className='data-[state=checked]:border-primary aspect-auto size-auto w-fit cursor-pointer overflow-hidden rounded-md border'
+                          className='group flex aspect-auto size-auto w-fit cursor-pointer flex-col gap-1 overflow-hidden rounded-md border-none shadow-none'
                         >
                           <img
                             src={theme.image}
                             alt={`${theme.label} Theme`}
-                            className='h-full w-full max-w-[100px] rounded-md object-cover'
+                            className='group-data-[state=checked]:border-primary h-full w-full max-w-[100px] rounded-md border object-cover'
                           />
+                          <div className='text-muted-foreground group-data-[state=checked]:text-foreground flex items-center justify-center gap-1 text-sm'>
+                            <theme.icon className='size-4' />
+                            {theme.label}
+                          </div>
                         </RadioGroupItem>
                       </FormControl>
                     </FormItem>

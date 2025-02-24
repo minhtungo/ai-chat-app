@@ -1,6 +1,7 @@
 import darkThemeImage from '@/assets/images/settings/theme_dark.webp';
 import lightThemeImage from '@/assets/images/settings/theme_light.webp';
 import systemThemeImage from '@/assets/images/settings/theme_system.webp';
+import { Monitor, Moon, Sun } from '@/components/icons';
 
 export const pricingPlans = [
   {
@@ -36,15 +37,18 @@ export const themes = [
     label: 'Dark',
     value: 'dark',
     image: darkThemeImage,
+    icon: Moon,
   },
   {
     label: 'Light',
     value: 'light',
     image: lightThemeImage,
+    icon: Sun,
   },
   {
     label: 'System',
     value: 'system',
     image: systemThemeImage,
+    icon: Monitor,
   },
 ];
