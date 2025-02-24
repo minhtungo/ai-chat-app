@@ -1,5 +1,5 @@
-import { refreshToken } from '@/api/auth/refresh-token';
 import { env } from '@/config/env';
+import { refreshToken } from '@/features/auth/api/refresh-token';
 import { authStore } from '@/store/auth-store';
 import Axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 

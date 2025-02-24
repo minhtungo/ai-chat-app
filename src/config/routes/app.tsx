@@ -61,6 +61,11 @@ export const appRoutes = {
       name: 'Profile',
       icon: User,
     },
+    preferences: {
+      path: `${appRootPath}/account/preferences`,
+      name: 'Preferences',
+      icon: Settings,
+    },
     billing: {
       path: `${appRootPath}/account/billing`,
       name: 'Billing',

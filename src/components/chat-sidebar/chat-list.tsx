@@ -1,4 +1,3 @@
-import { useChatList } from '@/api/chat/chat-list';
 import { MoreHorizontal, Pencil, Share, Trash2 } from '@/components/icons';
 import {
   DropdownMenu,
@@ -16,6 +15,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { useChatList } from '@/features/chat/api/chat-list';
 import { useChatActions } from '@/store/chat-store';
 import { Link } from '@tanstack/react-router';
 

@@ -92,9 +92,9 @@ function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
             type='file'
             ref={fileInputRef}
             onChange={onFileChange}
-            className='hidden'
             multiple
             accept='image/*,.pdf,.doc,.docx'
+            hidden
           />
         </>
       </TooltipButton>

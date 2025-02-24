@@ -1,8 +1,8 @@
-import { useUser } from '@/api/user/get-user';
 import { AuthActions } from '@/components/common/auth-actions';
 import { Share2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { useUser } from '@/features/user/api/get-user';
 import { useChatName } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 

@@ -17,6 +17,12 @@ export const apiRoutes = {
     me: {
       path: '/user/me',
     },
+    preferences: {
+      path: '/user/preferences',
+    },
+    profile: {
+      path: '/user/profile',
+    },
   },
   chat: {
     history: {

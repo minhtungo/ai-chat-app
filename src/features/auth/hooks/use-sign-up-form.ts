@@ -1,4 +1,4 @@
-import { signUpInputSchema } from '@/api/auth/sign-up';
+import { signUpInputSchema } from '@/features/auth/api/sign-up';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

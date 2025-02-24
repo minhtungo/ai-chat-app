@@ -1,5 +1,5 @@
-import { refreshToken } from '@/api/auth/refresh-token';
-import { getUser, getUserQueryOptions } from '@/api/user/get-user';
+import { refreshToken } from '@/features/auth/api/refresh-token';
+import { getUser, getUserQueryOptions } from '@/features/user/api/get-user';
 import { queryClient } from '@/lib/react-query';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';

@@ -1,8 +1,11 @@
 import { appRoutes } from '@/config/routes';
-import { Navigate, createFileRoute } from '@tanstack/react-router';
+import { Navigate, createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/app/account/')({
   component: AccountIndexComponent,
+  beforeLoad: async ({}) => {
+    return redirect({ to: appRoutes.app.chat.path });
+  },
 });
 
 function AccountIndexComponent() {

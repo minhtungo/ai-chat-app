@@ -22,7 +22,6 @@
 ## Project Structure
 
 - `/src`
-  - `/api` - API client and endpoints
   - `/assets` - Assets
   - `/providers` - Application-level providers
   - `/components` - Reusable UI components

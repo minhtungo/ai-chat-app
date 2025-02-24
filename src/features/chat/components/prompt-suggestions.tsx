@@ -1,6 +1,6 @@
-import { usePromptSuggestions } from '@/api/chat/suggestions';
 import { Info } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { usePromptSuggestions } from '@/features/chat/api/suggestions';
 import { useChatActions } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 

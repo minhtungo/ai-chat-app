@@ -1,4 +1,4 @@
-import { logInInputSchema } from '@/api/auth/login';
+import { logInInputSchema } from '@/features/auth/api/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

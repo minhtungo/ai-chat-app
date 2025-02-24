@@ -3,7 +3,7 @@ import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { buttonVariants } from '@/components/ui/button';
 import { publicNavigations } from '@/config/navigations';
 import { appRoutes } from '@/config/routes';
-import { useAuth } from '@/store/auth-store';
+import { useUser } from '@/features/user/api/get-user';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
@@ -11,7 +11,7 @@ export function PublicHeader({
   className,
   ...props
 }: React.ComponentProps<'header'>) {
-  const { isAuthenticated } = useAuth();
+  const { data: user } = useUser();
   return (
     <header className={cn('fixed inset-x-0 top-0 z-50', className)} {...props}>
       <div className='bg-background/80 border-border/30 relative border-b shadow-sm backdrop-blur-sm'>
@@ -34,7 +34,7 @@ export function PublicHeader({
           </nav>
           <div className='flex items-center gap-3'>
             <ThemeToggle />
-            {isAuthenticated ? (
+            {user ? (
               <Link
                 className={cn(
                   buttonVariants({

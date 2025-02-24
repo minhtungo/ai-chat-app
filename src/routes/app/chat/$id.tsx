@@ -1,9 +1,9 @@
+import { ChatHistoryLoadingScreen } from '@/components/loading/chat-history-loading-screen';
 import {
   getChatHistory,
   getChatHistoryQueryOptions,
   useChatHistory,
-} from '@/api/chat/chat-history';
-import { ChatHistoryLoadingScreen } from '@/components/loading/chat-history-loading-screen';
+} from '@/features/chat/api/chat-history';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useChat, useChatActions } from '@/store/chat-store';

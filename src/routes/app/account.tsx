@@ -9,8 +9,8 @@ function AccountLayoutComponent() {
   return (
     <>
       <AccountSidebar />
-      <main className='relative flex h-svh w-full flex-col'>
-        <div className='flex-1 overflow-auto p-4'>
+      <main className='relative h-svh flex-1 overflow-auto py-6'>
+        <div className='mx-auto max-w-4xl px-4'>
           <Outlet />
         </div>
       </main>

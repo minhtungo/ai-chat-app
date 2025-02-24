@@ -1,4 +1,3 @@
-import { useLogin } from '@/api/auth/login';
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -13,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { useLogin } from '@/features/auth/api/login';
 import { useLogInForm } from '@/features/auth/hooks/use-log-in-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';

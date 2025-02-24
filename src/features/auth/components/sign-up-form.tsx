@@ -1,4 +1,3 @@
-import { useSignUpMutation } from '@/api/auth/sign-up';
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import { Google } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { appConfig } from '@/config/app';
+import { useSignUpMutation } from '@/features/auth/api/sign-up';
 import { useSignUpForm } from '@/features/auth/hooks/use-sign-up-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';

@@ -1,5 +1,5 @@
-import { getUserQueryOptions } from '@/api/user/get-user';
 import { apiRoutes, appRoutes } from '@/config/routes';
+import { getUserQueryOptions } from '@/features/user/api/get-user';
 import { api } from '@/lib/api-client';
 import { useSession } from '@/store/auth-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

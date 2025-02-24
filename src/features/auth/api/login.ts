@@ -1,5 +1,5 @@
-import { getUserQueryOptions } from '@/api/user/get-user';
 import { apiRoutes, appRoutes } from '@/config/routes';
+import { getUserQueryOptions } from '@/features/user/api/get-user';
 import { baseApi } from '@/lib/api-client';
 import { commonValidations } from '@/lib/validations';
 import { useSession } from '@/store/auth-store';

@@ -21,6 +21,7 @@ export const appNavigations = {
 export const accountNavigations = {
   sidebar: [
     appRoutes.account.profile,
+    appRoutes.account.preferences,
     appRoutes.account.billing,
     appRoutes.account.files,
     appRoutes.account.settings,

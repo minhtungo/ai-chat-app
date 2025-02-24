@@ -1,3 +1,7 @@
+import darkThemeImage from '@/assets/images/settings/theme_dark.webp';
+import lightThemeImage from '@/assets/images/settings/theme_light.webp';
+import systemThemeImage from '@/assets/images/settings/theme_system.webp';
+
 export const pricingPlans = [
   {
     title: 'Basic',
@@ -24,5 +28,23 @@ export const pricingPlans = [
       'Advanced analytics',
     ],
     isPopular: true,
+  },
+];
+
+export const themes = [
+  {
+    label: 'Dark',
+    value: 'dark',
+    image: darkThemeImage,
+  },
+  {
+    label: 'Light',
+    value: 'light',
+    image: lightThemeImage,
+  },
+  {
+    label: 'System',
+    value: 'system',
+    image: systemThemeImage,
   },
 ];

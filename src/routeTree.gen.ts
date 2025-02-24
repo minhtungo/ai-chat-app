@@ -25,6 +25,7 @@ import { Route as AppAccountIndexImport } from './routes/app/account/index'
 import { Route as AppChatIdImport } from './routes/app/chat/$id'
 import { Route as AppAccountSettingsImport } from './routes/app/account/settings'
 import { Route as AppAccountProfileImport } from './routes/app/account/profile'
+import { Route as AppAccountPreferencesImport } from './routes/app/account/preferences'
 import { Route as AppAccountBillingImport } from './routes/app/account/billing'
 import { Route as AppAccountFilesIndexImport } from './routes/app/account/files/index'
 
@@ -109,6 +110,12 @@ const AppAccountSettingsRoute = AppAccountSettingsImport.update({
 const AppAccountProfileRoute = AppAccountProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => AppAccountRoute,
+} as any)
+
+const AppAccountPreferencesRoute = AppAccountPreferencesImport.update({
+  id: '/preferences',
+  path: '/preferences',
   getParentRoute: () => AppAccountRoute,
 } as any)
 
@@ -198,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAccountBillingImport
       parentRoute: typeof AppAccountImport
     }
+    '/app/account/preferences': {
+      id: '/app/account/preferences'
+      path: '/preferences'
+      fullPath: '/app/account/preferences'
+      preLoaderRoute: typeof AppAccountPreferencesImport
+      parentRoute: typeof AppAccountImport
+    }
     '/app/account/profile': {
       id: '/app/account/profile'
       path: '/profile'
@@ -270,6 +284,7 @@ const PublicRouteWithChildren =
 
 interface AppAccountRouteChildren {
   AppAccountBillingRoute: typeof AppAccountBillingRoute
+  AppAccountPreferencesRoute: typeof AppAccountPreferencesRoute
   AppAccountProfileRoute: typeof AppAccountProfileRoute
   AppAccountSettingsRoute: typeof AppAccountSettingsRoute
   AppAccountIndexRoute: typeof AppAccountIndexRoute
@@ -278,6 +293,7 @@ interface AppAccountRouteChildren {
 
 const AppAccountRouteChildren: AppAccountRouteChildren = {
   AppAccountBillingRoute: AppAccountBillingRoute,
+  AppAccountPreferencesRoute: AppAccountPreferencesRoute,
   AppAccountProfileRoute: AppAccountProfileRoute,
   AppAccountSettingsRoute: AppAccountSettingsRoute,
   AppAccountIndexRoute: AppAccountIndexRoute,
@@ -325,6 +341,7 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/app/': typeof AppIndexRoute
   '/app/account/billing': typeof AppAccountBillingRoute
+  '/app/account/preferences': typeof AppAccountPreferencesRoute
   '/app/account/profile': typeof AppAccountProfileRoute
   '/app/account/settings': typeof AppAccountSettingsRoute
   '/app/chat/$id': typeof AppChatIdRoute
@@ -340,6 +357,7 @@ export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/app': typeof AppIndexRoute
   '/app/account/billing': typeof AppAccountBillingRoute
+  '/app/account/preferences': typeof AppAccountPreferencesRoute
   '/app/account/profile': typeof AppAccountProfileRoute
   '/app/account/settings': typeof AppAccountSettingsRoute
   '/app/chat/$id': typeof AppChatIdRoute
@@ -360,6 +378,7 @@ export interface FileRoutesById {
   '/_public/': typeof PublicIndexRoute
   '/app/': typeof AppIndexRoute
   '/app/account/billing': typeof AppAccountBillingRoute
+  '/app/account/preferences': typeof AppAccountPreferencesRoute
   '/app/account/profile': typeof AppAccountProfileRoute
   '/app/account/settings': typeof AppAccountSettingsRoute
   '/app/chat/$id': typeof AppChatIdRoute
@@ -380,6 +399,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app/'
     | '/app/account/billing'
+    | '/app/account/preferences'
     | '/app/account/profile'
     | '/app/account/settings'
     | '/app/chat/$id'
@@ -394,6 +414,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/app/account/billing'
+    | '/app/account/preferences'
     | '/app/account/profile'
     | '/app/account/settings'
     | '/app/chat/$id'
@@ -412,6 +433,7 @@ export interface FileRouteTypes {
     | '/_public/'
     | '/app/'
     | '/app/account/billing'
+    | '/app/account/preferences'
     | '/app/account/profile'
     | '/app/account/settings'
     | '/app/chat/$id'
@@ -482,6 +504,7 @@ export const routeTree = rootRoute
       "parent": "/app",
       "children": [
         "/app/account/billing",
+        "/app/account/preferences",
         "/app/account/profile",
         "/app/account/settings",
         "/app/account/",
@@ -506,6 +529,10 @@ export const routeTree = rootRoute
     },
     "/app/account/billing": {
       "filePath": "app/account/billing.tsx",
+      "parent": "/app/account"
+    },
+    "/app/account/preferences": {
+      "filePath": "app/account/preferences.tsx",
       "parent": "/app/account"
     },
     "/app/account/profile": {

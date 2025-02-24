@@ -1,5 +1,3 @@
-import { useLogout } from '@/api/auth/logout';
-import { useUser } from '@/api/user/get-user';
 import { LogOut, Paintbrush, Sparkles } from '@/components/icons';
 import { ThemeSwitcher } from '@/components/theme/theme-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -14,6 +12,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
 import { appNavigations } from '@/config/navigations';
+import { useLogout } from '@/features/auth/api/logout';
+import { useUser } from '@/features/user/api/get-user';
 import { getNameInitials } from '@/utils/name';
 import { Link } from '@tanstack/react-router';
 

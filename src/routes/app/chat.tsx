@@ -1,9 +1,12 @@
-import { getChatList, getChatListQueryOptions } from '@/api/chat/chat-list';
+import { ChatSidebar } from '@/components/chat-sidebar';
+import {
+  getChatList,
+  getChatListQueryOptions,
+} from '@/features/chat/api/chat-list';
 import {
   getPromptSuggestions,
   getPromptSuggestionsQueryOptions,
-} from '@/api/chat/suggestions';
-import { ChatSidebar } from '@/components/chat-sidebar';
+} from '@/features/chat/api/suggestions';
 import { ChatHeader } from '@/features/chat/components/chat-header';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { ChatStoreProvider } from '@/store/chat-store';

@@ -1,5 +1,5 @@
-import { useUser } from '@/api/user/get-user';
 import { PromptSuggestions } from '@/features/chat/components/prompt-suggestions';
+import { useUser } from '@/features/user/api/get-user';
 
 export function NewChatScreen({}: React.ComponentProps<'div'>) {
   const { data: user } = useUser();
