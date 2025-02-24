@@ -17,6 +17,7 @@ import { Route as AppImport } from './routes/_app'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
+import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppAccountImport } from './routes/_app/account'
 import { Route as AppQuizIndexImport } from './routes/_app/quiz/index'
@@ -62,6 +63,12 @@ const AuthSignUpRoute = AuthSignUpImport.update({
 const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -175,6 +182,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/chat'
       preLoaderRoute: typeof AppChatImport
       parentRoute: typeof AppImport
+    }
+    '/_auth/forgot-password': {
+      id: '/_auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof AuthImport
     }
     '/_auth/sign-in': {
       id: '/_auth/sign-in'
@@ -324,11 +338,13 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface AuthRouteChildren {
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
 }
@@ -350,6 +366,7 @@ export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
   '/account': typeof AppAccountRouteWithChildren
   '/chat': typeof AppChatRouteWithChildren
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
@@ -367,6 +384,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
@@ -389,6 +407,7 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/_app/account': typeof AppAccountRouteWithChildren
   '/_app/chat': typeof AppChatRouteWithChildren
+  '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_public/': typeof PublicIndexRoute
@@ -410,6 +429,7 @@ export interface FileRouteTypes {
     | ''
     | '/account'
     | '/chat'
+    | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
@@ -426,6 +446,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
@@ -446,6 +467,7 @@ export interface FileRouteTypes {
     | '/_public'
     | '/_app/account'
     | '/_app/chat'
+    | '/_auth/forgot-password'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_public/'
@@ -501,6 +523,7 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/forgot-password",
         "/_auth/sign-in",
         "/_auth/sign-up"
       ]
@@ -530,6 +553,10 @@ export const routeTree = rootRoute
         "/_app/chat/$id",
         "/_app/chat/"
       ]
+    },
+    "/_auth/forgot-password": {
+      "filePath": "_auth/forgot-password.tsx",
+      "parent": "/_auth"
     },
     "/_auth/sign-in": {
       "filePath": "_auth/sign-in.tsx",

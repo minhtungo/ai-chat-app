@@ -9,7 +9,7 @@ export function AppSidebarHeader({
 }: React.ComponentProps<'div'>) {
   return (
     <div className={cn(className)} {...props}>
-      <Link to={appRoutes.home.path}>
+      <Link to={appRoutes.public.home.path}>
         <Logo />
       </Link>
     </div>

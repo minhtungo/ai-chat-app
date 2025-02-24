@@ -17,7 +17,10 @@ export function PublicHeader({
       <div className='bg-background/80 border-border/30 relative border-b shadow-sm backdrop-blur-sm'>
         <div className='container flex h-14 items-center justify-between'>
           <div className='flex w-2/12 items-center gap-2'>
-            <Link to={appRoutes.home.path} className='flex items-center gap-3'>
+            <Link
+              to={appRoutes.public.home.path}
+              className='flex items-center gap-3'
+            >
               <span className='text-foreground text-lg font-medium'>Lumi</span>
             </Link>
           </div>

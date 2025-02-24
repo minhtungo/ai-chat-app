@@ -12,6 +12,9 @@ export const apiRoutes = {
     refresh: {
       path: '/refresh',
     },
+    forgotPassword: {
+      path: '/forgot-password',
+    },
   },
   user: {
     me: {

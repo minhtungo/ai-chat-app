@@ -10,7 +10,7 @@ export function Unauthorized() {
         You are not authorized to access this page. Please sign in to continue.
       </p>
       <Button size='lg' className='mt-6' asChild>
-        <Link to={appRoutes.home.path}>Go Home</Link>
+        <Link to={appRoutes.public.home.path}>Go Home</Link>
       </Button>
     </div>
   );

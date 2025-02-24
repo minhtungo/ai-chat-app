@@ -11,7 +11,7 @@ export function PublicFooter({
       <div className='container space-y-6 pb-4'>
         <div className='border-border/40 flex flex-col flex-wrap items-center justify-between gap-4 border-t pt-6 sm:flex-row'>
           <div className='space-y-4 text-center sm:text-left'>
-            <Link to={appRoutes.home.path}>
+            <Link to={appRoutes.public.home.path}>
               <span className='text-foreground text-lg font-medium'>Lumi</span>
             </Link>
           </div>

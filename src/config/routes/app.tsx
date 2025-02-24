@@ -11,9 +11,6 @@ import {
 const appRootPath = '';
 
 export const appRoutes = {
-  home: {
-    path: '/',
-  },
   public: {
     home: {
       path: '/',
@@ -44,6 +41,10 @@ export const appRoutes = {
     signIn: {
       path: '/sign-in',
       name: 'Sign In',
+    },
+    forgotPassword: {
+      path: '/forgot-password',
+      name: 'Forgot Password',
     },
   },
   app: {

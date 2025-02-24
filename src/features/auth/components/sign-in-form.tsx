@@ -30,7 +30,7 @@ export function SignInForm({
     signIn(data);
   };
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn('space-y-6', className)} {...props}>
       <AuthFormWrapper
         title={`Sign in to ${appConfig.appName}`}
         description='Welcome back! Please sign in to continue'
@@ -70,7 +70,7 @@ export function SignInForm({
                     <div className='flex items-center justify-between'>
                       <FormLabel>Password</FormLabel>
                       <Link
-                        to='/'
+                        to={appRoutes.auth.forgotPassword.path}
                         className='text-muted-foreground inline-block text-sm underline-offset-4 hover:underline'
                       >
                         Forgot password?

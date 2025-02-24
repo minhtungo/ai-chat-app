@@ -10,7 +10,7 @@ export function NotFound() {
         The page you are looking for does not exist.
       </p>
       <Button size='lg' className='mt-6' asChild>
-        <Link to={appRoutes.home.path}>Go Home</Link>
+        <Link to={appRoutes.public.home.path}>Go Home</Link>
       </Button>
     </div>
   );
