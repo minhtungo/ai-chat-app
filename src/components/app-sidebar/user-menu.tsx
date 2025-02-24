@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
 import { appNavigations } from '@/config/navigations';
-import { useLogout } from '@/features/auth/api/logout';
+import { useSignOut } from '@/features/auth/api/sign-out';
 import { useUser } from '@/features/user/api/get-user';
 import { getNameInitials } from '@/utils/name';
 import { Link } from '@tanstack/react-router';
@@ -20,12 +20,12 @@ import { Link } from '@tanstack/react-router';
 export function UserMenu() {
   const { isMobile } = useSidebar();
   const { data: user } = useUser();
-  const { mutate: logout } = useLogout();
+  const { mutate: signOut } = useSignOut();
 
   if (!user) return null;
 
-  const onLogout = () => {
-    logout();
+  const onSignOut = () => {
+    signOut();
   };
 
   return (
@@ -88,7 +88,7 @@ export function UserMenu() {
           </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={onLogout}>
+        <DropdownMenuItem onClick={onSignOut}>
           <LogOut />
           Log out
         </DropdownMenuItem>

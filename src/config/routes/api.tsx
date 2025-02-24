@@ -1,12 +1,12 @@
 export const apiRoutes = {
   auth: {
-    login: {
+    signIn: {
       path: '/login',
     },
-    signup: {
+    signUp: {
       path: '/signup',
     },
-    logout: {
+    signOut: {
       path: '/logout',
     },
     refresh: {

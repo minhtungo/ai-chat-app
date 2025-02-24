@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
+import { appRoutes } from '@/config/routes';
 import { useSignUpMutation } from '@/features/auth/api/sign-up';
 import { OAuthActions } from '@/features/auth/components/oauth-actions';
 import { useSignUpForm } from '@/features/auth/hooks/use-sign-up-form';
@@ -88,8 +89,11 @@ export function SignUpForm({
             </LoaderButton>
             <div className='text-center text-sm'>
               Already have an account?{' '}
-              <Link to='/login' className='underline underline-offset-4'>
-                Login
+              <Link
+                to={appRoutes.auth.signIn.path}
+                className='underline underline-offset-4'
+              >
+                Sign In
               </Link>
             </div>
           </form>

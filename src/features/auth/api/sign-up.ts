@@ -35,7 +35,7 @@ export function signUpWithEmailAndPassWord(
   data: SignUpInput,
 ): Promise<AuthResponse> {
   const requestDto = dtoToSignUpRequest(data);
-  return baseApi.post(apiRoutes.auth.login.path, requestDto);
+  return baseApi.post(apiRoutes.auth.signUp.path, requestDto);
 }
 
 export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {

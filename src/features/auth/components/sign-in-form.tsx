@@ -11,22 +11,23 @@ import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { PasswordInput } from '@/components/ui/password-input';
 import { appConfig } from '@/config/app';
-import { useLogin } from '@/features/auth/api/login';
+import { appRoutes } from '@/config/routes';
+import { useSignIn } from '@/features/auth/api/sign-in';
 import { OAuthActions } from '@/features/auth/components/oauth-actions';
-import { useLogInForm } from '@/features/auth/hooks/use-log-in-form';
+import { useSignInForm } from '@/features/auth/hooks/use-sign-in-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
-export function LoginForm({
+export function SignInForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-  const { form, schema } = useLogInForm();
-  const { mutate: login, isPending } = useLogin();
+  const { form, schema } = useSignInForm();
+  const { mutate: signIn, isPending } = useSignIn();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    login(data);
+    signIn(data);
   };
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
@@ -91,7 +92,10 @@ export function LoginForm({
             </LoaderButton>
             <div className='text-center text-sm'>
               Don&apos;t have an account?{' '}
-              <Link to='/signup' className='underline underline-offset-4'>
+              <Link
+                to={appRoutes.auth.signUp.path}
+                className='underline underline-offset-4'
+              >
                 Sign Up
               </Link>
             </div>

@@ -1,11 +1,4 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { LoaderButton } from '@/components/ui/loader-button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useUser } from '@/features/user/api/get-user';

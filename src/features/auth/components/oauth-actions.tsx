@@ -11,12 +11,12 @@ export function OAuthActions({
       <Button variant='outline' type='button' className='w-full'>
         <Facebook className='size-5' />
         Facebook
-        <span className='sr-only'>Login with Facebook</span>
+        <span className='sr-only'>Sign in with Facebook</span>
       </Button>
       <Button variant='outline' type='button' className='w-full'>
         <Google />
         Google
-        <span className='sr-only'>Login with Google</span>
+        <span className='sr-only'>Sign in with Google</span>
       </Button>
     </div>
   );

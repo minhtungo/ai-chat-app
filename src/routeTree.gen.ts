@@ -15,8 +15,8 @@ import { Route as PublicImport } from './routes/_public'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as AppImport } from './routes/_app'
 import { Route as PublicIndexImport } from './routes/_public/index'
-import { Route as AuthSignupImport } from './routes/_auth/signup'
-import { Route as AuthLoginImport } from './routes/_auth/login'
+import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
+import { Route as AuthSignInImport } from './routes/_auth/sign-in'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppAccountImport } from './routes/_app/account'
 import { Route as AppQuizIndexImport } from './routes/_app/quiz/index'
@@ -53,15 +53,15 @@ const PublicIndexRoute = PublicIndexImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 
-const AuthSignupRoute = AuthSignupImport.update({
-  id: '/signup',
-  path: '/signup',
+const AuthSignUpRoute = AuthSignUpImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthLoginRoute = AuthLoginImport.update({
-  id: '/login',
-  path: '/login',
+const AuthSignInRoute = AuthSignInImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -176,18 +176,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChatImport
       parentRoute: typeof AppImport
     }
-    '/_auth/login': {
-      id: '/_auth/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginImport
+    '/_auth/sign-in': {
+      id: '/_auth/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof AuthSignInImport
       parentRoute: typeof AuthImport
     }
-    '/_auth/signup': {
-      id: '/_auth/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof AuthSignupImport
+    '/_auth/sign-up': {
+      id: '/_auth/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof AuthImport
     }
     '/_public/': {
@@ -324,13 +324,13 @@ const AppRouteChildren: AppRouteChildren = {
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface AuthRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthSignupRoute: typeof AuthSignupRoute
+  AuthSignInRoute: typeof AuthSignInRoute
+  AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthLoginRoute: AuthLoginRoute,
-  AuthSignupRoute: AuthSignupRoute,
+  AuthSignInRoute: AuthSignInRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -350,8 +350,8 @@ export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
   '/account': typeof AppAccountRouteWithChildren
   '/chat': typeof AppChatRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/signup': typeof AuthSignupRoute
+  '/sign-in': typeof AuthSignInRoute
+  '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
   '/account/billing': typeof AppAccountBillingRoute
   '/account/preferences': typeof AppAccountPreferencesRoute
@@ -367,8 +367,8 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/signup': typeof AuthSignupRoute
+  '/sign-in': typeof AuthSignInRoute
+  '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
   '/account/billing': typeof AppAccountBillingRoute
   '/account/preferences': typeof AppAccountPreferencesRoute
@@ -389,8 +389,8 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/_app/account': typeof AppAccountRouteWithChildren
   '/_app/chat': typeof AppChatRouteWithChildren
-  '/_auth/login': typeof AuthLoginRoute
-  '/_auth/signup': typeof AuthSignupRoute
+  '/_auth/sign-in': typeof AuthSignInRoute
+  '/_auth/sign-up': typeof AuthSignUpRoute
   '/_public/': typeof PublicIndexRoute
   '/_app/account/billing': typeof AppAccountBillingRoute
   '/_app/account/preferences': typeof AppAccountPreferencesRoute
@@ -410,8 +410,8 @@ export interface FileRouteTypes {
     | ''
     | '/account'
     | '/chat'
-    | '/login'
-    | '/signup'
+    | '/sign-in'
+    | '/sign-up'
     | '/'
     | '/account/billing'
     | '/account/preferences'
@@ -426,8 +426,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
-    | '/login'
-    | '/signup'
+    | '/sign-in'
+    | '/sign-up'
     | '/'
     | '/account/billing'
     | '/account/preferences'
@@ -446,8 +446,8 @@ export interface FileRouteTypes {
     | '/_public'
     | '/_app/account'
     | '/_app/chat'
-    | '/_auth/login'
-    | '/_auth/signup'
+    | '/_auth/sign-in'
+    | '/_auth/sign-up'
     | '/_public/'
     | '/_app/account/billing'
     | '/_app/account/preferences'
@@ -501,8 +501,8 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
-        "/_auth/login",
-        "/_auth/signup"
+        "/_auth/sign-in",
+        "/_auth/sign-up"
       ]
     },
     "/_public": {
@@ -531,12 +531,12 @@ export const routeTree = rootRoute
         "/_app/chat/"
       ]
     },
-    "/_auth/login": {
-      "filePath": "_auth/login.tsx",
+    "/_auth/sign-in": {
+      "filePath": "_auth/sign-in.tsx",
       "parent": "/_auth"
     },
-    "/_auth/signup": {
-      "filePath": "_auth/signup.tsx",
+    "/_auth/sign-up": {
+      "filePath": "_auth/sign-up.tsx",
       "parent": "/_auth"
     },
     "/_public/": {

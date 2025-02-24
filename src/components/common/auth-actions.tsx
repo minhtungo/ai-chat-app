@@ -11,15 +11,15 @@ export function AuthActions({
     <div className={cn('flex items-center gap-2', className)} {...props}>
       <Button size='sm' asChild>
         <Link
-          to={appRoutes.auth.login.path}
+          to={appRoutes.auth.signIn.path}
           className={cn('text-muted-foreground text-sm', className)}
         >
-          Login
+          Sign In
         </Link>
       </Button>
       <Button variant='outline' size='sm' asChild>
         <Link
-          to={appRoutes.auth.signup.path}
+          to={appRoutes.auth.signUp.path}
           className={cn('text-muted-foreground text-sm', className)}
         >
           Sign Up

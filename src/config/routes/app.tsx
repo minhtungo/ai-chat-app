@@ -37,13 +37,13 @@ export const appRoutes = {
     },
   },
   auth: {
-    signup: {
-      path: '/signup',
+    signUp: {
+      path: '/sign-up',
       name: 'Signup',
     },
-    login: {
-      path: '/login',
-      name: 'Login',
+    signIn: {
+      path: '/sign-in',
+      name: 'Sign In',
     },
   },
   app: {

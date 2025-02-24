@@ -10,7 +10,6 @@ export function useSignUpForm() {
       email: '',
       password: '',
       confirm_password: '',
-      name: '',
     },
   });
 

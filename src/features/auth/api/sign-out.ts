@@ -5,23 +5,23 @@ import { useSession } from '@/store/auth-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 
-export function logout() {
-  return api.post(apiRoutes.auth.logout.path);
+export function signOut() {
+  return api.post(apiRoutes.auth.signOut.path);
 }
 
-export function useLogout() {
+export function useSignOut() {
   const queryClient = useQueryClient();
   const { clearSession } = useSession();
   const router = useRouter();
   const location = useLocation();
 
   return useMutation({
-    mutationFn: logout,
+    mutationFn: signOut,
     onSuccess: () => {
       queryClient.setQueryData(getUserQueryOptions().queryKey, undefined);
       clearSession();
       router.navigate({
-        to: appRoutes.auth.login.path,
+        to: appRoutes.auth.signIn.path,
         search: {
           redirect: location.href,
         },

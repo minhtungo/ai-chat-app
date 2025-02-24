@@ -30,7 +30,7 @@ export function HeroSection() {
           </div>
           <div className='flex w-full flex-col items-center justify-center gap-6 lg:flex-row'>
             <Link
-              to={appRoutes.auth.login.path}
+              to={appRoutes.auth.signIn.path}
               className={buttonVariants({ size: 'lg' })}
             >
               Get Started

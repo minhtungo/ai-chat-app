@@ -9,17 +9,17 @@ import { useRouter } from '@tanstack/react-router';
 import type { AxiosError } from 'axios';
 import { z } from 'zod';
 
-export const logInInputSchema = z.object({
+export const signInInputSchema = z.object({
   email: commonValidations.email,
   password: z.string().min(1, 'Password is required'),
   code: z.optional(z.string()),
 });
 
-export type LogInInput = z.infer<typeof logInInputSchema>;
+export type SignInInput = z.infer<typeof signInInputSchema>;
 
-type LogInRequestDto = LogInInput;
+type SignInRequestDto = SignInInput;
 
-const dtoToLogInRequest = (data: LogInInput): LogInRequestDto => {
+const dtoToSignInRequest = (data: SignInInput): SignInRequestDto => {
   return {
     email: data.email,
     password: data.password,
@@ -27,20 +27,20 @@ const dtoToLogInRequest = (data: LogInInput): LogInRequestDto => {
   };
 };
 
-export function loginWithEmailAndPassWord(
-  data: LogInInput,
+export function signInWithEmailAndPassWord(
+  data: SignInInput,
 ): Promise<AuthResponse> {
-  const requestDto = dtoToLogInRequest(data);
-  return baseApi.post(apiRoutes.auth.login.path, requestDto);
+  const requestDto = dtoToSignInRequest(data);
+  return baseApi.post(apiRoutes.auth.signIn.path, requestDto);
 }
 
-export function useLogin() {
+export function useSignIn() {
   const queryClient = useQueryClient();
   const { createSession } = useSession();
   const router = useRouter();
 
   return useMutation({
-    mutationFn: loginWithEmailAndPassWord,
+    mutationFn: signInWithEmailAndPassWord,
     onSuccess: async (data) => {
       queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
       router.navigate({ to: appRoutes.app.chat.path, replace: true });
