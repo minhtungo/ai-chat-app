@@ -28,7 +28,7 @@ export function UpdatePreferencesForm({
   return (
     <div className={cn('flex w-full flex-col', className)} {...props}>
       <div className='py-4'>
-        <h2 className='text-xl font-semibold'>Profile</h2>
+        <h2 className='text-xl font-semibold'>Preferences</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='py-4'>
@@ -36,7 +36,10 @@ export function UpdatePreferencesForm({
             control={form.control}
             name='theme'
             render={({ field }) => (
-              <SettingFormItem label='Theme'>
+              <SettingFormItem
+                label='Theme'
+                controlClassName='lg:w-full lg:max-w-none lg:justify-end'
+              >
                 <RadioGroup
                   defaultValue={field.value}
                   onValueChange={(value) => {
@@ -70,7 +73,7 @@ export function UpdatePreferencesForm({
               </SettingFormItem>
             )}
           />
-          <div className='flex w-full justify-end'>
+          <div className='mt-3 flex w-full justify-end'>
             <LoaderButton isPending={isPending}>Update</LoaderButton>
           </div>
         </form>

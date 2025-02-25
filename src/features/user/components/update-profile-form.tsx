@@ -76,7 +76,7 @@ export function UpdateProfileForm({
           <div className='border-border flex flex-col justify-between gap-y-2.5 border-t py-4 lg:flex-row lg:items-center'>
             <Label>Email</Label>
             <Input
-              className='lg:w-[30%] lg:max-w-[240px]'
+              className='lg:w-[35%] lg:max-w-[300px]'
               placeholder='Email'
               value={user.email!}
               disabled
@@ -87,17 +87,12 @@ export function UpdateProfileForm({
             name='name'
             render={({ field }) => (
               <SettingFormItem label='Name'>
-                <Input
-                  className='lg:w-[30%] lg:max-w-[240px]'
-                  autoComplete='name'
-                  type='text'
-                  {...field}
-                />
+                <Input autoComplete='name' type='text' {...field} />
               </SettingFormItem>
             )}
           />
-          <div className='flex w-full justify-end'>
-            <LoaderButton isPending={isPending}>Update </LoaderButton>
+          <div className='mt-3 flex w-full justify-end'>
+            <LoaderButton isPending={isPending}>Update Profile</LoaderButton>
           </div>
         </form>
       </Form>

@@ -1,16 +1,21 @@
 import { Eye, EyeOff } from '@/components/icons';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/utils/cn';
 import { useState } from 'react';
 
-export function PasswordInput(props: React.ComponentProps<'input'>) {
+type PasswordInputProps = React.ComponentProps<'div'> & {
+  showEyeIcon?: boolean;
+};
+
+export function PasswordInput({
+  showEyeIcon = true,
+  className,
+  ...props
+}: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className='relative w-full'>
-      <Input
-        className='pr-12'
-        {...props}
-        type={showPassword ? 'text' : 'password'}
-      />
+    <div className={cn('relative', className)} {...props}>
+      <Input className='pr-12' type={showPassword ? 'text' : 'password'} />
       <button
         type='button'
         onClick={() => setShowPassword(!showPassword)}
