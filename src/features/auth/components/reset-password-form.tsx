@@ -1,5 +1,6 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import FormResponse from '@/components/form/FormResponse';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,63 +9,79 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
+import { PasswordInput } from '@/components/ui/password-input';
 import { appRoutes } from '@/config/routes';
-import { useForgotPassword } from '@/features/auth/api/forgot-password';
-import { useForgotPasswordForm } from '@/features/auth/hooks/use-forgot-password-form';
+import { useResetPassword } from '@/features/auth/api/reset-password';
+import { useResetPasswordForm } from '@/features/auth/hooks/use-reset-password-form';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
-export function ForgotPasswordForm({
+export function ResetPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
-  const { form, schema } = useForgotPasswordForm();
+  const { form, schema } = useResetPasswordForm();
   const {
-    mutate: forgotPassword,
+    mutate: resetPassword,
     isPending,
     isSuccess,
     isError,
-  } = useForgotPassword();
+  } = useResetPassword();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    forgotPassword(data.email);
+    resetPassword(data);
   };
 
   return (
     <div className={cn('space-y-6', className)} {...props}>
       <AuthFormWrapper
         title='Reset Your Password'
-        description={`Type in your email and we'll send you a link to reset your password`}
+        description={`Type in a new secure password and click Save to update your password.`}
       >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             <FormField
               control={form.control}
-              name='email'
+              name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      autoComplete='email'
-                      type='email'
-                      autoFocus
-                      {...field}
-                    />
+                    <PasswordInput autoFocus {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='confirm_password'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             {isSuccess && (
-              <FormResponse
-                title='Success'
-                variant='success'
-                description='If you signed up using your email and password, you will receive a password reset email. The password reset link expires in 10 minutes.'
-              />
+              <>
+                <FormResponse
+                  title='Success'
+                  variant='success'
+                  description='Your password has been reset successfully.'
+                />
+                <Link
+                  to={appRoutes.auth.signIn.path}
+                  className={buttonVariants({ variant: 'default' })}
+                >
+                  Sign In
+                </Link>
+              </>
             )}
             {isError && (
               <FormResponse
@@ -74,17 +91,8 @@ export function ForgotPasswordForm({
               />
             )}
             <LoaderButton isPending={isPending} className='w-full'>
-              Send Reset Email
+              Save New Password
             </LoaderButton>
-            <div className='text-center text-sm'>
-              Already have an account?{' '}
-              <Link
-                to={appRoutes.auth.signIn.path}
-                className='underline underline-offset-4'
-              >
-                Sign In
-              </Link>
-            </div>
           </form>
         </Form>
       </AuthFormWrapper>

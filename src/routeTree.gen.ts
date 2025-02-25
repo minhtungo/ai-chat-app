@@ -17,6 +17,7 @@ import { Route as AppImport } from './routes/_app'
 import { Route as PublicIndexImport } from './routes/_public/index'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
+import { Route as AuthResetPasswordImport } from './routes/_auth/reset-password'
 import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppAccountImport } from './routes/_app/account'
@@ -63,6 +64,12 @@ const AuthSignUpRoute = AuthSignUpImport.update({
 const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthResetPasswordRoute = AuthResetPasswordImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -188,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/reset-password': {
+      id: '/_auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordImport
       parentRoute: typeof AuthImport
     }
     '/_auth/sign-in': {
@@ -339,12 +353,14 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface AuthRouteChildren {
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
 }
@@ -367,6 +383,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AppAccountRouteWithChildren
   '/chat': typeof AppChatRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
+  '/reset-password': typeof AuthResetPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
@@ -385,6 +402,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
   '/forgot-password': typeof AuthForgotPasswordRoute
+  '/reset-password': typeof AuthResetPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/': typeof PublicIndexRoute
@@ -408,6 +426,7 @@ export interface FileRoutesById {
   '/_app/account': typeof AppAccountRouteWithChildren
   '/_app/chat': typeof AppChatRouteWithChildren
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/_auth/reset-password': typeof AuthResetPasswordRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_public/': typeof PublicIndexRoute
@@ -430,6 +449,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/chat'
     | '/forgot-password'
+    | '/reset-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
@@ -447,6 +467,7 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/forgot-password'
+    | '/reset-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
@@ -468,6 +489,7 @@ export interface FileRouteTypes {
     | '/_app/account'
     | '/_app/chat'
     | '/_auth/forgot-password'
+    | '/_auth/reset-password'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_public/'
@@ -524,6 +546,7 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/forgot-password",
+        "/_auth/reset-password",
         "/_auth/sign-in",
         "/_auth/sign-up"
       ]
@@ -556,6 +579,10 @@ export const routeTree = rootRoute
     },
     "/_auth/forgot-password": {
       "filePath": "_auth/forgot-password.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/reset-password": {
+      "filePath": "_auth/reset-password.tsx",
       "parent": "/_auth"
     },
     "/_auth/sign-in": {

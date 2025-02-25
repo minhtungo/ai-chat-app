@@ -15,6 +15,9 @@ export const apiRoutes = {
     forgotPassword: {
       path: '/forgot-password',
     },
+    resetPassword: {
+      path: '/reset-password',
+    },
   },
   user: {
     me: {
