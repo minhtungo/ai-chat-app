@@ -1,5 +1,6 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import FormResponse from '@/components/form/FormResponse';
+import { PasswordInput } from '@/components/password/password-input';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Form,
@@ -10,7 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { LoaderButton } from '@/components/ui/loader-button';
-import { PasswordInput } from '@/components/ui/password-input';
 import { appRoutes } from '@/config/routes';
 import { useResetPassword } from '@/features/auth/api/reset-password';
 import { useResetPasswordForm } from '@/features/auth/hooks/use-reset-password-form';

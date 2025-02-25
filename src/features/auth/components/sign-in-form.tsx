@@ -1,4 +1,5 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
+import { PasswordInput } from '@/components/password/password-input';
 import {
   Form,
   FormControl,
@@ -9,7 +10,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
-import { PasswordInput } from '@/components/ui/password-input';
 import { appConfig } from '@/config/app';
 import { appRoutes } from '@/config/routes';
 import { useSignIn } from '@/features/auth/api/sign-in';
@@ -77,10 +77,7 @@ export function SignInForm({
                       </Link>
                     </div>
                     <FormControl>
-                      <PasswordInput
-                        autoComplete='current-password password'
-                        {...field}
-                      />
+                      <PasswordInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

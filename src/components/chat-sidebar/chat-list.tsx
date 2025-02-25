@@ -46,7 +46,7 @@ export function ChatList() {
               </Link>
             </SidebarMenuButton>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger tabIndex={-1} asChild>
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
                   <span className='sr-only'>More</span>

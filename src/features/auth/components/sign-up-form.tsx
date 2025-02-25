@@ -1,5 +1,6 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import FormResponse from '@/components/form/FormResponse';
+import { PasswordInput } from '@/components/password/password-input';
 import { PasswordInputStrength } from '@/components/password/password-input-strength';
 import {
   Form,
@@ -11,7 +12,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
-import { PasswordInput } from '@/components/ui/password-input';
 import { appRoutes } from '@/config/routes';
 import { useSignUpMutation } from '@/features/auth/api/sign-up';
 import { OAuthActions } from '@/features/auth/components/oauth-actions';

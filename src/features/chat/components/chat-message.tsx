@@ -92,6 +92,7 @@ function ChatMessageActions({
           key={`${action.tooltip}-${messageId}-action`}
           tooltip={action.tooltip}
           side='bottom'
+          tabIndex={-1}
         >
           <Button variant='ghost' size='icon' className='size-6'>
             <action.icon className='size-3.5' />

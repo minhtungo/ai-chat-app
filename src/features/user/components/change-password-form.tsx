@@ -1,7 +1,6 @@
+import { PasswordInput } from '@/components/password/password-input';
 import { Form, FormField } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { LoaderButton } from '@/components/ui/loader-button';
-import { PasswordInput } from '@/components/ui/password-input';
 import { useChangePassword } from '@/features/user/api/change-password';
 import { SettingFormItem } from '@/features/user/components/setting-form-item';
 import { useChangePasswordForm } from '@/features/user/hooks/use-change-password';
