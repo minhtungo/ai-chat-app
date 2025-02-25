@@ -11,6 +11,7 @@ export type TooltipButtonProps = React.ComponentProps<
 > & {
   tooltip: string;
   side?: 'top' | 'right' | 'bottom' | 'left';
+  sideOffset?: number;
 };
 
 export function TooltipButton({
@@ -18,6 +19,7 @@ export function TooltipButton({
   tooltip,
   className,
   side = 'bottom',
+  sideOffset = 0,
   ...props
 }: TooltipButtonProps) {
   return (
@@ -25,7 +27,9 @@ export function TooltipButton({
       <TooltipTrigger className={cn(className)} {...props} asChild>
         {children}
       </TooltipTrigger>
-      <TooltipContent side={side}>{tooltip}</TooltipContent>
+      <TooltipContent side={side} sideOffset={sideOffset}>
+        {tooltip}
+      </TooltipContent>
     </Tooltip>
   );
 }

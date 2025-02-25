@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { ChatAttachment } from '@/features/chat/components/chat-attachment';
+import { VoiceRecorder } from '@/features/chat/components/voice-recorder';
 import { useChatInput } from '@/features/chat/hooks/use-chat-input';
 import type { Attachment } from '@/types/chat';
 import { useRef } from 'react';
@@ -99,9 +100,10 @@ function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
         </>
       </TooltipButton>
       <TooltipButton tooltip='Voice Input' sideOffset={0}>
-        <Button variant='ghost' size='icon' className='size-8' type='button'>
+        {/* <Button variant='ghost' size='icon' className='size-8' type='button'>
           <Mic className='size-4.5' />
-        </Button>
+        </Button> */}
+        <VoiceRecorder onRecordingComplete={() => {}} />
       </TooltipButton>
       <TooltipButton tooltip='Camera' sideOffset={0}>
         <Button variant='ghost' size='icon' className='size-8' type='button'>
