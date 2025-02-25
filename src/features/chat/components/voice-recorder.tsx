@@ -2,7 +2,7 @@ import { Mic, Square } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/cn';
 import { formatSecondsToMMSS } from '@/utils/format';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 interface VoiceRecorderProps {
@@ -15,6 +15,16 @@ export function VoiceRecorder({ onRecordingComplete }: VoiceRecorderProps) {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const timerRef = useRef<number>(0);
   const chunksRef = useRef<Blob[]>([]);
+
+  useEffect(() => {
+    // Cleanup function to stop recording and clear intervals when component unmounts
+    return () => {
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+      }
+      clearInterval(timerRef.current);
+    };
+  }, []);
 
   const startRecording = async () => {
     try {
