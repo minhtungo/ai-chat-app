@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { Form, FormField } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,7 @@ import { cn } from '@/utils/cn';
 import { getNameInitials } from '@/utils/name';
 import { Camera } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 export function UpdateProfileForm({
@@ -31,6 +33,7 @@ export function UpdateProfileForm({
 
   return (
     <div className={cn('flex w-full flex-col', className)} {...props}>
+      <Button onClick={() => toast.success('Hello')}>Toast</Button>
       <div className='py-4'>
         <h2 className='text-xl font-semibold'>Profile</h2>
       </div>

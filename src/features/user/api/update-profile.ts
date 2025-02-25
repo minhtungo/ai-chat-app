@@ -3,6 +3,7 @@ import type { UpdateProfileInput } from '@/features/user/hooks/use-update-profil
 import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 type UpdateProfileRequestDto = UpdateProfileInput;
 
@@ -20,9 +21,14 @@ export function updateProfile(data: UpdateProfileInput): Promise<User> {
   return privateApi.put(apiRoutes.user.profile.path, requestDto);
 }
 
-export function useUpdateProfile(onSuccess?: () => void) {
+export function useUpdateProfile() {
   return useMutation({
     mutationFn: updateProfile,
-    onSuccess,
+    onSuccess: () => {
+      toast.success('Your profile has been updated.');
+    },
+    onError: () => {
+      toast.error('Failed to update profile. Please try again.');
+    },
   });
 }

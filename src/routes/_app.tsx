@@ -1,5 +1,6 @@
 import { AppSideBar } from '@/components/app-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
+import { Toaster } from '@/components/ui/sonner';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app')({
@@ -20,9 +21,12 @@ export const Route = createFileRoute('/_app')({
 
 function AppLayoutComponent() {
   return (
-    <SidebarProvider>
-      <AppSideBar />
-      <Outlet />
-    </SidebarProvider>
+    <>
+      <SidebarProvider>
+        <AppSideBar />
+        <Outlet />
+      </SidebarProvider>
+      <Toaster />
+    </>
   );
 }

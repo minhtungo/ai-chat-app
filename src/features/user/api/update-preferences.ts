@@ -3,6 +3,7 @@ import type { UpdatePreferencesInput } from '@/features/user/hooks/use-update-pr
 import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 type UpdatePreferencesRequestDto = {
   theme: string;
@@ -21,9 +22,14 @@ export function updatePreferences(data: UpdatePreferencesInput): Promise<User> {
   return privateApi.put(apiRoutes.user.preferences.path, requestDto);
 }
 
-export function useUpdatePreferences(onSuccess?: () => void) {
+export function useUpdatePreferences() {
   return useMutation({
     mutationFn: updatePreferences,
-    onSuccess,
+    onSuccess: () => {
+      toast.success('Your preferences have been updated.');
+    },
+    onError: () => {
+      toast.error('Failed to update preferences. Please try again.');
+    },
   });
 }

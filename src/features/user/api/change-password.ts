@@ -3,6 +3,7 @@ import type { ChangePasswordInput } from '@/features/user/hooks/use-change-passw
 import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 type ChangePasswordRequestDto = Omit<ChangePasswordInput, 'confirmNewPassword'>;
 
@@ -20,9 +21,14 @@ export function changePassword(data: ChangePasswordInput): Promise<User> {
   return privateApi.put(apiRoutes.user.profile.path, requestDto);
 }
 
-export function useChangePassword(onSuccess?: () => void) {
+export function useChangePassword() {
   return useMutation({
     mutationFn: changePassword,
-    onSuccess,
+    onSuccess: () => {
+      toast.success('Your password has been changed.');
+    },
+    onError: () => {
+      toast.error('Failed to change password. Please try again.');
+    },
   });
 }
