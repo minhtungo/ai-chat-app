@@ -1,5 +1,6 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
 import FormResponse from '@/components/form/FormResponse';
+import { PasswordInputStrength } from '@/components/password/password-input-strength';
 import {
   Form,
   FormControl,
@@ -70,7 +71,7 @@ export function SignUpForm({
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <PasswordInput {...field} />
+                      <PasswordInputStrength {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
