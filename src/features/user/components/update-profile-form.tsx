@@ -6,6 +6,7 @@ import { LoaderButton } from '@/components/ui/loader-button';
 import { useUser } from '@/features/user/api/get-user';
 import { useUpdateProfile } from '@/features/user/api/update-profile';
 import { SettingFormItem } from '@/features/user/components/setting-form-item';
+import { SubjectsSelection } from '@/features/user/components/subjects-selection';
 import { useUpdateProfileForm } from '@/features/user/hooks/use-update-profile-form';
 import { cn } from '@/utils/cn';
 import { getNameInitials } from '@/utils/name';
@@ -91,6 +92,12 @@ export function UpdateProfileForm({
               </SettingFormItem>
             )}
           />
+          <div className='border-border flex flex-col justify-between gap-y-2.5 border-t py-4 lg:flex-row lg:items-center'>
+            <Label>Subjects</Label>
+            <div className='w-full min-w-[300px] lg:max-w-[300px]'>
+              <SubjectsSelection />
+            </div>
+          </div>
           <div className='mt-3 flex w-full justify-end'>
             <LoaderButton isPending={isPending}>Update Profile</LoaderButton>
           </div>
