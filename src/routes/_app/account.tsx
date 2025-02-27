@@ -10,7 +10,7 @@ function AccountLayoutComponent() {
     <>
       <AccountSidebar />
       <main className='relative h-svh flex-1 overflow-auto py-6'>
-        <div className='mx-auto max-w-4xl px-4'>
+        <div className='mx-auto max-w-5xl space-y-10 px-4'>
           <Outlet />
         </div>
       </main>

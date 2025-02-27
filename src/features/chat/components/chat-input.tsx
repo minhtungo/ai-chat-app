@@ -1,4 +1,4 @@
-import { ArrowUp, Camera, Image, Mic } from '@/components/icons';
+import { ArrowUp, Camera, Image } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { TooltipButton } from '@/components/ui/tooltip-button';

@@ -1,3 +1,5 @@
+import { PaymentMethods } from '@/features/user/components/payment-methods';
+import { Plans } from '@/features/user/components/plans';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/account/billing')({
@@ -5,5 +7,10 @@ export const Route = createFileRoute('/_app/account/billing')({
 });
 
 function RouteComponent() {
-  return <div>Hello "/_app/profile/billing"!</div>;
+  return (
+    <>
+      <PaymentMethods />
+      <Plans />
+    </>
+  );
 }
