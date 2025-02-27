@@ -1,3 +1,4 @@
+import { UpdatePreferencesForm } from '@/features/user/components/update-preferences-form';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/account/settings')({
@@ -5,5 +6,5 @@ export const Route = createFileRoute('/_app/account/settings')({
 });
 
 function RouteComponent() {
-  return <div>Hello "/_app/settings"!</div>;
+  return <UpdatePreferencesForm />;
 }

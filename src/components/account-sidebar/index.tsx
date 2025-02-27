@@ -29,6 +29,7 @@ export function AccountSidebar({
                 <SidebarMenuButton asChild>
                   <Link
                     to={item.path}
+                    className='h-10'
                     activeProps={{
                       className: 'bg-accent',
                     }}

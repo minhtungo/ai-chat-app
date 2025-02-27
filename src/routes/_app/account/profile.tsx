@@ -8,9 +8,9 @@ export const Route = createFileRoute('/_app/account/profile')({
 
 function RouteComponent() {
   return (
-    <div className='space-y-6'>
+    <>
       <UpdateProfileForm />
       <ChangePasswordForm />
-    </div>
+    </>
   );
 }
