@@ -28,7 +28,6 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
                   <ChatMessageAttachment
                     key={`chat-message-attachment-${attachment.id}`}
                     attachment={attachment}
-                    size='lg'
                   />
                 </div>
               ))}
@@ -56,13 +55,13 @@ function ChatMessageContent({ message }: { message: ChatMessageType }) {
   return (
     <div
       className={cn(
-        'w-fit',
+        'w-full',
         message.role === 'user'
           ? 'bg-muted ml-auto rounded-lg px-3 py-2 md:px-4 md:py-3'
           : 'bg-transparent',
       )}
     >
-      <div className='prose prose-sm text-base leading-7 break-words'>
+      <div className='prose prose-sm text-base leading-6 break-words whitespace-pre-wrap'>
         {message.content}
       </div>
     </div>

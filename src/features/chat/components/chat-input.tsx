@@ -45,6 +45,7 @@ export function ChatInput({ onSend }: ChatInputProps) {
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
+            e.currentTarget.style.height = '';
             handleSubmit(e);
           }
         }}

@@ -1,13 +1,13 @@
 import { appConfig } from '@/config/app';
 import { ChatInput } from '@/features/chat/components/chat-input';
-import { useChatActions } from '@/store/chat-store';
+import { useChatMessageActions } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
 type ChatPanelProps = React.ComponentProps<'div'>;
 
 export function ChatPanel({ className, ...props }: ChatPanelProps) {
-  const { addMessage } = useChatActions();
+  const { addMessage } = useChatMessageActions();
 
   const handleSendMessage = (message: string, attachments: Attachment[]) => {
     addMessage({
@@ -21,12 +21,12 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
 
   return (
     <div className={cn('group m-auto w-full', className)} {...props}>
-      <div className='bg-background relative z-10 mx-auto flex flex-1 flex-col xl:max-w-5xl'>
+      <div className='bg-background relative z-10 mx-auto flex flex-1 flex-col pb-3 xl:max-w-5xl'>
         <ChatInput onSend={handleSendMessage} />
-        <p className='text-muted-foreground py-2 text-center text-xs'>
+        {/* <p className='text-muted-foreground py-2 text-center text-xs'>
           {appConfig.appName} Tutor can make mistakes. Consider checking
           important information.
-        </p>
+        </p> */}
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { FileText } from '@/components/icons';
+import { useChatCanvasActions } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
-type ChatMessageAttachmentProps = React.ComponentProps<'div'> & {
+type ChatMessageAttachmentProps = React.ComponentProps<'button'> & {
   attachment: Attachment;
 };
 
@@ -11,16 +12,19 @@ export function ChatMessageAttachment({
   className,
   ...props
 }: ChatMessageAttachmentProps) {
+  const { openCanvas } = useChatCanvasActions();
+
   return (
-    <div
-      key={`chat-input-attachment-${attachment.id}`}
+    <button
+      type='button'
       className={cn(
-        'relative mb-1 w-fit rounded-md',
+        'relative mb-1 w-fit cursor-pointer rounded-md',
         attachment.type === 'doc' &&
           'bg-secondary/40 z-10 flex max-w-[300px] items-center gap-1 p-2 pr-6',
         className,
       )}
       {...props}
+      onClick={() => openCanvas(attachment)}
     >
       {attachment.type === 'image' ? (
         <img
@@ -35,6 +39,6 @@ export function ChatMessageAttachment({
           <span className='truncate text-sm'>{attachment.name}</span>
         </div>
       )}
-    </div>
+    </button>
   );
 }

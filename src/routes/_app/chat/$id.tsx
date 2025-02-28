@@ -4,9 +4,10 @@ import {
   getChatHistoryQueryOptions,
   useChatHistory,
 } from '@/features/chat/api/chat-history';
+import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { useChat, useChatActions } from '@/store/chat-store';
+import { useChat, useChatMessageActions } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
@@ -25,7 +26,7 @@ export const Route = createFileRoute('/_app/chat/$id')({
 
 function RouteComponent() {
   const { id } = Route.useParams();
-  const { clearMessages } = useChatActions();
+  const { clearMessages } = useChatMessageActions();
   const { messages } = useChat();
 
   useEffect(() => {
@@ -43,5 +44,10 @@ function RouteComponent() {
     return <NewChatScreen />;
   }
 
-  return <ChatHistory messages={allMessages} />;
+  return (
+    <>
+      <ChatHistory messages={allMessages} className='px-4' />
+      <ChatCanvas messages={allMessages} />
+    </>
+  );
 }

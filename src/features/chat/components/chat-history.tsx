@@ -13,10 +13,7 @@ export function ChatHistory({
 }: ChatHistoryProps) {
   return (
     <div
-      className={cn(
-        'flex min-h-0 flex-1 flex-col overflow-auto px-4 pb-12',
-        className,
-      )}
+      className={cn('flex min-h-0 flex-1 flex-col overflow-auto', className)}
       ref={(el) => {
         if (el) {
           el.scrollTop = el.scrollHeight;
