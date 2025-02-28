@@ -2,7 +2,7 @@ import { ArrowUp, Camera, Image } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { TooltipButton } from '@/components/ui/tooltip-button';
-import { ChatAttachment } from '@/features/chat/components/chat-attachment';
+import { ChatInputAttachment } from '@/features/chat/components/chat-input-attachment';
 import { VoiceRecorder } from '@/features/chat/components/voice-recorder';
 import { useChatInput } from '@/features/chat/hooks/use-chat-input';
 import type { Attachment } from '@/types/chat';
@@ -28,10 +28,10 @@ export function ChatInput({ onSend }: ChatInputProps) {
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
       {attachments.length > 0 && (
-        <div className='flex gap-2 overflow-auto pt-1'>
+        <div className='mb-1 flex gap-2 overflow-auto pt-1'>
           {attachments.map((attachment) => (
             <div key={`chat-input-attachment-${attachment.id}`}>
-              <ChatAttachment
+              <ChatInputAttachment
                 attachment={attachment}
                 onRemoveAttachment={handleRemoveAttachment}
               />

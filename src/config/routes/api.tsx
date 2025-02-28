@@ -1,22 +1,27 @@
+const authRootPath = '/auth';
+
 export const apiRoutes = {
   auth: {
     signIn: {
-      path: '/login',
+      path: `${authRootPath}/sign-in`,
     },
     signUp: {
-      path: '/signup',
+      path: `${authRootPath}/sign-up`,
     },
     signOut: {
-      path: '/logout',
+      path: `${authRootPath}/sign-out`,
     },
     refresh: {
-      path: '/refresh',
+      path: `${authRootPath}/refresh`,
     },
     forgotPassword: {
-      path: '/forgot-password',
+      path: `${authRootPath}/forgot-password`,
     },
     resetPassword: {
-      path: '/reset-password',
+      path: `${authRootPath}/reset-password`,
+    },
+    verifyEmail: {
+      path: `${authRootPath}/verify-email`,
     },
   },
   user: {

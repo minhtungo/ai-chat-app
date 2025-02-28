@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
-import { ChatAttachment } from '@/features/chat/components/chat-attachment';
+import { ChatMessageAttachment } from '@/features/chat/components/chat-message-attachment';
 import { chatMessageActions } from '@/features/chat/lib/actions';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
@@ -18,21 +18,22 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
           <div
             className={cn(
               message.role === 'user'
-                ? 'ml-auto w-max md:max-w-[75%]'
+                ? 'ml-auto w-fit md:max-w-[75%]'
                 : 'md:mb-2',
             )}
           >
-            <ChatMessageContent message={message} />
             {message.attachments.length > 0 &&
               message.attachments.map((attachment) => (
-                <div className='mt-2 flex flex-col gap-1'>
-                  <ChatAttachment
+                <div className='mb-3 flex flex-col items-end gap-1'>
+                  <ChatMessageAttachment
                     key={`chat-message-attachment-${attachment.id}`}
                     attachment={attachment}
-                    onRemoveAttachment={() => {}}
+                    size='lg'
                   />
                 </div>
               ))}
+            <ChatMessageContent message={message} />
+
             <div className='empty:hidden md:absolute'>
               {message.role === 'assistant' && (
                 <ChatMessageActions
@@ -50,11 +51,14 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
 }
 
 function ChatMessageContent({ message }: { message: ChatMessageType }) {
+  if (message.content.trim() === '') return null;
+
   return (
     <div
       className={cn(
+        'w-fit',
         message.role === 'user'
-          ? 'bg-muted rounded-lg px-3 py-2 md:px-4 md:py-3'
+          ? 'bg-muted ml-auto rounded-lg px-3 py-2 md:px-4 md:py-3'
           : 'bg-transparent',
       )}
     >

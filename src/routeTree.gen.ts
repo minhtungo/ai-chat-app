@@ -25,6 +25,7 @@ import { Route as AppQuizIndexImport } from './routes/_app/quiz/index'
 import { Route as AppLessonIndexImport } from './routes/_app/lesson/index'
 import { Route as AppChatIndexImport } from './routes/_app/chat/index'
 import { Route as AppAccountIndexImport } from './routes/_app/account/index'
+import { Route as AuthVerifyEmailTokenImport } from './routes/_auth/verify-email.$token'
 import { Route as AppChatIdImport } from './routes/_app/chat/$id'
 import { Route as AppAccountSettingsImport } from './routes/_app/account/settings'
 import { Route as AppAccountProfileImport } from './routes/_app/account/profile'
@@ -112,6 +113,12 @@ const AppAccountIndexRoute = AppAccountIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppAccountRoute,
+} as any)
+
+const AuthVerifyEmailTokenRoute = AuthVerifyEmailTokenImport.update({
+  id: '/verify-email/$token',
+  path: '/verify-email/$token',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AppChatIdRoute = AppChatIdImport.update({
@@ -246,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChatIdImport
       parentRoute: typeof AppChatImport
     }
+    '/_auth/verify-email/$token': {
+      id: '/_auth/verify-email/$token'
+      path: '/verify-email/$token'
+      fullPath: '/verify-email/$token'
+      preLoaderRoute: typeof AuthVerifyEmailTokenImport
+      parentRoute: typeof AuthImport
+    }
     '/_app/account/': {
       id: '/_app/account/'
       path: '/'
@@ -340,6 +354,7 @@ interface AuthRouteChildren {
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
+  AuthVerifyEmailTokenRoute: typeof AuthVerifyEmailTokenRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
@@ -347,6 +362,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
+  AuthVerifyEmailTokenRoute: AuthVerifyEmailTokenRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -375,6 +391,7 @@ export interface FileRoutesByFullPath {
   '/account/profile': typeof AppAccountProfileRoute
   '/account/settings': typeof AppAccountSettingsRoute
   '/chat/$id': typeof AppChatIdRoute
+  '/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/account/': typeof AppAccountIndexRoute
   '/chat/': typeof AppChatIndexRoute
   '/lesson': typeof AppLessonIndexRoute
@@ -393,6 +410,7 @@ export interface FileRoutesByTo {
   '/account/profile': typeof AppAccountProfileRoute
   '/account/settings': typeof AppAccountSettingsRoute
   '/chat/$id': typeof AppChatIdRoute
+  '/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/account': typeof AppAccountIndexRoute
   '/chat': typeof AppChatIndexRoute
   '/lesson': typeof AppLessonIndexRoute
@@ -416,6 +434,7 @@ export interface FileRoutesById {
   '/_app/account/profile': typeof AppAccountProfileRoute
   '/_app/account/settings': typeof AppAccountSettingsRoute
   '/_app/chat/$id': typeof AppChatIdRoute
+  '/_auth/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/_app/account/': typeof AppAccountIndexRoute
   '/_app/chat/': typeof AppChatIndexRoute
   '/_app/lesson/': typeof AppLessonIndexRoute
@@ -438,6 +457,7 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/account/settings'
     | '/chat/$id'
+    | '/verify-email/$token'
     | '/account/'
     | '/chat/'
     | '/lesson'
@@ -455,6 +475,7 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/account/settings'
     | '/chat/$id'
+    | '/verify-email/$token'
     | '/account'
     | '/chat'
     | '/lesson'
@@ -476,6 +497,7 @@ export interface FileRouteTypes {
     | '/_app/account/profile'
     | '/_app/account/settings'
     | '/_app/chat/$id'
+    | '/_auth/verify-email/$token'
     | '/_app/account/'
     | '/_app/chat/'
     | '/_app/lesson/'
@@ -526,7 +548,8 @@ export const routeTree = rootRoute
         "/_auth/forgot-password",
         "/_auth/reset-password",
         "/_auth/sign-in",
-        "/_auth/sign-up"
+        "/_auth/sign-up",
+        "/_auth/verify-email/$token"
       ]
     },
     "/_public": {
@@ -589,6 +612,10 @@ export const routeTree = rootRoute
     "/_app/chat/$id": {
       "filePath": "_app/chat/$id.tsx",
       "parent": "/_app/chat"
+    },
+    "/_auth/verify-email/$token": {
+      "filePath": "_auth/verify-email.$token.tsx",
+      "parent": "/_auth"
     },
     "/_app/account/": {
       "filePath": "_app/account/index.tsx",

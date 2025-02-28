@@ -42,13 +42,15 @@ privateApi.interceptors.response.use(
       prevRequest.sent = true;
       try {
         const response = await refreshToken();
+        console.log('interceptors', response);
+        console.log('test', response?.data.accessToken);
         const newAccessToken = response?.data.accessToken;
         authStore.setState((state) => ({
           ...state,
           state: { ...state.state, token: newAccessToken },
         }));
         prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(prevRequest);
+        return privateApi(prevRequest);
       } catch (refreshError) {
         console.error('Token refresh failed:', refreshError);
         return Promise.reject(refreshError);
