@@ -1,7 +1,8 @@
-import { Camera, Image } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { VoiceRecorder } from '@/features/chat/components/chat-input/voice-recorder';
+import { WebcamRecorder } from '@/features/chat/components/webcam-recorder';
+import { Image } from 'lucide-react';
 import { useRef } from 'react';
 
 type ChatInputActionsProps = React.ComponentProps<'div'> & {
@@ -29,21 +30,16 @@ export function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
             ref={fileInputRef}
             onChange={onFileChange}
             multiple
-            accept='image/*,.pdf,.doc,.docx'
+            accept='image/*,.pdf,.doc,.docx,video/*'
             hidden
           />
         </div>
       </TooltipButton>
       <TooltipButton tooltip='Voice Input' sideOffset={0}>
-        {/* <Button variant='ghost' size='icon' className='size-8' type='button'>
-          <Mic className='size-4.5' />
-        </Button> */}
         <VoiceRecorder onRecordingComplete={() => {}} />
       </TooltipButton>
       <TooltipButton tooltip='Camera' sideOffset={0}>
-        <Button variant='ghost' size='icon' className='size-8' type='button'>
-          <Camera className='size-4.5' />
-        </Button>
+        <WebcamRecorder />
       </TooltipButton>
     </div>
   );
