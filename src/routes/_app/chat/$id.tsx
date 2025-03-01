@@ -21,7 +21,11 @@ export const Route = createFileRoute('/_app/chat/$id')({
         getChatHistory({ offset: pageParam, chatId: params.id }),
     });
   },
-  pendingComponent: () => <ChatHistoryLoadingScreen />,
+  pendingComponent: () => (
+    <div className='px-4'>
+      <ChatHistoryLoadingScreen />
+    </div>
+  ),
 });
 
 function ChatRouteComponent() {

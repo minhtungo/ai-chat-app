@@ -1,5 +1,5 @@
 import { FileText } from '@/components/icons';
-import { useChatCanvasActions } from '@/store/chat-store';
+import { useCanvasActions } from '@/store/canvas-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
@@ -12,7 +12,7 @@ export function ChatMessageAttachment({
   className,
   ...props
 }: ChatMessageAttachmentProps) {
-  const { openCanvas } = useChatCanvasActions();
+  const { setCanvasMode } = useCanvasActions();
 
   return (
     <button
@@ -24,7 +24,13 @@ export function ChatMessageAttachment({
         className,
       )}
       {...props}
-      onClick={() => openCanvas(attachment)}
+      onClick={() =>
+        setCanvasMode({
+          isOpen: true,
+          type: 'image',
+          attachment,
+        })
+      }
     >
       {attachment.type === 'image' ? (
         <img

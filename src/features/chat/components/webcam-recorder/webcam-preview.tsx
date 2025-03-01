@@ -1,21 +1,31 @@
+import { Camera, Square, SquareX } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { useWebcamRecorder } from '@/features/chat/hooks/use-webcam-recorder';
 import { cn } from '@/utils/cn';
 import { formatSecondsToMMSS } from '@/utils/format';
+import { useParams } from '@tanstack/react-router';
 
-type WebcamPreviewProps = React.ComponentProps<'video'> & {
-  isRecording: boolean;
-  duration: number;
-};
+type WebcamPreviewProps = React.ComponentProps<'div'> & {};
 
-export const WebcamPreview = ({
-  isRecording,
-  duration,
-  className,
-  ref,
-}: WebcamPreviewProps) => {
+export const WebcamPreview = ({ className, ...props }: WebcamPreviewProps) => {
+  const { id: chatId } = useParams({ from: '/_app/chat/$id' }) || { id: '123' };
+  const {
+    isRecording,
+    startRecording,
+    stopRecording,
+    videoPreviewRef,
+    duration,
+  } = useWebcamRecorder({
+    chatId,
+  });
+
   return (
-    <div className={cn('relative overflow-hidden rounded-md', className)}>
+    <div
+      className={cn('relative overflow-hidden rounded-md', className)}
+      {...props}
+    >
       <video
-        ref={ref}
+        ref={videoPreviewRef}
         className='h-full w-full object-cover'
         autoPlay
         playsInline
@@ -23,11 +33,28 @@ export const WebcamPreview = ({
       />
 
       {isRecording && (
-        <div className='absolute top-2 right-2 flex items-center gap-2 rounded-md bg-black/50 px-2 py-1 text-xs text-white'>
-          <div className='h-2 w-2 animate-pulse rounded-full bg-red-500' />
+        <div className='text-foreground absolute top-2 right-4 flex items-center gap-2 rounded-md px-2 py-1 text-xs'>
+          <div className='size-2 animate-pulse rounded-full bg-red-500' />
           <span>{formatSecondsToMMSS(duration)}</span>
         </div>
       )}
+      <div className='bg-background/80 absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-md px-3 py-2'>
+        <Button
+          variant='ghost'
+          size='icon'
+          onClick={isRecording ? stopRecording : startRecording}
+          className={cn(
+            isRecording &&
+              'text-destructive hover:text-destructive/90 hover:bg-destructive/10',
+          )}
+        >
+          {isRecording ? (
+            <Square className='size-4.5 animate-pulse fill-red-500' />
+          ) : (
+            <Camera className='size-4.5' />
+          )}
+        </Button>
+      </div>
     </div>
   );
 };

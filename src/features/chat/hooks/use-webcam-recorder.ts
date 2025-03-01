@@ -1,5 +1,4 @@
 import { useVideoUpload } from '@/features/chat/api/upload-video';
-import { useChatCanvasActions } from '@/store/chat-store';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -31,16 +30,6 @@ export function useWebcamRecorder({
   const chunksRef = useRef<Blob[]>([]);
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const { mutate: uploadVideo } = useVideoUpload();
-
-  // Get the store update function
-  const { updateCanvasMetadata } = useChatCanvasActions();
-
-  // Update store when duration changes
-  useEffect(() => {
-    if (isRecording) {
-      updateCanvasMetadata({ duration, isRecording });
-    }
-  }, [duration, isRecording, updateCanvasMetadata]);
 
   // Clean up only on unmount
   useEffect(() => {
@@ -95,9 +84,6 @@ export function useWebcamRecorder({
       mediaRecorder.start();
       setIsRecording(true);
 
-      // Update store with recording state
-      updateCanvasMetadata({ isRecording: true, duration: 0 });
-
       // Set up timer for duration display
       let seconds = 0;
       timerRef.current = window.setInterval(() => {
@@ -127,11 +113,11 @@ export function useWebcamRecorder({
             const segmentId = crypto.randomUUID();
 
             // Upload the video segment
-            // uploadVideo({
-            //   videoBlob,
-            //   chatId,
-            //   segmentId,
-            // });
+            uploadVideo({
+              videoBlob,
+              chatId,
+              segmentId,
+            });
 
             if (onVideoSegmentCapture) {
               onVideoSegmentCapture(videoBlob);
@@ -170,11 +156,11 @@ export function useWebcamRecorder({
           const segmentId = crypto.randomUUID();
 
           // Upload the final video segment
-          // uploadVideo({
-          //   videoBlob,
-          //   chatId,
-          //   segmentId,
-          // });
+          uploadVideo({
+            videoBlob,
+            chatId,
+            segmentId,
+          });
 
           // Also call the callback if provided
           if (onVideoSegmentCapture) {
@@ -195,9 +181,6 @@ export function useWebcamRecorder({
       clearInterval(timerRef.current);
       clearInterval(segmentIntervalRef.current);
       setDuration(0);
-
-      // Update store with recording stopped
-      updateCanvasMetadata({ isRecording: false, duration: 0 });
 
       // Clear preview
       if (videoPreviewRef.current) {

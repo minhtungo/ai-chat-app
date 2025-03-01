@@ -9,7 +9,7 @@ import { ChatHistory } from '@/features/chat/components/chat-history';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
 import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
-import { useChat, useChatCanvasActions } from '@/store/chat-store';
+import { useCanvas, useCanvasActions } from '@/store/canvas-store';
 import type { ChatMessage } from '@/types/chat';
 
 interface ChatCanvasProps {
@@ -17,8 +17,8 @@ interface ChatCanvasProps {
 }
 
 export function ChatCanvas({ messages }: ChatCanvasProps) {
-  const { canvasMode } = useChat();
-  const { setCanvasMode } = useChatCanvasActions();
+  const { isOpen, type, attachment } = useCanvas();
+  const { setCanvasMode } = useCanvasActions();
 
   const handleClose = () => {
     setCanvasMode({ isOpen: false });
@@ -26,28 +26,19 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
 
   useKeyboardShortcut('Escape', handleClose);
 
-  if (!canvasMode.isOpen) {
+  if (!isOpen) {
     return null;
   }
 
   const renderContent = () => {
-    switch (canvasMode.type) {
+    switch (type) {
       case 'webcam':
-        return (
-          <WebcamPreview
-            ref={
-              canvasMode.metadata?.videoRef as React.RefObject<HTMLVideoElement>
-            }
-            isRecording={canvasMode.metadata?.isRecording || false}
-            duration={canvasMode.metadata?.duration || 0}
-            className='h-full'
-          />
-        );
+        return <WebcamPreview className='h-full' />;
       case 'document':
         return (
           <div className='flex h-full items-center justify-center p-4'>
             <iframe
-              src={canvasMode.attachment?.url}
+              src={attachment?.url}
               className='h-full w-full'
               title='Document preview'
             />
@@ -57,8 +48,8 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
         return (
           <div className='flex h-full items-center justify-center'>
             <img
-              src={canvasMode.attachment?.url}
-              alt={canvasMode.attachment?.name || 'Image preview'}
+              src={attachment?.url}
+              alt={attachment?.name || 'Image preview'}
               className='max-h-full max-w-full object-contain'
             />
           </div>
@@ -71,17 +62,22 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
   return (
     <div className='bg-background fixed inset-0 z-50'>
       <ResizablePanelGroup direction='horizontal'>
-        <ResizablePanel defaultSize={70} className='relative flex flex-col'>
+        <ResizablePanel
+          defaultSize={65}
+          className='relative flex flex-col'
+          minSize={30}
+        >
           <div className='absolute inset-0 z-[99] flex h-12 w-full items-center justify-between px-4'>
             <Button variant='ghost' size='icon' onClick={handleClose}>
               <XIcon className='h-4 w-4' />
             </Button>
           </div>
-          <div className='flex-1'>{renderContent()}</div>
+          <div className='h-full flex-1'>{renderContent()}</div>
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel
-          defaultSize={30}
+          defaultSize={35}
+          minSize={25}
           className='flex min-w-[350px] flex-col pt-4'
         >
           <ChatHistory messages={messages} className='px-4 pb-10' />

@@ -9,6 +9,7 @@ import {
 } from '@/features/chat/api/suggestions';
 import { ChatHeader } from '@/features/chat/components/chat-header';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
+import { CanvasStoreProvider } from '@/store/canvas-store';
 import { ChatStoreProvider } from '@/store/chat-store';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 
@@ -31,12 +32,14 @@ export const Route = createFileRoute('/_app/chat')({
 function ChatLayoutComponent() {
   return (
     <ChatStoreProvider>
-      <ChatSidebar />
-      <main className='relative flex h-svh w-full flex-col'>
-        <ChatHeader className='px-4 py-2' />
-        <Outlet />
-        <ChatPanel className='px-4' />
-      </main>
+      <CanvasStoreProvider>
+        <ChatSidebar />
+        <main className='relative flex h-svh w-full flex-col'>
+          <ChatHeader className='px-4 py-2' />
+          <Outlet />
+          <ChatPanel className='px-4' />
+        </main>
+      </CanvasStoreProvider>
     </ChatStoreProvider>
   );
 }
