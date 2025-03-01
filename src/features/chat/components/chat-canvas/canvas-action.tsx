@@ -1,5 +1,6 @@
 import { XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
 import { useCanvasActions } from '@/store/canvas-store';
 import { cn } from '@/utils/cn';
@@ -34,14 +35,16 @@ export function CanvasAction({
         className,
       )}
     >
-      <Button
-        variant='ghost'
-        size='icon'
-        className='bg-background/40'
-        onClick={handleClose}
-      >
-        <XIcon className='h-4 w-4' />
-      </Button>
+      <TooltipButton tooltip='Close Canvas'>
+        <Button
+          variant='ghost'
+          size='sm'
+          className='bg-background/40 size-8'
+          onClick={handleClose}
+        >
+          <XIcon className='h-4 w-4' />
+        </Button>
+      </TooltipButton>
 
       {actions && actions}
     </div>

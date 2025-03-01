@@ -15,6 +15,7 @@ export function ImageCanvas({
   ...props
 }: ImageCanvasProps) {
   const [isHighlightingMode, setIsHighlightingMode] = useState(false);
+  const [highlightSize, setHighlightSize] = useState(25);
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -27,6 +28,7 @@ export function ImageCanvas({
     containerRef: imageContainerRef,
     imageRef: imageRef,
     enabled: isHighlightingMode,
+    highlightSize,
   });
 
   return (
@@ -39,6 +41,7 @@ export function ImageCanvas({
             currentMode={currentMode}
             setMode={setMode}
             clearCanvas={clearCanvas}
+            setHighlightSize={setHighlightSize}
           />
         }
         className='absolute inset-0 z-50 flex h-12 w-full px-2'
