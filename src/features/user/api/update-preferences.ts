@@ -1,6 +1,6 @@
+import { privateApi } from '@/api/api-client';
 import { apiRoutes } from '@/config/routes';
 import type { UpdatePreferencesInput } from '@/features/user/hooks/use-update-preferences-form';
-import { privateApi } from '@/lib/api-client';
 import type { User } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';

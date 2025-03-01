@@ -12,7 +12,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
 export const Route = createFileRoute('/_app/chat/$id')({
-  component: RouteComponent,
+  component: ChatRouteComponent,
   loader: ({ context, params }) => {
     context.queryClient.ensureInfiniteQueryData({
       queryKey: getChatHistoryQueryOptions(params.id).queryKey,
@@ -24,7 +24,7 @@ export const Route = createFileRoute('/_app/chat/$id')({
   pendingComponent: () => <ChatHistoryLoadingScreen />,
 });
 
-function RouteComponent() {
+function ChatRouteComponent() {
   const { id } = Route.useParams();
   const { clearMessages } = useChatMessageActions();
   const { messages } = useChat();
@@ -46,7 +46,7 @@ function RouteComponent() {
 
   return (
     <>
-      <ChatHistory messages={allMessages} className='px-4' />
+      <ChatHistory messages={allMessages} />
       <ChatCanvas messages={allMessages} />
     </>
   );

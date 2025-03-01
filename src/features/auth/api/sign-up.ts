@@ -1,6 +1,6 @@
+import { publicApi } from '@/api/api-client';
 import { apiRoutes } from '@/config/routes';
 import type { SignUpInput } from '@/features/auth/hooks/use-sign-up-form';
-import { publicApi } from '@/lib/api-client';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation } from '@tanstack/react-query';
 

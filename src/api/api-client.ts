@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { type CustomAxiosRequestConfig, baseAxiosConfig } from '@/api/axios';
 import { refreshToken } from '@/features/auth/api/refresh-token';
 import { authStore } from '@/store/auth-store';
 import Axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
@@ -15,23 +15,14 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   return config;
 }
 
-const baseAxiosConfig = {
-  baseURL: env.API_URL,
-  withCredentials: true,
-  headers: {
-    Accept: 'application/json',
-  },
-};
-
 export const publicApi = Axios.create(baseAxiosConfig);
 
-export const privateApi = Axios.create(baseAxiosConfig);
+export const privateApi = Axios.create({
+  ...baseAxiosConfig,
+  withCredentials: true,
+});
 
 privateApi.interceptors.request.use(authRequestInterceptor);
-
-type CustomAxiosRequestConfig = InternalAxiosRequestConfig & {
-  sent?: boolean;
-};
 
 privateApi.interceptors.response.use(
   (response) => response.data,

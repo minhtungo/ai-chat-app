@@ -1,6 +1,6 @@
+import { publicApi } from '@/api/api-client';
 import { apiRoutes } from '@/config/routes';
 import type { ResetPasswordInput } from '@/features/auth/hooks/use-reset-password-form';
-import { publicApi } from '@/lib/api-client';
 import { useMutation } from '@tanstack/react-query';
 
 type ResetPasswordRequestDto = Omit<ResetPasswordInput, 'confirm_password'>;

@@ -1,7 +1,7 @@
+import { publicApi } from '@/api/api-client';
 import { apiRoutes, appRoutes } from '@/config/routes';
 import type { SignInInput } from '@/features/auth/hooks/use-sign-in-form';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
-import { publicApi } from '@/lib/api-client';
 import { useSession } from '@/store/auth-store';
 import { type AuthResponse } from '@/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

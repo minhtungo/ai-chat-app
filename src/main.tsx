@@ -1,4 +1,4 @@
-import { queryClient } from '@/lib/react-query';
+import { queryClient } from '@/api/query-client';
 import { ThemeProvider } from '@/providers/theme-provider';
 import reportWebVitals from '@/reportWebVitals';
 import { router } from '@/router';

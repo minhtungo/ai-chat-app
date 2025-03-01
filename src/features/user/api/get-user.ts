@@ -1,6 +1,5 @@
+import { privateApi } from '@/api/api-client';
 import { apiRoutes } from '@/config/routes';
-import { privateApi } from '@/lib/api-client';
-import { type QueryConfig } from '@/lib/react-query';
 import { type User } from '@/types/user';
 import { queryOptions, useQuery } from '@tanstack/react-query';
 
@@ -15,13 +14,8 @@ export function getUserQueryOptions() {
   });
 }
 
-type UseUserOptions = {
-  queryConfig?: QueryConfig<typeof getUserQueryOptions>;
-};
-
-export function useUser({ queryConfig }: UseUserOptions = {}) {
+export function useUser() {
   return useQuery({
     ...getUserQueryOptions(),
-    ...queryConfig,
   });
 }

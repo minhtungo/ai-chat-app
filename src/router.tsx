@@ -1,6 +1,6 @@
+import { queryClient } from '@/api/query-client';
 import { NotFound } from '@/components/errors/not-found';
 import { AppLoadingScreen } from '@/components/loading/app-loading-screen';
-import { queryClient } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';
 import {
   type AuthActions,
