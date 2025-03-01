@@ -37,9 +37,9 @@ export function CanvasAction({
     >
       <TooltipButton tooltip='Close Canvas'>
         <Button
-          variant='ghost'
+          variant='outline'
           size='sm'
-          className='bg-background/40 size-8'
+          className='size-8'
           onClick={handleClose}
         >
           <XIcon className='h-4 w-4' />

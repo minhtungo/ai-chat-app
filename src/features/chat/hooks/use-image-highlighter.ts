@@ -3,8 +3,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 type DrawingMode = 'highlight' | 'eraser';
 
-// Highlight settings
-const HIGHLIGHT_COLOR = '#4d4dff';
 const HIGHLIGHT_OPACITY = 0.5;
 const HIGHLIGHT_SIZE = 15;
 
@@ -12,7 +10,7 @@ type UseImageHighlighterOptions = {
   containerRef: React.RefObject<HTMLDivElement | null>;
   imageRef: React.RefObject<HTMLImageElement | null>;
   enabled: boolean;
-  highlightColor?: string;
+  highlightColor: string;
   highlightOpacity?: number;
   highlightSize?: number;
 };
@@ -21,7 +19,7 @@ export function useImageHighlighter({
   containerRef,
   imageRef,
   enabled,
-  highlightColor = HIGHLIGHT_COLOR,
+  highlightColor,
   highlightOpacity = HIGHLIGHT_OPACITY,
   highlightSize = HIGHLIGHT_SIZE,
 }: UseImageHighlighterOptions) {
@@ -88,8 +86,8 @@ export function useImageHighlighter({
         if (cursorCanvasRef.current) {
           cursorCanvasRef.current.width = rect.width;
           cursorCanvasRef.current.height = rect.height;
-          cursorCanvasRef.current.style.width = `${rect.width}px`;
-          cursorCanvasRef.current.style.height = `${rect.height}px`;
+          cursorCanvasRef.current.style.width = `${+rect.width / 2}px`;
+          cursorCanvasRef.current.style.height = `${+rect.height / 2}px`;
 
           // Set up cursor context
           const context = cursorCanvasRef.current.getContext('2d');

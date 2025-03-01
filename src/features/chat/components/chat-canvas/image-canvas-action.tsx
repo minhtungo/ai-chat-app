@@ -1,3 +1,4 @@
+import { ColorPicker } from '@/components/common/color-picker';
 import { Eraser, Highlighter, Trash, X } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -11,11 +12,15 @@ type ImageCanvasActionProps = React.ComponentProps<'div'> & {
   setMode: (mode: 'highlight' | 'eraser') => void;
   clearCanvas: () => void;
   setHighlightSize: (size: number) => void;
+  highlightColor: string;
+  setHighlightColor: (color: string) => void;
 };
 
 export function ImageCanvasAction({
   isHighlightingMode,
   currentMode,
+  highlightColor,
+  setHighlightColor,
   setMode,
   clearCanvas,
   toggleHighlightingMode,
@@ -33,26 +38,30 @@ export function ImageCanvasAction({
             step={1}
             className='mr-1 w-[120px]'
           />
-          <Toggle
-            pressed={currentMode === 'eraser'}
-            onPressedChange={() =>
-              setMode(currentMode === 'eraser' ? 'highlight' : 'eraser')
-            }
-            variant='outline'
-            size='sm'
-            className='bg-background/40'
-          >
-            <Eraser className='size-4' />
-          </Toggle>
+          <ColorPicker
+            color={highlightColor}
+            setColor={setHighlightColor}
+            className='mr-1'
+          />
+          <TooltipButton tooltip='Eraser'>
+            <Toggle
+              pressed={currentMode === 'eraser'}
+              onPressedChange={() =>
+                setMode(currentMode === 'eraser' ? 'highlight' : 'eraser')
+              }
+              variant='outline'
+              size='sm'
+              className='cursor-pointer'
+            >
+              <Eraser className='size-4' />
+            </Toggle>
+          </TooltipButton>
 
-          <Button
-            variant='outline'
-            size='sm'
-            className='bg-background/40'
-            onClick={clearCanvas}
-          >
-            <Trash className='h-4 w-4' />
-          </Button>
+          <TooltipButton tooltip='Clear'>
+            <Button variant='outline' size='sm' onClick={clearCanvas}>
+              <Trash className='h-4 w-4' />
+            </Button>
+          </TooltipButton>
         </>
       )}
       <TooltipButton

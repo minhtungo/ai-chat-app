@@ -16,6 +16,7 @@ export function ImageCanvas({
 }: ImageCanvasProps) {
   const [isHighlightingMode, setIsHighlightingMode] = useState(false);
   const [highlightSize, setHighlightSize] = useState(25);
+  const [highlightColor, setHighlightColor] = useState('#4d4dff');
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -29,6 +30,7 @@ export function ImageCanvas({
     imageRef: imageRef,
     enabled: isHighlightingMode,
     highlightSize,
+    highlightColor,
   });
 
   return (
@@ -36,6 +38,8 @@ export function ImageCanvas({
       <CanvasAction
         actions={
           <ImageCanvasAction
+            highlightColor={highlightColor}
+            setHighlightColor={setHighlightColor}
             isHighlightingMode={isHighlightingMode}
             toggleHighlightingMode={toggleHighlightingMode}
             currentMode={currentMode}
