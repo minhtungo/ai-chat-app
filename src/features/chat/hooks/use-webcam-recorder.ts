@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 
 interface UseWebcamRecorderOptions {
   chatId: string;
-  segmentDuration?: number; // in milliseconds
+  segmentDuration?: number;
   onVideoSegmentCapture?: (videoBlob: Blob) => void;
 }
 
@@ -18,7 +18,7 @@ interface UseWebcamRecorderReturn {
 
 export function useWebcamRecorder({
   chatId,
-  segmentDuration = 5000, // Default to 5 seconds
+  segmentDuration = 5000,
   onVideoSegmentCapture,
 }: UseWebcamRecorderOptions): UseWebcamRecorderReturn {
   const [isRecording, setIsRecording] = useState(false);
@@ -31,22 +31,23 @@ export function useWebcamRecorder({
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const { mutate: uploadVideo } = useVideoUpload();
 
-  // Clean up resources when component unmounts
   useEffect(() => {
     return () => {
       if (mediaRecorderRef.current && isRecording) {
         mediaRecorderRef.current.stop();
       }
+      console.log('unmounting');
       clearInterval(timerRef.current);
       clearInterval(segmentIntervalRef.current);
       if (videoStreamRef.current) {
         videoStreamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [isRecording]);
+  }, []);
 
   const startRecording = async () => {
     try {
+      //  get the user's webcam stream
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
@@ -112,13 +113,16 @@ export function useWebcamRecorder({
             // Generate a unique segment ID
             const segmentId = crypto.randomUUID();
 
+            // Upload the video segment
             uploadVideo({
               videoBlob,
               chatId,
               segmentId,
             });
 
-            onVideoSegmentCapture?.(videoBlob);
+            if (onVideoSegmentCapture) {
+              onVideoSegmentCapture(videoBlob);
+            }
 
             chunksRef.current = [];
 

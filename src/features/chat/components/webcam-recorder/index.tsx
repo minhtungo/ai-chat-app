@@ -1,16 +1,17 @@
-import { Camera, Square } from '@/components/icons';
+import { Camera, Square, X } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
 import { useWebcamRecorder } from '@/features/chat/hooks/use-webcam-recorder';
 import { cn } from '@/utils/cn';
-import { formatSecondsToMMSS } from '@/utils/format';
-import { useParams } from '@tanstack/react-router';
+import { useState } from 'react';
 
 interface WebcamRecorderProps {
   onVideoSegmentCapture?: (videoBlob: Blob) => void;
 }
 
 export function WebcamRecorder({ onVideoSegmentCapture }: WebcamRecorderProps) {
-  const { id: chatId } = useParams({ from: '/_app/chat/$id' });
+  const chatId = '123'; // You should get this from your app context or URL params
+  const [showPreview, setShowPreview] = useState(false);
 
   const {
     isRecording,
@@ -23,39 +24,72 @@ export function WebcamRecorder({ onVideoSegmentCapture }: WebcamRecorderProps) {
     onVideoSegmentCapture,
   });
 
+  const handleStartRecording = async () => {
+    setShowPreview(true);
+    await startRecording();
+  };
+
+  const handleStopRecording = () => {
+    stopRecording();
+  };
+
+  const handleClosePreview = () => {
+    if (isRecording) {
+      stopRecording();
+    }
+    setShowPreview(false);
+  };
+
   return (
     <div className='relative inline-flex items-center'>
-      {isRecording && (
-        <div className='bg-accent text-popover-foreground absolute -top-16 left-1/2 min-w-[100px] -translate-x-1/2 rounded-md px-3 py-2 shadow-lg'>
-          <div className='mb-1 text-sm'>Recording...</div>
-          <div className='flex items-center gap-2'>
-            <div className='bg-destructive h-2 w-2 animate-pulse rounded-full' />
-            <span className='text-xs'>{formatSecondsToMMSS(duration)}</span>
+      {showPreview && (
+        <div className='absolute -top-[220px] left-1/2 w-[300px] -translate-x-1/2 overflow-hidden rounded-md shadow-lg'>
+          <WebcamPreview
+            ref={videoPreviewRef}
+            isRecording={isRecording}
+            duration={duration}
+            className='h-[200px]'
+          />
+          <div className='bg-accent flex items-center justify-between p-2'>
+            <Button
+              onClick={handleClosePreview}
+              variant='ghost'
+              size='icon'
+              className='size-8 rounded-full'
+            >
+              <X className='size-4' />
+            </Button>
+
+            <Button
+              onClick={isRecording ? handleStopRecording : handleStartRecording}
+              variant='ghost'
+              size='icon'
+              className={cn(
+                'size-8 rounded-full',
+                isRecording &&
+                  'text-destructive hover:text-destructive/90 hover:bg-destructive/10',
+              )}
+            >
+              {isRecording ? (
+                <Square className='size-4.5' />
+              ) : (
+                <Camera className='size-4.5' />
+              )}
+            </Button>
           </div>
         </div>
       )}
 
       <Button
-        onClick={isRecording ? stopRecording : startRecording}
+        onClick={() => setShowPreview(!showPreview)}
         variant='ghost'
         type='button'
         size='icon'
-        className={cn(
-          'size-8 rounded-full',
-          isRecording &&
-            'text-destructive hover:text-destructive/90 hover:bg-destructive/10',
-        )}
-        title={isRecording ? 'Stop recording' : 'Start recording'}
+        className='size-8 rounded-full'
+        title='Camera'
       >
-        {isRecording ? (
-          <Square className='size-4.5' />
-        ) : (
-          <Camera className='size-4.5' />
-        )}
+        <Camera className='size-4.5' />
       </Button>
-
-      {/* Hidden video preview element */}
-      <video ref={videoPreviewRef} className='hidden' muted />
     </div>
   );
 }

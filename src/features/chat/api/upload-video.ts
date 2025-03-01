@@ -20,9 +20,9 @@ export async function uploadVideoSegment({
       {
         headers: {
           'Content-Type': 'video/webm',
-          userId: userId,
+          userId,
           examId: chatId,
-          segmentId: segmentId,
+          segmentId,
           filename: `segment-${segmentId}.webm`,
         },
       },
