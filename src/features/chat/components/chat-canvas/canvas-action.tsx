@@ -1,16 +1,26 @@
+import { XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
 import { useCanvasActions } from '@/store/canvas-store';
 import { cn } from '@/utils/cn';
-import { XIcon } from 'lucide-react';
 
-export function WebcamPreviewActions({
+type CanvasActionProps = React.ComponentProps<'div'> & {
+  actions?: React.ReactNode;
+  onCanvasClose?: () => void;
+};
+
+export function CanvasAction({
   className,
+  actions,
+  onCanvasClose,
   ...props
-}: React.ComponentProps<'div'>) {
+}: CanvasActionProps) {
   const { setCanvasMode } = useCanvasActions();
 
   const handleClose = () => {
+    if (onCanvasClose) {
+      onCanvasClose();
+    }
     setCanvasMode({ isOpen: false });
   };
 
@@ -19,7 +29,10 @@ export function WebcamPreviewActions({
   return (
     <div
       {...props}
-      className={cn('flex items-center justify-between', className)}
+      className={cn(
+        'absolute inset-0 z-50 flex h-12 w-full items-center justify-between px-2',
+        className,
+      )}
     >
       <Button
         variant='ghost'
@@ -29,6 +42,8 @@ export function WebcamPreviewActions({
       >
         <XIcon className='h-4 w-4' />
       </Button>
+
+      {actions && actions}
     </div>
   );
 }
