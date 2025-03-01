@@ -3,8 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 type DrawingMode = 'highlight' | 'eraser';
 
-const HIGHLIGHT_OPACITY = 0.5;
-const HIGHLIGHT_SIZE = 15;
+const HIGHLIGHT_OPACITY = 0.75;
 
 type UseImageHighlighterOptions = {
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -12,7 +11,7 @@ type UseImageHighlighterOptions = {
   enabled: boolean;
   highlightColor: string;
   highlightOpacity?: number;
-  highlightSize?: number;
+  highlightSize: number;
 };
 
 export function useImageHighlighter({
@@ -21,7 +20,7 @@ export function useImageHighlighter({
   enabled,
   highlightColor,
   highlightOpacity = HIGHLIGHT_OPACITY,
-  highlightSize = HIGHLIGHT_SIZE,
+  highlightSize,
 }: UseImageHighlighterOptions) {
   const maskCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const cursorCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -68,12 +67,16 @@ export function useImageHighlighter({
       if (imageRef.current && containerRef.current) {
         const rect = imageRef.current.getBoundingClientRect();
 
-        // Resize mask canvas
+        // Resize mask canvas to match the image dimensions exactly
         if (maskCanvasRef.current) {
           maskCanvasRef.current.width = rect.width;
           maskCanvasRef.current.height = rect.height;
           maskCanvasRef.current.style.width = `${rect.width}px`;
           maskCanvasRef.current.style.height = `${rect.height}px`;
+
+          // Position the canvas exactly over the image
+          maskCanvasRef.current.style.top = `${rect.top - containerRef.current.getBoundingClientRect().top}px`;
+          maskCanvasRef.current.style.left = `${rect.left - containerRef.current.getBoundingClientRect().left}px`;
 
           // Set up mask context
           const context = maskCanvasRef.current.getContext('2d');
@@ -82,12 +85,16 @@ export function useImageHighlighter({
           }
         }
 
-        // Resize cursor canvas
+        // Resize cursor canvas to match the image dimensions exactly
         if (cursorCanvasRef.current) {
           cursorCanvasRef.current.width = rect.width;
           cursorCanvasRef.current.height = rect.height;
-          cursorCanvasRef.current.style.width = `${+rect.width / 2}px`;
-          cursorCanvasRef.current.style.height = `${+rect.height / 2}px`;
+          cursorCanvasRef.current.style.width = `${rect.width}px`;
+          cursorCanvasRef.current.style.height = `${rect.height}px`;
+
+          // Position the canvas exactly over the image
+          cursorCanvasRef.current.style.top = `${rect.top - containerRef.current.getBoundingClientRect().top}px`;
+          cursorCanvasRef.current.style.left = `${rect.left - containerRef.current.getBoundingClientRect().left}px`;
 
           // Set up cursor context
           const context = cursorCanvasRef.current.getContext('2d');
@@ -190,11 +197,14 @@ export function useImageHighlighter({
       // Clear previous cursor
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-      // Draw new cursor
+      // Draw new cursor - use the same size as the actual brush (highlightSize/2)
       ctx.beginPath();
       ctx.strokeStyle = mode === 'highlight' ? highlightColor : '#ff0000'; // for eraser
       ctx.lineWidth = 2;
-      ctx.arc(x, y, highlightSize, 0, Math.PI * 2);
+      // Match the actual brush size used in drawing
+      const cursorSize =
+        mode === 'highlight' ? highlightSize / 2 : highlightSize;
+      ctx.arc(x, y, cursorSize, 0, Math.PI * 2);
       ctx.stroke();
 
       if (mode === 'highlight') {
@@ -204,16 +214,15 @@ export function useImageHighlighter({
       } else if (mode === 'eraser') {
         // Cross for eraser
         ctx.beginPath();
-        ctx.moveTo(x - highlightSize / 2, y);
-        ctx.lineTo(x + highlightSize / 2, y);
-        ctx.moveTo(x, y - highlightSize / 2);
-        ctx.lineTo(x, y + highlightSize / 2);
+        ctx.moveTo(x - cursorSize / 2, y);
+        ctx.lineTo(x + cursorSize / 2, y);
+        ctx.moveTo(x, y - cursorSize / 2);
+        ctx.lineTo(x, y + cursorSize / 2);
         ctx.stroke();
       }
     },
     [enabled, mode, highlightColor, highlightSize],
   );
-
   // Mouse event handlers
   useEffect(() => {
     if (!cursorCanvasRef.current || !enabled) return;
@@ -235,9 +244,13 @@ export function useImageHighlighter({
         clientY = event.clientY;
       }
 
+      // Convert client coordinates to canvas coordinates
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+
       return {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY,
       };
     };
 
@@ -319,7 +332,7 @@ export function useImageHighlighter({
   }, []);
 
   // Get highlighted regions
-  const getHighlightedRegions = () => {
+  const getHighlightedRegions = useCallback(() => {
     const points = highlightedPointsRef.current;
 
     if (points.length < 3) {
@@ -359,7 +372,7 @@ export function useImageHighlighter({
         originalDimensions: { width, height },
       };
     }
-  };
+  }, []);
 
   return {
     setMode,

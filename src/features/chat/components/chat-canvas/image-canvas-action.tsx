@@ -14,6 +14,7 @@ type ImageCanvasActionProps = React.ComponentProps<'div'> & {
   setHighlightSize: (size: number) => void;
   highlightColor: string;
   setHighlightColor: (color: string) => void;
+  highlightSize: number;
 };
 
 export function ImageCanvasAction({
@@ -25,16 +26,17 @@ export function ImageCanvasAction({
   clearCanvas,
   toggleHighlightingMode,
   setHighlightSize,
+  highlightSize,
 }: ImageCanvasActionProps) {
   return (
     <div className='flex items-center gap-1.5'>
       {isHighlightingMode && (
         <>
           <Slider
-            defaultValue={[25]}
+            value={[highlightSize]}
             onValueCommit={([value]) => setHighlightSize(value)}
-            min={5}
-            max={50}
+            min={10}
+            max={75}
             step={1}
             className='mr-1 w-[120px]'
           />

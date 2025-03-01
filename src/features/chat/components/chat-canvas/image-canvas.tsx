@@ -15,10 +15,10 @@ export function ImageCanvas({
   ...props
 }: ImageCanvasProps) {
   const [isHighlightingMode, setIsHighlightingMode] = useState(false);
-  const [highlightSize, setHighlightSize] = useState(25);
+  const [highlightSize, setHighlightSize] = useState(30);
   const [highlightColor, setHighlightColor] = useState('#4d4dff');
 
-  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const toggleHighlightingMode = () => {
@@ -26,8 +26,8 @@ export function ImageCanvas({
   };
 
   const { setMode, clearCanvas, currentMode } = useImageHighlighter({
-    containerRef: imageContainerRef,
-    imageRef: imageRef,
+    containerRef,
+    imageRef,
     enabled: isHighlightingMode,
     highlightSize,
     highlightColor,
@@ -46,24 +46,22 @@ export function ImageCanvas({
             setMode={setMode}
             clearCanvas={clearCanvas}
             setHighlightSize={setHighlightSize}
+            highlightSize={highlightSize}
           />
         }
         className='absolute inset-0 z-50 flex h-12 w-full px-2'
       />
-      <div className='h-full flex-1'>
+      <div className='flex h-full flex-1 items-center justify-center'>
         <div
-          ref={imageContainerRef}
-          className={cn(
-            'relative flex h-full items-center justify-center',
-            className,
-          )}
+          ref={containerRef}
+          className={cn('relative bg-blue-500', className)}
           {...props}
         >
           <img
             ref={imageRef}
             src={attachment?.url}
             alt={attachment?.name || 'Image preview'}
-            className='max-h-full max-w-full object-contain'
+            className='aspect-auto w-full object-contain'
           />
         </div>
       </div>
