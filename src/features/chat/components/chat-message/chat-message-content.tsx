@@ -7,7 +7,7 @@ export function ChatMessageContent({ message }: { message: ChatMessage }) {
   return (
     <div
       className={cn(
-        'w-full',
+        'max-w-fit',
         message.role === 'user'
           ? 'bg-muted ml-auto rounded-lg px-3 py-2 md:px-4 md:py-3'
           : 'bg-transparent',

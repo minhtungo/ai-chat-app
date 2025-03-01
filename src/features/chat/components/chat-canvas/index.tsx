@@ -1,16 +1,20 @@
-import { Highlighter, XIcon } from '@/components/icons';
+import { Eraser, Highlighter, Trash, X, XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
+import { Toggle } from '@/components/ui/toggle';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
+import { useImageHighlighter } from '@/features/chat/hooks/use-image-highlighter';
 import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
 import { useCanvas, useCanvasActions } from '@/store/canvas-store';
 import type { ChatMessage } from '@/types/chat';
+import { useRef, useState } from 'react';
 
 interface ChatCanvasProps {
   messages: ChatMessage[];
@@ -19,9 +23,25 @@ interface ChatCanvasProps {
 export function ChatCanvas({ messages }: ChatCanvasProps) {
   const { isOpen, type, attachment } = useCanvas();
   const { setCanvasMode } = useCanvasActions();
+  const [isHighlightingMode, setIsHighlightingMode] = useState(false);
+
+  // Refs for the image container and image element
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  // Use our custom hook when highlighting is enabled and we're viewing an image
+  const { setMode, clearCanvas, currentMode } = useImageHighlighter({
+    containerRef: imageContainerRef,
+    imageRef: imageRef,
+    enabled: isHighlightingMode && type === 'image',
+  });
 
   const handleClose = () => {
     setCanvasMode({ isOpen: false });
+  };
+
+  const toggleHighlightingMode = () => {
+    setIsHighlightingMode((prev) => !prev);
   };
 
   useKeyboardShortcut('Escape', handleClose);
@@ -46,8 +66,12 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
         );
       case 'image':
         return (
-          <div className='flex h-full items-center justify-center'>
+          <div
+            ref={imageContainerRef}
+            className='relative flex h-full items-center justify-center'
+          >
             <img
+              ref={imageRef}
               src={attachment?.url}
               alt={attachment?.name || 'Image preview'}
               className='max-h-full max-w-full object-contain'
@@ -76,15 +100,57 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
             >
               <XIcon className='h-4 w-4' />
             </Button>
-            {type !== 'webcam' && (
+            {type === 'image' && (
               <div className='flex items-center gap-1'>
-                <Button
-                  variant='ghost'
-                  size='icon'
-                  className='bg-background/40'
+                <TooltipButton
+                  tooltip={
+                    isHighlightingMode
+                      ? 'Disable highlighting'
+                      : 'Enable highlighting'
+                  }
                 >
-                  <Highlighter />
-                </Button>
+                  <Button
+                    variant='outline'
+                    size='icon'
+                    className='bg-background/40'
+                    onClick={toggleHighlightingMode}
+                  >
+                    {isHighlightingMode ? (
+                      <X className='size-4' />
+                    ) : (
+                      <Highlighter className='size-4' />
+                    )}
+                  </Button>
+                </TooltipButton>
+
+                {isHighlightingMode && (
+                  <div className='ml-1 flex items-center gap-1'>
+                    {/* Eraser tool */}
+                    <Toggle
+                      pressed={currentMode === 'eraser'}
+                      onPressedChange={() =>
+                        setMode(
+                          currentMode === 'eraser' ? 'highlight' : 'eraser',
+                        )
+                      }
+                      variant='outline'
+                      size='sm'
+                      className='bg-background/40'
+                    >
+                      <Eraser className='h-4 w-4' />
+                    </Toggle>
+
+                    {/* Clear canvas button */}
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      className='bg-background/40'
+                      onClick={clearCanvas}
+                    >
+                      <Trash className='h-4 w-4' />
+                    </Button>
+                  </div>
+                )}
               </div>
             )}
           </div>
