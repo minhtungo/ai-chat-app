@@ -2,12 +2,20 @@ import type { Attachment, ChatMessage } from '@/types/chat';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';
 
+export type CanvasContentType = 'webcam' | 'document' | 'image';
+
 export type ChatState = {
   messages: ChatMessage[];
   chatName: string;
   canvasMode: {
     isOpen: boolean;
+    type: CanvasContentType | null;
     attachment: Attachment | null;
+    metadata?: {
+      isRecording?: boolean;
+      duration?: number;
+      videoRef?: React.RefObject<HTMLVideoElement>;
+    };
   };
 };
 
@@ -21,6 +29,19 @@ export type ChatMessageActions = {
 export type ChatCanvasActions = {
   openCanvas: (attachment: Attachment) => void;
   closeCanvas: () => void;
+  setCanvasMode: (params: {
+    isOpen: boolean;
+    type?: CanvasContentType | null;
+    attachment?: Attachment | null;
+    metadata?: {
+      isRecording?: boolean;
+      duration?: number;
+      videoRef?: React.RefObject<HTMLVideoElement>;
+    };
+  }) => void;
+  updateCanvasMetadata: (
+    metadata: Partial<ChatState['canvasMode']['metadata']>,
+  ) => void;
 };
 
 type ChatStoreProviderProps = {
@@ -46,6 +67,7 @@ export const initialChatState: ChatState = {
   canvasMode: {
     isOpen: false,
     attachment: null,
+    type: null,
   },
 };
 
@@ -79,6 +101,7 @@ export const chatStore = createStore<ChatStore>((set) => ({
           canvasMode: {
             isOpen: true,
             attachment,
+            type: null,
           },
         },
       })),
@@ -89,7 +112,22 @@ export const chatStore = createStore<ChatStore>((set) => ({
           canvasMode: {
             isOpen: false,
             attachment: null,
+            type: null,
           },
+        },
+      })),
+    setCanvasMode: (params) =>
+      set((state) => ({
+        state: {
+          ...state.state,
+          canvasMode: { ...state.state.canvasMode, ...params },
+        },
+      })),
+    updateCanvasMetadata: (metadata) =>
+      set((state) => ({
+        state: {
+          ...state.state,
+          canvasMode: { ...state.state.canvasMode, metadata },
         },
       })),
   },
