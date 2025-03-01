@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/resizable';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
+import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
 import { useChat, useChatCanvasActions } from '@/store/chat-store';
 import type { ChatMessage } from '@/types/chat';
 
@@ -17,6 +18,7 @@ type ChatCanvasProps = {
 export function ChatCanvas({ messages }: ChatCanvasProps) {
   const { closeCanvas } = useChatCanvasActions();
   const { canvasMode } = useChat();
+  useKeyboardShortcut('Escape', closeCanvas);
 
   if (!canvasMode.isOpen) {
     return null;
