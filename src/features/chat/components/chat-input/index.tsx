@@ -1,12 +1,10 @@
-import { ArrowUp, Camera, Image } from '@/components/icons';
+import { ArrowUp } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { TooltipButton } from '@/components/ui/tooltip-button';
-import { ChatInputAttachment } from '@/features/chat/components/chat-input-attachment';
-import { VoiceRecorder } from '@/features/chat/components/voice-recorder';
+import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
+import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
 import { useChatInput } from '@/features/chat/hooks/use-chat-input';
 import type { Attachment } from '@/types/chat';
-import { useRef } from 'react';
 
 type ChatInputProps = React.ComponentProps<'div'> & {
   onSend: (message: string, files: Attachment[]) => void;
@@ -67,50 +65,5 @@ export function ChatInput({ onSend }: ChatInputProps) {
         </div>
       </div>
     </form>
-  );
-}
-
-type ChatInputActionsProps = React.ComponentProps<'div'> & {
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  return (
-    <div className='flex gap-x-1'>
-      <TooltipButton tooltip='Upload File' sideOffset={0}>
-        <div>
-          <Button
-            variant='ghost'
-            size='icon'
-            type='button'
-            className='size-8'
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Image className='size-4.5' />
-          </Button>
-          <input
-            type='file'
-            ref={fileInputRef}
-            onChange={onFileChange}
-            multiple
-            accept='image/*,.pdf,.doc,.docx'
-            hidden
-          />
-        </div>
-      </TooltipButton>
-      <TooltipButton tooltip='Voice Input' sideOffset={0}>
-        {/* <Button variant='ghost' size='icon' className='size-8' type='button'>
-          <Mic className='size-4.5' />
-        </Button> */}
-        <VoiceRecorder onRecordingComplete={() => {}} />
-      </TooltipButton>
-      <TooltipButton tooltip='Camera' sideOffset={0}>
-        <Button variant='ghost' size='icon' className='size-8' type='button'>
-          <Camera className='size-4.5' />
-        </Button>
-      </TooltipButton>
-    </div>
   );
 }

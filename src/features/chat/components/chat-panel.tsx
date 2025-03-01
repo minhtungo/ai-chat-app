@@ -1,4 +1,3 @@
-import { appConfig } from '@/config/app';
 import { ChatInput } from '@/features/chat/components/chat-input';
 import { useChatMessageActions } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';

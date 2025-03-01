@@ -33,7 +33,6 @@ export async function getChatList({
     hasNextPage: offset + PAGE_SIZE < 60,
   };
 
-  // Return a promise that resolves with the mock data
   return Promise.resolve(mockData);
 }
 
