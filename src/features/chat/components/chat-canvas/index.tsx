@@ -1,4 +1,4 @@
-import { XIcon } from '@/components/icons';
+import { Highlighter, XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   ResizableHandle,
@@ -67,10 +67,26 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
           className='relative flex flex-col'
           minSize={30}
         >
-          <div className='absolute inset-0 z-[99] flex h-12 w-full items-center justify-between px-4'>
-            <Button variant='ghost' size='icon' onClick={handleClose}>
+          <div className='absolute inset-0 z-50 flex h-12 w-full items-center justify-between px-2'>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='bg-background/40'
+              onClick={handleClose}
+            >
               <XIcon className='h-4 w-4' />
             </Button>
+            {type !== 'webcam' && (
+              <div className='flex items-center gap-1'>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='bg-background/40'
+                >
+                  <Highlighter />
+                </Button>
+              </div>
+            )}
           </div>
           <div className='h-full flex-1'>{renderContent()}</div>
         </ResizablePanel>
@@ -78,9 +94,9 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
         <ResizablePanel
           defaultSize={35}
           minSize={25}
-          className='flex min-w-[350px] flex-col pt-4'
+          className='flex min-w-[350px] flex-col'
         >
-          <ChatHistory messages={messages} className='px-4 pb-10' />
+          <ChatHistory messages={messages} className='px-4 pt-4 pb-10' />
           <ChatPanel className='px-4' />
         </ResizablePanel>
       </ResizablePanelGroup>

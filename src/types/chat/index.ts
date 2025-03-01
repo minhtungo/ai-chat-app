@@ -10,6 +10,6 @@ export type Attachment = {
   id: string;
   url: string;
   name: string;
-  type: 'image' | 'doc';
+  type: 'image' | 'document';
   createdAt: Date;
 };

@@ -19,7 +19,7 @@ export function ChatInputAttachment({
       key={`chat-input-attachment-${attachment.id}`}
       className={cn(
         'relative mb-1 w-fit rounded-md',
-        attachment.type === 'doc' &&
+        attachment.type === 'document' &&
           'bg-secondary/40 z-10 flex max-w-[250px] items-center gap-1 p-2 pr-6',
         className,
       )}

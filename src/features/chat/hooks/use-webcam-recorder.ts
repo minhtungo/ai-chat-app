@@ -31,9 +31,9 @@ export function useWebcamRecorder({
   const videoPreviewRef = useRef<HTMLVideoElement>(null);
   const { mutate: uploadVideo } = useVideoUpload();
 
-  // Clean up only on unmount
   useEffect(() => {
     return () => {
+      console.log('unmounting');
       if (mediaRecorderRef.current) {
         mediaRecorderRef.current.stop();
       }
@@ -60,13 +60,11 @@ export function useWebcamRecorder({
         videoPreviewRef.current.play();
       }
 
-      // Try to use the specified codecs, but fall back if not supported
       let mimeType = 'video/webm;codecs=vp9,opus';
       if (!MediaRecorder.isTypeSupported(mimeType)) {
         mimeType = 'video/webm';
       }
 
-      // Create a MediaRecorder with webm mime type
       const mediaRecorder = new MediaRecorder(stream, {
         mimeType,
       });

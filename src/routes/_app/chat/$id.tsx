@@ -22,7 +22,7 @@ export const Route = createFileRoute('/_app/chat/$id')({
     });
   },
   pendingComponent: () => (
-    <div className='px-4'>
+    <div className='flex-1 px-4'>
       <ChatHistoryLoadingScreen />
     </div>
   ),

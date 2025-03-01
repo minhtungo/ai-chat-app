@@ -1,5 +1,6 @@
-import { Camera, Square, SquareX } from '@/components/icons';
+import { Camera, Square } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { TooltipButton } from '@/components/ui/tooltip-button';
 import { useWebcamRecorder } from '@/features/chat/hooks/use-webcam-recorder';
 import { cn } from '@/utils/cn';
 import { formatSecondsToMMSS } from '@/utils/format';
@@ -38,22 +39,26 @@ export const WebcamPreview = ({ className, ...props }: WebcamPreviewProps) => {
           <span>{formatSecondsToMMSS(duration)}</span>
         </div>
       )}
-      <div className='bg-background/80 absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-md px-3 py-2'>
-        <Button
-          variant='ghost'
-          size='icon'
-          onClick={isRecording ? stopRecording : startRecording}
-          className={cn(
-            isRecording &&
-              'text-destructive hover:text-destructive/90 hover:bg-destructive/10',
-          )}
+      <div className='bg-background/80 absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2 overflow-hidden rounded-md'>
+        <TooltipButton
+          tooltip={isRecording ? 'Stop recording' : 'Start recording'}
         >
-          {isRecording ? (
-            <Square className='size-4.5 animate-pulse fill-red-500' />
-          ) : (
-            <Camera className='size-4.5' />
-          )}
-        </Button>
+          <Button
+            variant='outline'
+            size='icon'
+            onClick={isRecording ? stopRecording : startRecording}
+            className={cn(
+              isRecording &&
+                'text-destructive hover:text-destructive/90 hover:bg-destructive/10 bg-transparent',
+            )}
+          >
+            {isRecording ? (
+              <Square className='size-4.5 animate-pulse fill-red-500' />
+            ) : (
+              <Camera className='size-4.5' />
+            )}
+          </Button>
+        </TooltipButton>
       </div>
     </div>
   );

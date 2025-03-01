@@ -19,7 +19,7 @@ export function ChatMessageAttachment({
       type='button'
       className={cn(
         'relative mb-1 w-fit cursor-pointer rounded-md',
-        attachment.type === 'doc' &&
+        attachment.type === 'document' &&
           'bg-secondary/40 z-10 flex max-w-[300px] items-center gap-1 p-2 pr-6',
         className,
       )}
