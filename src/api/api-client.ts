@@ -19,7 +19,6 @@ export const publicApi = Axios.create(baseAxiosConfig);
 
 export const privateApi = Axios.create({
   ...baseAxiosConfig,
-  withCredentials: true,
 });
 
 privateApi.interceptors.request.use(authRequestInterceptor);

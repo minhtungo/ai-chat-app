@@ -80,7 +80,7 @@ function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
   return (
     <div className='flex gap-x-1'>
       <TooltipButton tooltip='Upload File' sideOffset={0}>
-        <>
+        <div>
           <Button
             variant='ghost'
             size='icon'
@@ -98,7 +98,7 @@ function ChatInputActions({ onFileChange }: ChatInputActionsProps) {
             accept='image/*,.pdf,.doc,.docx'
             hidden
           />
-        </>
+        </div>
       </TooltipButton>
       <TooltipButton tooltip='Voice Input' sideOffset={0}>
         {/* <Button variant='ghost' size='icon' className='size-8' type='button'>

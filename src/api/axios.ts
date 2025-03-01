@@ -6,6 +6,7 @@ export const baseAxiosConfig = {
   headers: {
     Accept: 'application/json',
   },
+  withCredentials: true,
 };
 
 export type CustomAxiosRequestConfig = InternalAxiosRequestConfig & {
