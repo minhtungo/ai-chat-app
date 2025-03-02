@@ -1,5 +1,5 @@
 import { CanvasAction } from '@/features/chat/components/chat-canvas/canvas-action';
-import { ImageCanvasAction } from '@/features/chat/components/chat-canvas/image-canvas-action';
+import { ImageCanvasAction } from '@/features/chat/components/image-canvas/image-canvas-action';
 import { useImageHighlighter } from '@/features/chat/hooks/use-image-highlighter';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';

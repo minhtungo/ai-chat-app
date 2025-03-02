@@ -27,7 +27,7 @@ export function ChatMessageAttachment({
       onClick={() =>
         setCanvasMode({
           isOpen: true,
-          type: 'image',
+          type: attachment.type,
           attachment,
         })
       }

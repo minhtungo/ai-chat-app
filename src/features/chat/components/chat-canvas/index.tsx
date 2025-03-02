@@ -3,9 +3,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
-import { ImageCanvas } from '@/features/chat/components/chat-canvas/image-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { ChatPanel } from '@/features/chat/components/chat-panel';
+import { DocumentCanvas } from '@/features/chat/components/document-canvas';
+import { ImageCanvas } from '@/features/chat/components/image-canvas';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
 import { useCanvas } from '@/store/canvas-store';
 import type { ChatMessage } from '@/types/chat';
@@ -26,15 +27,7 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
       case 'webcam':
         return <WebcamPreview className='h-full' />;
       case 'document':
-        return (
-          <div className='flex h-full items-center justify-center p-4'>
-            <iframe
-              src={attachment?.url}
-              className='h-full w-full'
-              title='Document preview'
-            />
-          </div>
-        );
+        return <DocumentCanvas attachment={attachment} />;
       case 'image':
         return <ImageCanvas attachment={attachment} />;
       default:

@@ -22,12 +22,12 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
             )}
           >
             {message.attachments.length > 0 &&
-              message.attachments.map((attachment) => (
-                <div className='mb-3 flex flex-col items-end gap-1'>
-                  <ChatMessageAttachment
-                    key={`chat-message-attachment-${attachment.id}`}
-                    attachment={attachment}
-                  />
+              message.attachments.map((attachment, index) => (
+                <div
+                  className='mb-3 flex flex-col items-end gap-1'
+                  key={`chat-message-attachment-${attachment.id}-${index}`}
+                >
+                  <ChatMessageAttachment attachment={attachment} />
                 </div>
               ))}
             <ChatMessageContent message={message} />

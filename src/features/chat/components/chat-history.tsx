@@ -27,7 +27,7 @@ export function ChatHistory({
       {messages.length > 0 &&
         messages.map((message) => (
           <ChatMessage
-            key={message.id}
+            key={`${message.id}-${message.createdAt}`}
             message={message}
             isLatest={message.id === messages[messages.length - 1].id}
           />

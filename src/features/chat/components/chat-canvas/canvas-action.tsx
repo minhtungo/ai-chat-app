@@ -31,7 +31,7 @@ export function CanvasAction({
     <div
       {...props}
       className={cn(
-        'absolute inset-0 z-50 flex h-12 w-full items-center justify-between px-2',
+        'absolute inset-0 z-50 flex h-12 w-full items-center justify-between px-2 pr-4',
         className,
       )}
     >
