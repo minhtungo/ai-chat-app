@@ -6,6 +6,8 @@ const createEnv = () => {
     APP_URL: z.string(),
     ACCESS_TOKEN_COOKIE: z.string(),
     APP_NAME: z.string(),
+    AI_API_URL: z.string(),
+    UPLOAD_API_URL: z.string(),
   });
 
   const envVars = Object.entries(import.meta.env).reduce<

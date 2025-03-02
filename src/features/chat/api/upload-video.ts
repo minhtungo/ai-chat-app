@@ -1,3 +1,4 @@
+import { env } from '@/config/env';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -15,14 +16,14 @@ export async function uploadVideoSegment({
 }): Promise<{ success: boolean; url?: string }> {
   try {
     const response = await axios.post(
-      `http://localhost:3005/streaming/upload`,
+      `${env.UPLOAD_API_URL}/streaming/upload`,
       videoBlob,
       {
         headers: {
           'Content-Type': 'video/webm',
-          userId,
-          examId: chatId,
-          segmentId,
+          userid: userId,
+          examid: chatId,
+          segmentid: segmentId,
           filename: `segment-${segmentId}.webm`,
         },
       },

@@ -2,6 +2,8 @@ import { Camera, Square } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { CanvasAction } from '@/features/chat/components/chat-canvas/canvas-action';
+import { useSocket } from '@/features/chat/hooks/use-socket';
+import { useVideoFeedback } from '@/features/chat/hooks/use-video-feedback';
 import { useWebcamRecorder } from '@/features/chat/hooks/use-webcam-recorder';
 import { cn } from '@/utils/cn';
 import { formatSecondsToMMSS } from '@/utils/format';
@@ -20,6 +22,8 @@ export const WebcamPreview = ({ className, ...props }: WebcamPreviewProps) => {
   } = useWebcamRecorder({
     chatId,
   });
+
+  useSocket();
 
   return (
     <>
