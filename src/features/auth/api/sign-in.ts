@@ -2,8 +2,10 @@ import { publicApi } from '@/api/api-client';
 import { apiRoutes, appRoutes } from '@/config/routes';
 import type { SignInInput } from '@/features/auth/hooks/use-sign-in-form';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
+import { handleError } from '@/lib/errors';
 import { useSession } from '@/store/auth-store';
-import { type AuthResponse } from '@/types/auth';
+import type { ApiResponse } from '@/types/api';
+import { type SignInResponse } from '@/types/api/auth/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import type { AxiosError } from 'axios';
@@ -20,7 +22,7 @@ const dtoToSignInRequest = (data: SignInInput): SignInRequestDto => {
 
 export function signInWithEmailAndPassWord(
   data: SignInInput,
-): Promise<AuthResponse> {
+): Promise<ApiResponse<SignInResponse>> {
   const requestDto = dtoToSignInRequest(data);
   return publicApi.post(apiRoutes.auth.signIn.path, requestDto);
 }
@@ -32,13 +34,22 @@ export function useSignIn() {
 
   return useMutation({
     mutationFn: signInWithEmailAndPassWord,
-    onSuccess: async (data) => {
-      queryClient.setQueryData(getUserQueryOptions().queryKey, data.user);
-      router.navigate({ to: appRoutes.app.chat.path, replace: true });
-      createSession(data.accessToken, data.user.id);
+    onSuccess: async (result) => {
+      if (result.success) {
+        queryClient.setQueryData(
+          getUserQueryOptions().queryKey,
+          result.data.convertedUser,
+        );
+        router.navigate({ to: appRoutes.app.chat.path, replace: true });
+        createSession(result.data.accessToken, result.data.convertedUser.id);
+      }
     },
     onError: (error: AxiosError) => {
-      throw error;
+      const errorMessage = handleError(
+        error,
+        'Failed to sign in. Please check your credentials and try again.',
+      );
+      return errorMessage;
     },
   });
 }

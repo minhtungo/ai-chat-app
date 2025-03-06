@@ -16,6 +16,7 @@ import { appRoutes } from '@/config/routes';
 import { useSignUpMutation } from '@/features/auth/api/sign-up';
 import { OAuthActions } from '@/features/auth/components/oauth-actions';
 import { useSignUpForm } from '@/features/auth/hooks/use-sign-up-form';
+import { handleError } from '@/lib/errors';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
@@ -25,12 +26,14 @@ export function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useSignUpForm();
+
   const {
     mutate: signUp,
     isPending,
     isSuccess,
     isError,
-  } = useSignUpMutation({});
+    error,
+  } = useSignUpMutation();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     signUp(data);
@@ -102,7 +105,10 @@ export function SignUpForm({
               <FormResponse
                 title='Error'
                 variant='destructive'
-                description='Something went wrong. Please try again later.'
+                description={handleError(
+                  error,
+                  'Invalid email or password. Please try again.',
+                )}
               />
             )}
             <LoaderButton isPending={isPending} className='w-full'>

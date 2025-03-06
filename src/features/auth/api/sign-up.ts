@@ -1,8 +1,11 @@
 import { publicApi } from '@/api/api-client';
 import { apiRoutes } from '@/config/routes';
 import type { SignUpInput } from '@/features/auth/hooks/use-sign-up-form';
-import { type AuthResponse } from '@/types/auth';
+import { handleError } from '@/lib/errors';
+import type { ApiResponse } from '@/types/api';
+import { type SignUpResponse } from '@/types/api/auth/index';
 import { useMutation } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
 
 type SignUpRequestDto = Omit<SignUpInput, 'confirm_password'>;
 
@@ -15,17 +18,23 @@ const dtoToSignUpRequest = (data: SignUpInput): SignUpRequestDto => {
 
 export function signUpWithEmailAndPassWord(
   data: SignUpInput,
-): Promise<AuthResponse> {
+): Promise<ApiResponse<SignUpResponse>> {
   const requestDto = dtoToSignUpRequest(data);
   return publicApi.post(apiRoutes.auth.signUp.path, requestDto);
 }
 
-export function useSignUpMutation({ onSuccess }: { onSuccess?: () => void }) {
+export function useSignUpMutation() {
   return useMutation({
     mutationFn: signUpWithEmailAndPassWord,
     onSuccess: () => {
       //   queryClient.setQueryData(userQueryKey, data.user);
-      onSuccess?.();
+    },
+    onError: (error: AxiosError) => {
+      const errorMessage = handleError(
+        error,
+        'Failed to sign up. Please try again.',
+      );
+      return errorMessage;
     },
   });
 }

@@ -1,18 +1,20 @@
-const authRootPath = '/auth';
+const apiRootPath = '/api';
+const authRootPath = `${apiRootPath}/auth`;
+const userRootPath = `${apiRootPath}/user`;
 
 export const apiRoutes = {
   auth: {
     signIn: {
-      path: `${authRootPath}/sign-in`,
+      path: `${authRootPath}/signin`,
     },
     signUp: {
-      path: `${authRootPath}/sign-up`,
+      path: `${authRootPath}/signup`,
     },
     signOut: {
-      path: `${authRootPath}/sign-out`,
+      path: `${authRootPath}/signout`,
     },
     refresh: {
-      path: `${authRootPath}/refresh`,
+      path: `${authRootPath}/renew-token`,
     },
     forgotPassword: {
       path: `${authRootPath}/forgot-password`,
@@ -23,16 +25,25 @@ export const apiRoutes = {
     verifyEmail: {
       path: `${authRootPath}/verify-email`,
     },
+    verifyOAuthCode: {
+      path: `${authRootPath}/verify-code`,
+    },
+    googleOAuth: {
+      path: `${authRootPath}/google`,
+    },
+    facebookOAuth: {
+      path: `${authRootPath}/facebook`,
+    },
   },
   user: {
     me: {
-      path: '/user/me',
+      path: `${userRootPath}/me`,
     },
     preferences: {
-      path: '/user/preferences',
+      path: `${userRootPath}/preferences`,
     },
     profile: {
-      path: '/user/profile',
+      path: `${userRootPath}/profile`,
     },
   },
   chat: {

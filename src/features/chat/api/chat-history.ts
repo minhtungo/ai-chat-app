@@ -1,4 +1,4 @@
-import type { ChatHistoryResponse } from '@/types/api/chat';
+import type { ChatHistory } from '@/types/api/chat';
 import { queryOptions, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 // export function getChatHistory({
@@ -19,7 +19,7 @@ export async function getChatHistory({
 }: {
   offset: number;
   chatId: string;
-}): Promise<ChatHistoryResponse> {
+}): Promise<ChatHistory> {
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
   const PAGE_SIZE = 20;
@@ -33,7 +33,7 @@ export async function getChatHistory({
     attachments: [],
   }));
 
-  const mockData: ChatHistoryResponse = {
+  const mockData: ChatHistory = {
     name: `Chat ${chatId}`,
     messages: mockMessages,
     nextOffset: offset + PAGE_SIZE,
