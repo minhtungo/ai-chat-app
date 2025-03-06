@@ -1,4 +1,4 @@
-import type { ChatListResponse } from '@/types/api/chat';
+import type { ChatList } from '@/types/api/chat';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 // export function getChatList({
@@ -16,7 +16,7 @@ export async function getChatList({
   offset = 0,
 }: {
   offset: number;
-}): Promise<ChatListResponse> {
+}): Promise<ChatList> {
   // await new Promise((resolve) => setTimeout(resolve, 500));
   const PAGE_SIZE = 20;
   // Mock data
@@ -27,7 +27,7 @@ export async function getChatList({
     lastMessageTime: new Date(),
   }));
 
-  const mockData: ChatListResponse = {
+  const mockData: ChatList = {
     chats: mockChats,
     nextOffset: offset + PAGE_SIZE,
     hasNextPage: offset + PAGE_SIZE < 60,

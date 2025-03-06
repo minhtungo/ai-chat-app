@@ -1,4 +1,5 @@
 import { AuthFormWrapper } from '@/components/form/AuthFormWrapper';
+import FormResponse from '@/components/form/FormResponse';
 import { PasswordInput } from '@/components/password/password-input';
 import {
   Form,
@@ -15,6 +16,7 @@ import { appRoutes } from '@/config/routes';
 import { useSignIn } from '@/features/auth/api/sign-in';
 import { OAuthActions } from '@/features/auth/components/oauth-actions';
 import { useSignInForm } from '@/features/auth/hooks/use-sign-in-form';
+import { handleError } from '@/lib/errors';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
@@ -24,11 +26,12 @@ export function SignInForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const { form, schema } = useSignInForm();
-  const { mutate: signIn, isPending } = useSignIn();
+  const { mutate: signIn, isPending, isError, error } = useSignIn();
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     signIn(data);
   };
+
   return (
     <div className={cn('space-y-6', className)} {...props}>
       <AuthFormWrapper
@@ -84,6 +87,16 @@ export function SignInForm({
                 )}
               />
             </div>
+            {isError && (
+              <FormResponse
+                title='Failed to sign in'
+                variant='destructive'
+                description={handleError(
+                  error,
+                  'Invalid email or password. Please try again.',
+                )}
+              />
+            )}
             <LoaderButton isPending={isPending} className='w-full'>
               Sign In
             </LoaderButton>

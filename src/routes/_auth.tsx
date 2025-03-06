@@ -5,6 +5,7 @@ import { z } from 'zod';
 export const Route = createFileRoute('/_auth')({
   validateSearch: z.object({
     redirect: z.string().optional(),
+    authCodeFE: z.string().optional(),
   }),
   beforeLoad: ({ context, search }) => {
     console.log('AuthLayoutComponent beforeLoad', context);

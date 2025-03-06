@@ -31,6 +31,7 @@ import { Route as AppAccountSettingsImport } from './routes/_app/account/setting
 import { Route as AppAccountProfileImport } from './routes/_app/account/profile'
 import { Route as AppAccountBillingImport } from './routes/_app/account/billing'
 import { Route as AppAccountFilesIndexImport } from './routes/_app/account/files/index'
+import { Route as AuthAuthCallbackGoogleImport } from './routes/_auth/auth/callback/google'
 
 // Create/Update Routes
 
@@ -149,6 +150,12 @@ const AppAccountFilesIndexRoute = AppAccountFilesIndexImport.update({
   id: '/files/',
   path: '/files/',
   getParentRoute: () => AppAccountRoute,
+} as any)
+
+const AuthAuthCallbackGoogleRoute = AuthAuthCallbackGoogleImport.update({
+  id: '/auth/callback/google',
+  path: '/auth/callback/google',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -288,6 +295,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppQuizIndexImport
       parentRoute: typeof AppImport
     }
+    '/_auth/auth/callback/google': {
+      id: '/_auth/auth/callback/google'
+      path: '/auth/callback/google'
+      fullPath: '/auth/callback/google'
+      preLoaderRoute: typeof AuthAuthCallbackGoogleImport
+      parentRoute: typeof AuthImport
+    }
     '/_app/account/files/': {
       id: '/_app/account/files/'
       path: '/files'
@@ -355,6 +369,7 @@ interface AuthRouteChildren {
   AuthSignInRoute: typeof AuthSignInRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
   AuthVerifyEmailTokenRoute: typeof AuthVerifyEmailTokenRoute
+  AuthAuthCallbackGoogleRoute: typeof AuthAuthCallbackGoogleRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
@@ -363,6 +378,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthSignInRoute: AuthSignInRoute,
   AuthSignUpRoute: AuthSignUpRoute,
   AuthVerifyEmailTokenRoute: AuthVerifyEmailTokenRoute,
+  AuthAuthCallbackGoogleRoute: AuthAuthCallbackGoogleRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -396,6 +412,7 @@ export interface FileRoutesByFullPath {
   '/chat/': typeof AppChatIndexRoute
   '/lesson': typeof AppLessonIndexRoute
   '/quiz': typeof AppQuizIndexRoute
+  '/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
 
@@ -415,6 +432,7 @@ export interface FileRoutesByTo {
   '/chat': typeof AppChatIndexRoute
   '/lesson': typeof AppLessonIndexRoute
   '/quiz': typeof AppQuizIndexRoute
+  '/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
 
@@ -439,6 +457,7 @@ export interface FileRoutesById {
   '/_app/chat/': typeof AppChatIndexRoute
   '/_app/lesson/': typeof AppLessonIndexRoute
   '/_app/quiz/': typeof AppQuizIndexRoute
+  '/_auth/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/_app/account/files/': typeof AppAccountFilesIndexRoute
 }
 
@@ -462,6 +481,7 @@ export interface FileRouteTypes {
     | '/chat/'
     | '/lesson'
     | '/quiz'
+    | '/auth/callback/google'
     | '/account/files'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -480,6 +500,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/lesson'
     | '/quiz'
+    | '/auth/callback/google'
     | '/account/files'
   id:
     | '__root__'
@@ -502,6 +523,7 @@ export interface FileRouteTypes {
     | '/_app/chat/'
     | '/_app/lesson/'
     | '/_app/quiz/'
+    | '/_auth/auth/callback/google'
     | '/_app/account/files/'
   fileRoutesById: FileRoutesById
 }
@@ -549,7 +571,8 @@ export const routeTree = rootRoute
         "/_auth/reset-password",
         "/_auth/sign-in",
         "/_auth/sign-up",
-        "/_auth/verify-email/$token"
+        "/_auth/verify-email/$token",
+        "/_auth/auth/callback/google"
       ]
     },
     "/_public": {
@@ -632,6 +655,10 @@ export const routeTree = rootRoute
     "/_app/quiz/": {
       "filePath": "_app/quiz/index.tsx",
       "parent": "/_app"
+    },
+    "/_auth/auth/callback/google": {
+      "filePath": "_auth/auth/callback/google.tsx",
+      "parent": "/_auth"
     },
     "/_app/account/files/": {
       "filePath": "_app/account/files/index.tsx",

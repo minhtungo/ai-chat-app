@@ -1,6 +1,6 @@
 import type { ChatMessage } from '@/types/chat';
 
-export type ChatHistoryResponse = {
+export type ChatHistory = {
   name: string;
   messages: ChatMessage[];
   nextOffset: number;
@@ -13,7 +13,7 @@ export type ChatRoom = {
   lastMessageTime: Date;
 };
 
-export type ChatListResponse = {
+export type ChatList = {
   chats: ChatRoom[];
   nextOffset: number;
   hasNextPage: boolean;
