@@ -11,7 +11,7 @@ export function handleOAuthLogin(provider: 'google' | 'facebook') {
 
   localStorage.setItem(AUTH_CODE_FE_KEY, authCodeFE);
   const redirectUri = `${window.location.origin}/auth/callback/google`;
-  const OAuthUrl = `${env.API_URL}${provider === 'google' ? apiRoutes.auth.googleOAuth.path : apiRoutes.auth.facebookOAuth.path}?redirect_uri=${encodeURIComponent(redirectUri)}&authCodeFE=${hashedAuthCodeFE}`;
+  const OAuthUrl = `${env.AUTHENTICATION_API_URL}${provider === 'google' ? apiRoutes.auth.googleOAuth.path : apiRoutes.auth.facebookOAuth.path}?redirect_uri=${encodeURIComponent(redirectUri)}&authCodeFE=${hashedAuthCodeFE}`;
 
   window.location.href = OAuthUrl;
 }
