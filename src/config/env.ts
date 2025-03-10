@@ -8,10 +8,7 @@ const createEnv = () => {
     APP_URL: z.string(),
     ACCESS_TOKEN_COOKIE: z.string(),
     APP_NAME: z.string(),
-<<<<<<< HEAD
-=======
     CHAT_API_URL: z.string(),
->>>>>>> 2225faa8a53a93fc4f4ec32c2210a10fcf41528e
   });
 
   const envVars = Object.entries(import.meta.env).reduce<

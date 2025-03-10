@@ -1,14 +1,14 @@
 import { Info } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { usePromptSuggestions } from '@/features/chat/api/suggestions';
-import { useChatMessageActions } from '@/store/chat-store';
+import { useAddMessage } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 
 export function PromptSuggestions({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  const { addMessage } = useChatMessageActions();
+  const addMessage = useAddMessage();
   const { data: promptSuggestions } = usePromptSuggestions();
 
   return (

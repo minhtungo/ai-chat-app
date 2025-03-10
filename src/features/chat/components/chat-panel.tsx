@@ -1,23 +1,15 @@
 import { streamChatCompletion } from '@/features/chat/api/chat-completion';
 import { ChatInput } from '@/features/chat/components/chat-input';
-import { useChatMessageActions } from '@/store/chat-store';
+import { useAddMessage, useSetIsStreaming, useupdateStreamingResponse } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
-import debounce from 'lodash.debounce';
-import { useCallback, useState } from 'react';
 
 type ChatPanelProps = React.ComponentProps<'div'>;
 
 export function ChatPanel({ className, ...props }: ChatPanelProps) {
-  const { addMessage, updateLastMessage } = useChatMessageActions();
-  const [isStreaming, setIsStreaming] = useState(false);
-
-  const debouncedUpdate = useCallback(
-    debounce((content: string) => {
-      updateLastMessage(content);
-    }, 50),
-    [],
-  );
+  const addMessage = useAddMessage();
+  const updateStreamingResponse = useupdateStreamingResponse();
+  const setIsStreaming = useSetIsStreaming();
 
   const handleSendMessage = async (
     message: string,
@@ -49,7 +41,7 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
         message,
         (chunk) => {
           accumulatedResponse += chunk;
-          debouncedUpdate(accumulatedResponse);
+          updateStreamingResponse(accumulatedResponse);
         },
         () => {
           setIsStreaming(false);
@@ -57,7 +49,7 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
       );
     } catch (error) {
       console.error('Chat completion error:', error);
-      updateLastMessage('Sorry, there was an error processing your request.');
+      updateStreamingResponse('Sorry, there was an error processing your request.');
       setIsStreaming(false);
     }
   };
@@ -65,7 +57,7 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
   return (
     <div className={cn('group m-auto w-full', className)} {...props}>
       <div className='bg-background relative z-10 mx-auto flex flex-1 flex-col pb-3 xl:max-w-5xl'>
-        <ChatInput onSend={handleSendMessage} disabled={isStreaming} />
+        <ChatInput onSend={handleSendMessage} />
       </div>
     </div>
   );

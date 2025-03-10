@@ -9,9 +9,9 @@ type ChatHistoryProps = React.ComponentProps<'div'> & {
 export function ChatHistory({
   messages,
   className,
-  isStreaming,
   ...props
-}: ChatHistoryProps & { isStreaming?: boolean }) {
+}: ChatHistoryProps) {
+
   return (
     <div
       className={cn(
@@ -31,7 +31,6 @@ export function ChatHistory({
             key={`${message.id}-${message.createdAt}`}
             message={message}
             isLatest={index === messages.length - 1}
-            isStreaming={index === messages.length - 1 && isStreaming}
           />
         ))}
     </div>
