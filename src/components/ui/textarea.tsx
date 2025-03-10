@@ -9,7 +9,6 @@ function Textarea({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
-    console.log('adjustHeight');
     const textarea = textareaRef.current;
     if (textarea) {
       if (!textarea.value) {

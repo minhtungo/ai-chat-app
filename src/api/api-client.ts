@@ -1,4 +1,5 @@
 import { type CustomAxiosRequestConfig, baseAxiosConfig } from '@/api/axios';
+import { env } from '@/config/env';
 import { appRoutes } from '@/config/routes';
 import { refreshToken } from '@/features/auth/api/refresh-token';
 import { authStore } from '@/store/auth-store';
@@ -27,6 +28,11 @@ publicApi.interceptors.response.use(
 
 export const privateApi = Axios.create({
   ...baseAxiosConfig,
+});
+
+export const chatApi = Axios.create({
+  ...baseAxiosConfig,
+  baseURL: env.CHAT_API_URL,
 });
 
 privateApi.interceptors.request.use(authRequestInterceptor);

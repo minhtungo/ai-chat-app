@@ -9,7 +9,11 @@ export type ChatMessageProps = React.ComponentProps<'div'> & {
   isLatest: boolean;
 };
 
-export function ChatMessage({ message, isLatest }: ChatMessageProps) {
+export function ChatMessage({
+  message,
+  isLatest,
+  isStreaming,
+}: ChatMessageProps & { isStreaming?: boolean }) {
   return (
     <article className='group w-full pt-3.5 pb-3 md:py-5'>
       <div className='relative mx-auto w-full xl:max-w-5xl'>
@@ -30,7 +34,10 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
                   <ChatMessageAttachment attachment={attachment} />
                 </div>
               ))}
-            <ChatMessageContent message={message} />
+            <ChatMessageContent
+              message={message}
+              isStreaming={isLatest && isStreaming}
+            />
 
             <div className='empty:hidden md:absolute'>
               {message.role === 'assistant' && (

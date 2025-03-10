@@ -1,8 +1,17 @@
 import type { ChatMessage } from '@/types/chat';
 import { cn } from '@/utils/cn';
+import ReactMarkdown from 'react-markdown';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 
-export function ChatMessageContent({ message }: { message: ChatMessage }) {
-  if (message.content.trim() === '') return null;
+export function ChatMessageContent({
+  message,
+  isStreaming,
+}: {
+  message: ChatMessage;
+  isStreaming?: boolean;
+}) {
+  if (message.content.trim() === '' && !isStreaming) return null;
 
   return (
     <div
@@ -14,7 +23,15 @@ export function ChatMessageContent({ message }: { message: ChatMessage }) {
       )}
     >
       <div className='prose prose-sm text-base leading-6 break-words whitespace-pre-wrap'>
-        {message.content}
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeHighlight]}
+        >
+          {message.content}
+        </ReactMarkdown>
+        {isStreaming && (
+          <span className='bg-foreground ml-1 inline-block h-4 w-1 animate-pulse' />
+        )}
       </div>
     </div>
   );
