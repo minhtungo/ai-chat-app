@@ -2,7 +2,7 @@ import { env } from '@/config/env';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 export const baseAxiosConfig = {
-  baseURL: env.API_URL,
+  baseURL: env.AUTHENTICATION_API_URL,
   headers: {
     Accept: 'application/json',
   },
