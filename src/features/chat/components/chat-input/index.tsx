@@ -1,4 +1,4 @@
-import { ArrowUp } from '@/components/icons';
+import { ArrowUp, Loader2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
@@ -10,7 +10,10 @@ type ChatInputProps = React.ComponentProps<'div'> & {
   onSend: (message: string, files: Attachment[]) => void;
 };
 
-export function ChatInput({ onSend }: ChatInputProps) {
+export function ChatInput({
+  onSend,
+  disabled,
+}: ChatInputProps & { disabled?: boolean }) {
   const {
     message,
     setMessage,
@@ -50,6 +53,7 @@ export function ChatInput({ onSend }: ChatInputProps) {
         placeholder='Type a message...'
         className='max-h-[200px] min-h-16 w-full resize-none border-none p-0 focus-visible:ring-0 focus-visible:outline-none'
         autoFocus
+        disabled={disabled}
       />
       <div className='flex items-center justify-between'>
         <ChatInputActions onFileChange={handleFileChange} />
@@ -58,9 +62,13 @@ export function ChatInput({ onSend }: ChatInputProps) {
             type='submit'
             className='size-8 rounded-full'
             size='icon'
-            disabled={!message.trim() && attachments.length === 0}
+            disabled={disabled || (!message.trim() && attachments.length === 0)}
           >
-            <ArrowUp />
+            {disabled ? (
+              <Loader2 className='size-4 animate-spin' />
+            ) : (
+              <ArrowUp />
+            )}
           </Button>
         </div>
       </div>

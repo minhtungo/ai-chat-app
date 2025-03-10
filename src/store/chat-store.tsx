@@ -9,6 +9,7 @@ export type ChatState = {
 
 export type ChatMessageActions = {
   addMessage: (message: ChatMessage) => void;
+  updateLastMessage: (content: string) => void;
   setMessages: (messages: ChatMessage[]) => void;
   clearMessages: () => void;
   setChatName: (chatName: string) => void;
@@ -44,6 +45,18 @@ export const chatStore = createStore<ChatStore>((set) => ({
       set((state) => ({
         state: { ...state.state, messages: [...state.state.messages, message] },
       })),
+    updateLastMessage: (content) =>
+      set((state) => {
+        const messages = [...state.state.messages];
+        if (messages.length > 0) {
+          const lastMessage = { ...messages[messages.length - 1] };
+          lastMessage.content = content;
+          messages[messages.length - 1] = lastMessage;
+        }
+        return {
+          state: { ...state.state, messages },
+        };
+      }),
     setMessages: (messages) =>
       set((state) => ({
         state: { ...state.state, messages },
