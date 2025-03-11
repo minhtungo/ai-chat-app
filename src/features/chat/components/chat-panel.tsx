@@ -1,6 +1,10 @@
-import { streamChatCompletion } from '@/features/chat/api/chat-completion';
+import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
 import { ChatInput } from '@/features/chat/components/chat-input';
-import { useAddMessage, useSetIsStreaming, useupdateStreamingResponse } from '@/store/chat-store';
+import {
+  useAddMessage,
+  useSetIsStreaming,
+  useupdateStreamingResponse,
+} from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
@@ -49,7 +53,9 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
       );
     } catch (error) {
       console.error('Chat completion error:', error);
-      updateStreamingResponse('Sorry, there was an error processing your request.');
+      updateStreamingResponse(
+        'Sorry, there was an error processing your request.',
+      );
       setIsStreaming(false);
     }
   };

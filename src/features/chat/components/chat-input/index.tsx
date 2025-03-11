@@ -1,19 +1,17 @@
-import { ArrowUp, Loader2 } from '@/components/icons';
+import { ArrowUp, Loader2, Square } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
 import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
 import { useChatInput } from '@/features/chat/hooks/use-chat-input';
+import { useIsStreaming } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 
 type ChatInputProps = React.ComponentProps<'div'> & {
   onSend: (message: string, files: Attachment[]) => void;
 };
 
-export function ChatInput({
-  onSend,
-  disabled,
-}: ChatInputProps & { disabled?: boolean }) {
+export function ChatInput({ onSend }: ChatInputProps) {
   const {
     message,
     setMessage,
@@ -22,6 +20,8 @@ export function ChatInput({
     handleFileChange,
     handleRemoveAttachment,
   } = useChatInput(onSend);
+
+  const isStreaming = useIsStreaming();
 
   return (
     <form
@@ -53,7 +53,6 @@ export function ChatInput({
         placeholder='Type a message...'
         className='max-h-[200px] min-h-16 w-full resize-none border-none p-0 focus-visible:ring-0 focus-visible:outline-none'
         autoFocus
-        disabled={disabled}
       />
       <div className='flex items-center justify-between'>
         <ChatInputActions onFileChange={handleFileChange} />
@@ -62,12 +61,12 @@ export function ChatInput({
             type='submit'
             className='size-8 rounded-full'
             size='icon'
-            disabled={disabled || (!message.trim() && attachments.length === 0)}
+            disabled={!message.trim() && attachments.length === 0}
           >
-            {disabled ? (
-              <Loader2 className='size-4 animate-spin' />
+            {isStreaming ? (
+              <Square className='size-4' />
             ) : (
-              <ArrowUp />
+              <ArrowUp className='size-4' />
             )}
           </Button>
         </div>
