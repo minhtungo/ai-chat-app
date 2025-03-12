@@ -16,13 +16,13 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useChatList } from '@/features/chat/api/chat-list';
-import { useSetChatName } from '@/store/chat-store';
+import { useChatStoreSetChatName } from '@/store/chat-store';
 import { Link } from '@tanstack/react-router';
 
 export function ChatList() {
   const { data } = useChatList();
   const { isMobile } = useSidebar();
-  const setChatName  = useSetChatName();
+  const setChatName = useChatStoreSetChatName();
   const chats = data?.pages.flatMap((page) => page.chats) ?? [];
 
   return (

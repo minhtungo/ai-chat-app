@@ -3,14 +3,14 @@ import { Share2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { useUser } from '@/features/user/api/get-user';
-import { useChatName } from '@/store/chat-store';
+import { useChatStoreChatName } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 
 type ChatHeaderProps = React.ComponentProps<'div'>;
 
 export function ChatHeader({ className, ...props }: ChatHeaderProps) {
   const { data: user } = useUser();
-  const chatName = useChatName();
+  const chatName = useChatStoreChatName();
 
   return (
     <div

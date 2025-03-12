@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { useIsStreaming } from '@/store/chat-store';
+import { useChatStoreIsStreaming } from '@/store/chat-store';
 import { ArrowUp, Square } from 'lucide-react';
 
 type ChatSubmitButtonProps = React.ComponentProps<'button'>;
@@ -8,7 +8,7 @@ export function ChatSubmitButton({
   disabled,
   ...props
 }: ChatSubmitButtonProps) {
-  const isStreaming = useIsStreaming();
+  const isStreaming = useChatStoreIsStreaming();
 
   return (
     <Button

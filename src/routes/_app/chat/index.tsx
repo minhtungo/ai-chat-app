@@ -2,7 +2,7 @@ import { ChatHistoryLoadingScreen } from '@/components/loading/chat-history-load
 import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { useChat } from '@/store/chat-store';
+import { useChatStoreMessages } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/chat/')({
@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_app/chat/')({
 });
 
 function ChatRouteComponent() {
-  const { messages } = useChat();
+  const messages = useChatStoreMessages();
 
   if (messages.length > 0) {
     return (

@@ -95,30 +95,30 @@ export function useChatStore(selector: ChatStoreSelector) {
   return useStore(store, selector);
 }
 
-export const useChat = (): ChatState => useChatStore((state) => state.state);
-
-export const useIsStreaming = (): ChatState['isStreaming'] =>
+export const useChatStoreIsStreaming = (): ChatState['isStreaming'] =>
   useChatStore((state) => state.state.isStreaming);
-export const useMessages = (): ChatState['messages'] =>
+export const useChatStoreMessages = (): ChatState['messages'] =>
   useChatStore((state) => state.state.messages);
-export const useChatName = (): ChatState['chatName'] =>
+export const useChatStoreChatName = (): ChatState['chatName'] =>
   useChatStore((state) => state.state.chatName);
 
-export const useSetIsStreaming = (): ChatMessageActions['setIsStreaming'] =>
-  useChatStore((state) => state.messageActions.setIsStreaming);
+export const useChatStoreSetIsStreaming =
+  (): ChatMessageActions['setIsStreaming'] =>
+    useChatStore((state) => state.messageActions.setIsStreaming);
 
-export const useSetChatName = (): ChatMessageActions['setChatName'] =>
+export const useChatStoreSetChatName = (): ChatMessageActions['setChatName'] =>
   useChatStore((state) => state.messageActions.setChatName);
 
-export const useAddMessage = (): ChatMessageActions['addMessage'] =>
+export const useChatStoreAddMessage = (): ChatMessageActions['addMessage'] =>
   useChatStore((state) => state.messageActions.addMessage);
 
-export const useSetMessages = (): ChatMessageActions['setMessages'] =>
+export const useChatStoreSetMessages = (): ChatMessageActions['setMessages'] =>
   useChatStore((state) => state.messageActions.setMessages);
 
-export const useClearMessages = (): ChatMessageActions['clearMessages'] =>
-  useChatStore((state) => state.messageActions.clearMessages);
+export const useChatStoreClearMessages =
+  (): ChatMessageActions['clearMessages'] =>
+    useChatStore((state) => state.messageActions.clearMessages);
 
-export const useUpdateStreamingResponse =
+export const useChatStoreUpdateStreamingResponse =
   (): ChatMessageActions['updateStreamingResponse'] =>
     useChatStore((state) => state.messageActions.updateStreamingResponse);

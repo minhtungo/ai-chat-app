@@ -1,7 +1,7 @@
 import { ChatMessageActions } from '@/features/chat/components/chat-message/chat-message-actions';
 import { ChatMessageAttachment } from '@/features/chat/components/chat-message/chat-message-attachment';
 import { ChatMessageContent } from '@/features/chat/components/chat-message/chat-message-content';
-import { useIsStreaming } from '@/store/chat-store';
+import { useChatStoreIsStreaming } from '@/store/chat-store';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
@@ -11,7 +11,7 @@ export type ChatMessageProps = React.ComponentProps<'div'> & {
 };
 
 export function ChatMessage({ message, isLatest }: ChatMessageProps) {
-  const isStreaming = isLatest ? useIsStreaming() : false;
+  const isStreaming = isLatest ? useChatStoreIsStreaming() : false;
 
   return (
     <article className='group w-full pt-3.5 pb-3 md:py-5'>

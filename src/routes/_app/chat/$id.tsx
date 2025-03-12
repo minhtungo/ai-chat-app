@@ -7,7 +7,10 @@ import {
 import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { useChat, useClearMessages } from '@/store/chat-store';
+import {
+  useChatStoreClearMessages,
+  useChatStoreMessages,
+} from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
@@ -26,8 +29,8 @@ export const Route = createFileRoute('/_app/chat/$id')({
 
 function ChatRouteComponent() {
   const { id } = Route.useParams();
-  const clearMessages = useClearMessages();
-  const { messages } = useChat();
+  const clearMessages = useChatStoreClearMessages();
+  const messages = useChatStoreMessages();
 
   useEffect(() => {
     clearMessages();

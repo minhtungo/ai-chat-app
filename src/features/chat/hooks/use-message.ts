@@ -1,9 +1,9 @@
 import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
 import {
-  useAddMessage,
-  useMessages,
-  useSetIsStreaming,
-  useUpdateStreamingResponse,
+  useChatStoreAddMessage,
+  useChatStoreMessages,
+  useChatStoreSetIsStreaming,
+  useChatStoreUpdateStreamingResponse,
 } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { convertFileToAttachment } from '@/utils/chat';
@@ -13,10 +13,10 @@ export function useMessage() {
   const [currentMessage, setCurrentMessage] = useState('');
   const [attachments, setAttachments] = useState<Attachment[]>([]);
 
-  const messages = useMessages();
-  const addMessage = useAddMessage();
-  const updateStreamingResponse = useUpdateStreamingResponse();
-  const setIsStreaming = useSetIsStreaming();
+  const messages = useChatStoreMessages();
+  const addMessage = useChatStoreAddMessage();
+  const updateStreamingResponse = useChatStoreUpdateStreamingResponse();
+  const setIsStreaming = useChatStoreSetIsStreaming();
 
   const sendMessage = async (
     message: string,
