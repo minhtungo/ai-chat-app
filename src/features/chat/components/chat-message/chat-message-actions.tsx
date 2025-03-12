@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
-import { chatMessageActions } from '@/features/chat/lib/actions';
+import { chatMessageActions } from '@/features/chat/lib/constants';
 import { cn } from '@/utils/cn';
 
 type ChatMessageActionsProps = React.ComponentProps<'div'> & {

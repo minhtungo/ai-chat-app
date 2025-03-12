@@ -8,8 +8,8 @@ type ChatInputProps = React.ComponentProps<'div'> & {};
 
 export function ChatInput({}: ChatInputProps) {
   const {
-    message,
-    setMessage,
+    currentMessage,
+    setCurrentMessage,
     attachments,
     sendMessage,
     handleFileChange,
@@ -20,7 +20,7 @@ export function ChatInput({}: ChatInputProps) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        sendMessage(message, attachments);
+        sendMessage(currentMessage, attachments);
       }}
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
@@ -37,13 +37,13 @@ export function ChatInput({}: ChatInputProps) {
         </div>
       )}
       <Textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={currentMessage}
+        onChange={(e) => setCurrentMessage(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             e.currentTarget.style.height = '';
-            sendMessage(message, attachments);
+            sendMessage(currentMessage, attachments);
           }
         }}
         placeholder='Type a message...'
@@ -54,7 +54,7 @@ export function ChatInput({}: ChatInputProps) {
         <ChatInputActions onFileChange={handleFileChange} />
         <div>
           <ChatSubmitButton
-            disabled={!message.trim() && attachments.length === 0}
+            disabled={!currentMessage.trim() && attachments.length === 0}
           />
         </div>
       </div>

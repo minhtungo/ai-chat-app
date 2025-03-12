@@ -1,14 +1,14 @@
 import { Info } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { usePromptSuggestions } from '@/features/chat/api/suggestions';
-import { useAddMessage } from '@/store/chat-store';
+import { useMessages } from '@/features/chat/hooks/use-messages';
 import { cn } from '@/utils/cn';
 
 export function PromptSuggestions({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
-  const addMessage = useAddMessage();
+  const { sendMessage } = useMessages();
   const { data: promptSuggestions } = usePromptSuggestions();
 
   return (
@@ -22,13 +22,7 @@ export function PromptSuggestions({
           variant='outline'
           className='flex h-auto flex-row items-start gap-x-2 p-4 text-left whitespace-normal'
           onClick={() => {
-            addMessage({
-              role: 'user',
-              content: suggestion.description,
-              id: '1',
-              createdAt: new Date(),
-              attachments: [],
-            });
+            sendMessage(suggestion.description);
           }}
         >
           <Info className='size-5' />

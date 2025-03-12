@@ -9,18 +9,21 @@ import { convertFileToAttachment } from '@/utils/chat';
 import { useState } from 'react';
 
 export function useMessages() {
-  const [message, setMessage] = useState('');
+  const [currentMessage, setCurrentMessage] = useState('');
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const addMessage = useAddMessage();
   const updateStreamingResponse = useUpdateStreamingResponse();
   const setIsStreaming = useSetIsStreaming();
 
-  const sendMessage = async (message: string, attachments: Attachment[]) => {
+  const sendMessage = async (
+    message: string,
+    attachments: Attachment[] = [],
+  ) => {
     if (!message.trim() && attachments.length === 0) {
       return;
     }
 
-    setMessage('');
+    setCurrentMessage('');
     setAttachments([]);
 
     addMessage({
@@ -79,8 +82,8 @@ export function useMessages() {
   };
 
   return {
-    message,
-    setMessage,
+    currentMessage,
+    setCurrentMessage,
     attachments,
     setAttachments,
     handleFileChange,
