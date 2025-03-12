@@ -1,6 +1,7 @@
 import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
 import {
   useAddMessage,
+  useMessages,
   useSetIsStreaming,
   useUpdateStreamingResponse,
 } from '@/store/chat-store';
@@ -8,9 +9,11 @@ import type { Attachment } from '@/types/chat';
 import { convertFileToAttachment } from '@/utils/chat';
 import { useState } from 'react';
 
-export function useMessages() {
+export function useMessage() {
   const [currentMessage, setCurrentMessage] = useState('');
   const [attachments, setAttachments] = useState<Attachment[]>([]);
+
+  const messages = useMessages();
   const addMessage = useAddMessage();
   const updateStreamingResponse = useUpdateStreamingResponse();
   const setIsStreaming = useSetIsStreaming();
@@ -49,6 +52,7 @@ export function useMessages() {
     try {
       await streamChatCompletion(
         message,
+        messages,
         (chunk) => {
           accumulatedResponse += chunk;
           updateStreamingResponse(accumulatedResponse);

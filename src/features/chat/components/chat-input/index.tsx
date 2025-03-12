@@ -2,7 +2,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
 import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
 import { ChatSubmitButton } from '@/features/chat/components/chat-input/chat-submit-button';
-import { useMessages } from '@/features/chat/hooks/use-messages';
+import { useMessage } from '@/features/chat/hooks/use-message';
 
 type ChatInputProps = React.ComponentProps<'div'> & {};
 
@@ -14,7 +14,7 @@ export function ChatInput({}: ChatInputProps) {
     sendMessage,
     handleFileChange,
     handleRemoveAttachment,
-  } = useMessages();
+  } = useMessage();
 
   return (
     <form

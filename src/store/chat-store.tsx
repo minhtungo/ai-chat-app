@@ -85,7 +85,7 @@ export function ChatStoreProvider({ children }: ChatStoreProviderProps) {
   return <ChatStoreContext value={store}>{children}</ChatStoreContext>;
 }
 
-function useChatStore(selector: ChatStoreSelector) {
+export function useChatStore(selector: ChatStoreSelector) {
   const store = useContext(ChatStoreContext);
 
   if (!store) {
@@ -96,6 +96,7 @@ function useChatStore(selector: ChatStoreSelector) {
 }
 
 export const useChat = (): ChatState => useChatStore((state) => state.state);
+
 export const useIsStreaming = (): ChatState['isStreaming'] =>
   useChatStore((state) => state.state.isStreaming);
 export const useMessages = (): ChatState['messages'] =>

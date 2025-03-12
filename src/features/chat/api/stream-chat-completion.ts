@@ -1,13 +1,15 @@
 import { chatApi } from '@/api/api-client';
+import type { ChatMessage } from '@/types/chat';
 
 export async function streamChatCompletion(
   message: string,
+  history: ChatMessage[],
   onToken: (token: string) => void,
   onComplete?: () => void,
 ) {
   const response = await chatApi.post(
     '/chat/completions',
-    { message, history: [] },
+    { message, history },
     {
       responseType: 'stream',
       adapter: 'fetch',
