@@ -3,7 +3,7 @@ import { ChatInput } from '@/features/chat/components/chat-input';
 import {
   useAddMessage,
   useSetIsStreaming,
-  useupdateStreamingResponse,
+  useUpdateStreamingResponse,
 } from '@/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
@@ -12,7 +12,7 @@ type ChatPanelProps = React.ComponentProps<'div'>;
 
 export function ChatPanel({ className, ...props }: ChatPanelProps) {
   const addMessage = useAddMessage();
-  const updateStreamingResponse = useupdateStreamingResponse();
+  const updateStreamingResponse = useUpdateStreamingResponse();
   const setIsStreaming = useSetIsStreaming();
 
   const handleSendMessage = async (
@@ -27,9 +27,8 @@ export function ChatPanel({ className, ...props }: ChatPanelProps) {
       attachments,
     });
 
-    const assistantMessageId = crypto.randomUUID();
     addMessage({
-      id: assistantMessageId,
+      id: crypto.randomUUID(),
       content: '',
       role: 'assistant',
       createdAt: new Date(),

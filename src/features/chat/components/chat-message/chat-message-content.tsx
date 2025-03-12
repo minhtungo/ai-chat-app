@@ -1,4 +1,3 @@
-import { useIsStreaming } from '@/store/chat-store';
 import type { ChatMessage } from '@/types/chat';
 import { cn } from '@/utils/cn';
 import ReactMarkdown from 'react-markdown';
@@ -7,11 +6,11 @@ import remarkGfm from 'remark-gfm';
 
 export function ChatMessageContent({
   message,
+  isStreaming,
 }: {
   message: ChatMessage;
+  isStreaming: boolean;
 }) {
-  const isStreaming = useIsStreaming();
-
   if (message.content.trim() === '' && !isStreaming) return null;
 
   return (
@@ -30,7 +29,7 @@ export function ChatMessageContent({
         >
           {message.content}
         </ReactMarkdown>
-        {isStreaming && message.role === 'assistant' && message.content.length === 0 && (
+        {isStreaming && message.role === 'assistant' && (
           <span className='bg-foreground ml-1 inline-block h-4 w-1 animate-pulse' />
         )}
       </div>

@@ -118,6 +118,6 @@ export const useSetMessages = (): ChatMessageActions['setMessages'] =>
 export const useClearMessages = (): ChatMessageActions['clearMessages'] =>
   useChatStore((state) => state.messageActions.clearMessages);
 
-export const useupdateStreamingResponse = (): ChatMessageActions['updateStreamingResponse'] =>
-  useChatStore((state) => state.messageActions.updateStreamingResponse);
-
+export const useUpdateStreamingResponse =
+  (): ChatMessageActions['updateStreamingResponse'] =>
+    useChatStore((state) => state.messageActions.updateStreamingResponse);

@@ -10,11 +10,8 @@ export type ChatMessageProps = React.ComponentProps<'div'> & {
   isLatest: boolean;
 };
 
-export function ChatMessage({
-  message,
-  isLatest,
-}: ChatMessageProps) {
-  const streaming = useIsStreaming();
+export function ChatMessage({ message, isLatest }: ChatMessageProps) {
+  const isStreaming = isLatest ? useIsStreaming() : false;
 
   return (
     <article className='group w-full pt-3.5 pb-3 md:py-5'>
@@ -38,10 +35,11 @@ export function ChatMessage({
               ))}
             <ChatMessageContent
               message={message}
+              isStreaming={isLatest && isStreaming}
             />
 
             <div className='empty:hidden md:absolute'>
-              {message.role === 'assistant' && !streaming && (
+              {message.role === 'assistant' && !isStreaming && (
                 <ChatMessageActions
                   messageId={message.id}
                   isLatest={isLatest}
