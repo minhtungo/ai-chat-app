@@ -21,16 +21,12 @@ export const Route = createFileRoute('/_app/chat/$id')({
         getChatHistory({ offset: pageParam, chatId: params.id }),
     });
   },
-  pendingComponent: () => (
-    <div className='flex-1 px-4'>
-      <ChatHistoryLoadingScreen />
-    </div>
-  ),
+  pendingComponent: () => <ChatHistoryLoadingScreen />,
 });
 
 function ChatRouteComponent() {
   const { id } = Route.useParams();
-  const clearMessages  = useClearMessages();
+  const clearMessages = useClearMessages();
   const { messages } = useChat();
 
   useEffect(() => {

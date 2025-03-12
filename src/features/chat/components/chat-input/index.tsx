@@ -1,31 +1,27 @@
-import { ArrowUp, Loader2, Square } from '@/components/icons';
-import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
 import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
-import { useChatInput } from '@/features/chat/hooks/use-chat-input';
-import { useIsStreaming } from '@/store/chat-store';
-import type { Attachment } from '@/types/chat';
+import { ChatSubmitButton } from '@/features/chat/components/chat-input/chat-submit-button';
+import { useMessages } from '@/features/chat/hooks/use-messages';
 
-type ChatInputProps = React.ComponentProps<'div'> & {
-  onSend: (message: string, files: Attachment[]) => void;
-};
+type ChatInputProps = React.ComponentProps<'div'> & {};
 
-export function ChatInput({ onSend }: ChatInputProps) {
+export function ChatInput({}: ChatInputProps) {
   const {
     message,
     setMessage,
     attachments,
-    handleSubmit,
+    sendMessage,
     handleFileChange,
     handleRemoveAttachment,
-  } = useChatInput(onSend);
-
-  const isStreaming = useIsStreaming();
+  } = useMessages();
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+        sendMessage(message, attachments);
+      }}
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
       {attachments.length > 0 && (
@@ -47,7 +43,7 @@ export function ChatInput({ onSend }: ChatInputProps) {
           if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             e.currentTarget.style.height = '';
-            handleSubmit(e);
+            sendMessage(message, attachments);
           }
         }}
         placeholder='Type a message...'
@@ -57,18 +53,9 @@ export function ChatInput({ onSend }: ChatInputProps) {
       <div className='flex items-center justify-between'>
         <ChatInputActions onFileChange={handleFileChange} />
         <div>
-          <Button
-            type='submit'
-            className='size-8 rounded-full'
-            size='icon'
+          <ChatSubmitButton
             disabled={!message.trim() && attachments.length === 0}
-          >
-            {isStreaming ? (
-              <Square className='size-4' />
-            ) : (
-              <ArrowUp className='size-4' />
-            )}
-          </Button>
+          />
         </div>
       </div>
     </form>

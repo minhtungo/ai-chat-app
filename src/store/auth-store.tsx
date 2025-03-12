@@ -63,13 +63,14 @@ export const authStore = createStore<AuthStore>((set) => ({
             state: { ...state.state, token: data.accessToken },
           }));
           const user = await getUser();
-          queryClient.setQueryData(getUserQueryOptions().queryKey, { ...user });
+          queryClient.setQueryData(getUserQueryOptions().queryKey, user.data);
+
           set((state) => ({
             state: {
               ...state.state,
               isAuthenticated: true,
               isLoaded: true,
-              userId: user.id,
+              userId: user.data.id,
             },
           }));
         } else {
