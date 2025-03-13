@@ -6,7 +6,7 @@ type UseInfiniteScrollProps = {
   threshold?: number;
 };
 
-export function UseInfiniteScroll({
+export function useInfiniteScroll({
   hasNextPage,
   fetchNextPage,
   threshold = 0.1,

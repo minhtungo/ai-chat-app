@@ -22,7 +22,7 @@ export async function getChatHistory({
 }): Promise<ChatHistory> {
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
-  const PAGE_SIZE = 20;
+  const PAGE_SIZE = 30;
   // Mock data
 
   const mockMessages = Array.from({ length: PAGE_SIZE }, (_, i) => ({
@@ -37,7 +37,7 @@ export async function getChatHistory({
     name: `Chat ${chatId}`,
     messages: mockMessages,
     nextOffset: offset + PAGE_SIZE,
-    hasNextPage: offset + PAGE_SIZE < 60,
+    hasNextPage: offset + PAGE_SIZE < 120,
   };
 
   return Promise.resolve(mockData);

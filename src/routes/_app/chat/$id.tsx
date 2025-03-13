@@ -4,7 +4,6 @@ import {
   getChatHistoryQueryOptions,
   useChatHistory,
 } from '@/features/chat/api/chat-history';
-import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import {
@@ -36,7 +35,13 @@ function ChatRouteComponent() {
     clearMessages();
   }, [id]);
 
-  const { data: chatHistory } = useChatHistory(id);
+  // Get chat history with all the necessary properties for infinite scrolling
+  const {
+    data: chatHistory,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useChatHistory(id);
 
   const allMessages = [
     ...(chatHistory?.pages.flatMap((page) => page.messages) ?? []),
@@ -49,8 +54,13 @@ function ChatRouteComponent() {
 
   return (
     <>
-      <ChatHistory messages={allMessages} />
-      <ChatCanvas messages={allMessages} />
+      <ChatHistory
+        messages={allMessages}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
+      {/* <ChatCanvas messages={allMessages} /> */}
     </>
   );
 }
