@@ -6,9 +6,10 @@ const createEnv = () => {
     SOCKET_API_URL: z.string(),
     UPLOAD_API_URL: z.string(),
     APP_URL: z.string(),
-    ACCESS_TOKEN_COOKIE: z.string(),
-    APP_NAME: z.string(),
+    WEBSITE_URL: z.string(),
     CHAT_API_URL: z.string(),
+    APP_NAME: z.string(),
+    ACCESS_TOKEN_COOKIE: z.string(),
   });
 
   const envVars = Object.entries(import.meta.env).reduce<

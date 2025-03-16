@@ -1,5 +1,5 @@
 import { Logo } from '@/components/common/logo';
-import { appRoutes } from '@/config/routes';
+import { env } from '@/config/env';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
@@ -9,7 +9,7 @@ export function AppSidebarHeader({
 }: React.ComponentProps<'div'>) {
   return (
     <div className={cn(className)} {...props}>
-      <Link to={appRoutes.public.home.path}>
+      <Link to={env.WEBSITE_URL} target='_blank'>
         <Logo />
       </Link>
     </div>
