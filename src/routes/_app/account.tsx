@@ -1,13 +1,7 @@
 import { AccountSidebar } from '@/components/account-sidebar';
-import { appRoutes } from '@/config/routes';
-import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
+import { Outlet, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/account')({
-  beforeLoad: async ({ context }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({ to: appRoutes.auth.signIn.path });
-    }
-  },
   component: AccountLayoutComponent,
 });
 

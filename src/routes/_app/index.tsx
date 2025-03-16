@@ -1,3 +1,4 @@
+import { appRoutes } from '@/config/routes';
 import {
   getChatList,
   getChatListQueryOptions,
@@ -6,10 +7,14 @@ import {
   getPromptSuggestions,
   getPromptSuggestionsQueryOptions,
 } from '@/features/chat/api/suggestions';
-import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_app/chat')({
+export const Route = createFileRoute('/_app/')({
   component: ChatLayoutComponent,
+  beforeLoad: async ({}) => {
+    console.log('beforeLoad _app/index');
+    throw redirect({ to: appRoutes.app.chat.path });
+  },
   loader: ({ context }) => {
     context.queryClient.ensureInfiniteQueryData({
       queryKey: getChatListQueryOptions().queryKey,
