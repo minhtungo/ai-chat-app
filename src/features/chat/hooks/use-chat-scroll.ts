@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 type UseChatScrollOptions = {
   messages: any[];
@@ -18,6 +18,9 @@ export function useChatScroll({
   const initialScrollDoneRef = useRef<boolean>(false);
   const userHasScrolledRef = useRef<boolean>(false);
   const messagesLengthRef = useRef<number>(0);
+  const prevScrollHeightRef = useRef<number>(0);
+  const prevScrollTopRef = useRef<number>(0);
+  const isLoadingRef = useRef<boolean>(false);
 
   // scroll to bottom on initial load and new messages
   const scrollToBottom = useCallback((smooth = false) => {
@@ -44,7 +47,17 @@ export function useChatScroll({
     }
 
     // infinite scrolling when scrolled near top
-    if (userHasScrolledRef.current && hasNextPage && scrollTop < threshold) {
+    if (
+      userHasScrolledRef.current &&
+      hasNextPage &&
+      scrollTop < threshold &&
+      !isLoadingRef.current
+    ) {
+      // Save current scroll position and height before loading more messages
+      prevScrollHeightRef.current = scrollHeight;
+      prevScrollTopRef.current = scrollTop;
+      isLoadingRef.current = true;
+
       fetchNextPage();
     }
 
@@ -72,6 +85,26 @@ export function useChatScroll({
       }
     }
   }, [messages, scrollToBottom]);
+
+  // Adjust scroll position after loading older messages
+  useEffect(() => {
+    if (
+      containerRef.current &&
+      isLoadingRef.current &&
+      prevScrollHeightRef.current > 0
+    ) {
+      const newScrollHeight = containerRef.current.scrollHeight;
+      const heightDifference = newScrollHeight - prevScrollHeightRef.current;
+
+      if (heightDifference > 0) {
+        // Adjust scroll position to maintain the same relative view
+        containerRef.current.scrollTop =
+          prevScrollTopRef.current + heightDifference;
+      }
+
+      isLoadingRef.current = false;
+    }
+  }, [messages]);
 
   if (messages.length !== messagesLengthRef.current) {
     checkNewMessages();
