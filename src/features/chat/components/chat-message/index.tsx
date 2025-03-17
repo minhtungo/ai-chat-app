@@ -4,13 +4,14 @@ import { ChatMessageContent } from '@/features/chat/components/chat-message/chat
 import { useChatStoreIsStreaming } from '@/store/chat-store';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
+import { memo } from 'react';
 
 export type ChatMessageProps = React.ComponentProps<'div'> & {
   message: ChatMessageType;
   isLatest: boolean;
 };
 
-export function ChatMessage({ message, isLatest }: ChatMessageProps) {
+function NotMemoizedChatMessage({ message, isLatest }: ChatMessageProps) {
   const isStreaming = isLatest ? useChatStoreIsStreaming() : false;
 
   return (
@@ -53,3 +54,13 @@ export function ChatMessage({ message, isLatest }: ChatMessageProps) {
     </article>
   );
 }
+
+export const ChatMessage = memo(
+  NotMemoizedChatMessage,
+  (prevProps, nextProps) => {
+    return (
+      prevProps.message.content === nextProps.message.content &&
+      prevProps.isLatest === nextProps.isLatest
+    );
+  },
+);

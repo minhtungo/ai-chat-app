@@ -78,11 +78,10 @@ export function useInfiniteChatHistory({
     // First load - always scroll to bottom
     if (prevMessagesLengthRef.current === 0) {
       container.scrollTop = container.scrollHeight;
-    }
-    // When older messages are loaded (at the top)
-    else if (
+    } else if (
+      // When older messages are loaded (at the top)
       messages.length > prevMessagesLengthRef.current &&
-      isFetchingNextPage === false
+      !isFetchingNextPage
     ) {
       // When loading older messages - maintain position
       if (scrollHeightBeforeLoadRef.current > 0) {
@@ -116,7 +115,7 @@ export function useInfiniteChatHistory({
         container.scrollTop = container.scrollHeight;
       });
     }
-  }, [isStreaming, messages]); // Add messages dependency to catch content updates
+  }, [isStreaming, messages]);
 
   // Add scroll event listener
   useEffect(() => {
