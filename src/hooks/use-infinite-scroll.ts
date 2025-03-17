@@ -9,7 +9,7 @@ type UseInfiniteScrollProps = {
 export function useInfiniteScroll({
   hasNextPage,
   fetchNextPage,
-  threshold = 0.1,
+  threshold = 100,
 }: UseInfiniteScrollProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,14 +25,15 @@ export function useInfiniteScroll({
         rootMargin: `0px 0px ${threshold}px 0px`,
       },
     );
+    const currentContainer = containerRef.current;
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (currentContainer) {
+      observer.observe(currentContainer);
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
       }
     };
   }, [hasNextPage, fetchNextPage, threshold]);
