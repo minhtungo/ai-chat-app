@@ -1,53 +1,39 @@
 import { X } from '@/components/icons';
+import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
 import { ChatInputActions } from '@/features/chat/components/chat-input/chat-input-actions';
 import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
 import { ChatSubmitButton } from '@/features/chat/components/chat-input/chat-submit-button';
-import { MathKeyboard } from '@/features/chat/components/chat-input/math-keyboard';
 import { MathPreview } from '@/features/chat/components/chat-input/math-preview';
 import { useMessage } from '@/features/chat/hooks/use-message';
-import { useRef, useState } from 'react';
+import { Suspense, lazy } from 'react';
 
 type ChatInputProps = {};
+
+const MathKeyboard = lazy(
+  () => import('@/features/chat/components/chat-input/math-keyboard'),
+);
 
 export function ChatInput({}: ChatInputProps) {
   const {
     currentMessage,
     setCurrentMessage,
     attachments,
-    sendMessage,
     handleFileChange,
     handleRemoveAttachment,
+    handleSendMessage,
+    isMathKeyboardOpen,
+    handleInsertMath,
+    handleRemoveMath,
+    setIsMathKeyboardOpen,
+    mathExpressions,
   } = useMessage();
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const [isMathKeyboardOpen, setIsMathKeyboardOpen] = useState(false);
-  const [mathExpressions, setMathExpressions] = useState<string[]>([]);
-
-  const handleInsertMath = (expression: string) => {
-    setMathExpressions([...mathExpressions, expression]);
-  };
-
-  const handleRemoveMath = (index: number) => {
-    setMathExpressions(mathExpressions.filter((_, i) => i !== index));
-  };
-
-  const handleSendMessage = () => {
-    const combinedMessage = [currentMessage, ...mathExpressions]
-      .filter((text) => text.trim())
-      .join('\n\n');
-
-    sendMessage(combinedMessage, attachments);
-    setMathExpressions([]);
-  };
 
   return (
     <form
-      ref={formRef}
       onSubmit={(e) => {
         e.preventDefault();
-        handleSendMessage();
+        handleSendMessage(currentMessage, attachments);
       }}
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
@@ -65,22 +51,22 @@ export function ChatInput({}: ChatInputProps) {
       )}
 
       {isMathKeyboardOpen ? (
-        <MathKeyboard
-          onInsert={handleInsertMath}
-          onToggle={setIsMathKeyboardOpen}
-          isOpen={isMathKeyboardOpen}
-        />
+        <Suspense fallback={<Spinner />}>
+          <MathKeyboard
+            onInsert={handleInsertMath}
+            onToggle={setIsMathKeyboardOpen}
+          />
+        </Suspense>
       ) : (
         <>
           <Textarea
-            ref={textareaRef}
             value={currentMessage}
             onChange={(e) => setCurrentMessage(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 e.currentTarget.style.height = '';
-                handleSendMessage();
+                handleSendMessage(currentMessage, attachments);
               }
             }}
             placeholder='Type a message...'
@@ -120,7 +106,6 @@ export function ChatInput({}: ChatInputProps) {
                   mathExpressions.length === 0 &&
                   attachments.length === 0
                 }
-                onClick={handleSendMessage}
               />
             </div>
           </div>

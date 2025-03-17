@@ -13,12 +13,23 @@ export function useMessage() {
   const [currentMessage, setCurrentMessage] = useState('');
   const [attachments, setAttachments] = useState<Attachment[]>([]);
 
+  const [isMathKeyboardOpen, setIsMathKeyboardOpen] = useState(false);
+  const [mathExpressions, setMathExpressions] = useState<string[]>([]);
+
+  const handleInsertMath = (expression: string) => {
+    setMathExpressions([...mathExpressions, expression]);
+  };
+
+  const handleRemoveMath = (index: number) => {
+    setMathExpressions(mathExpressions.filter((_, i) => i !== index));
+  };
+
   const messages = useChatStoreMessages();
   const addMessage = useChatStoreAddMessage();
   const updateStreamingResponse = useChatStoreUpdateStreamingResponse();
   const setIsStreaming = useChatStoreSetIsStreaming();
 
-  const sendMessage = async (
+  const handleSendMessage = async (
     message: string,
     attachments: Attachment[] = [],
   ) => {
@@ -27,11 +38,16 @@ export function useMessage() {
     }
 
     setCurrentMessage('');
+    setMathExpressions([]);
     setAttachments([]);
+
+    const combinedMessage = [currentMessage, ...mathExpressions]
+      .filter((text) => text.trim())
+      .join('');
 
     addMessage({
       id: crypto.randomUUID(),
-      content: message,
+      content: combinedMessage,
       role: 'user',
       createdAt: new Date(),
       attachments,
@@ -92,6 +108,11 @@ export function useMessage() {
     setAttachments,
     handleFileChange,
     handleRemoveAttachment,
-    sendMessage,
+    handleSendMessage,
+    isMathKeyboardOpen,
+    setIsMathKeyboardOpen,
+    mathExpressions,
+    handleInsertMath,
+    handleRemoveMath,
   };
 }

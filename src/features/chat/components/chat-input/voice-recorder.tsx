@@ -70,7 +70,7 @@ export function VoiceRecorder({ onRecordingComplete }: VoiceRecorderProps) {
   };
 
   return (
-    <div className='relative inline-flex items-center'>
+    <div className='relative inline-flex w-full items-center justify-start'>
       {isRecording && (
         <div className='bg-accent text-popover-foreground absolute -top-16 left-1/2 min-w-[100px] -translate-x-1/2 rounded-md px-3 py-2 shadow-lg'>
           <div className='mb-1 text-sm'>Recording...</div>
@@ -85,19 +85,20 @@ export function VoiceRecorder({ onRecordingComplete }: VoiceRecorderProps) {
         onClick={isRecording ? stopRecording : startRecording}
         variant='ghost'
         type='button'
-        size='icon'
+        size='sm'
         className={cn(
-          'size-8 rounded-full',
           isRecording &&
             'text-destructive hover:text-destructive/90 hover:bg-destructive/10',
+          'w-full justify-start font-normal',
         )}
         title={isRecording ? 'Stop recording' : 'Start recording'}
       >
         {isRecording ? (
-          <Square className='size-4.5' />
+          <Square className='text-muted-foreground size-4.5' />
         ) : (
-          <Mic className='size-4.5' />
+          <Mic className='text-muted-foreground size-4.5' />
         )}
+        {isRecording ? 'Stop' : 'Voice Input'}
       </Button>
     </div>
   );
