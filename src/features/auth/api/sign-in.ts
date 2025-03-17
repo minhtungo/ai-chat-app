@@ -36,12 +36,12 @@ export function useSignIn() {
     mutationFn: signInWithEmailAndPassWord,
     onSuccess: async (result) => {
       if (result.success) {
+        createSession(result.data.accessToken, result.data.convertedUser.id);
+        router.navigate({ to: appRoutes.app.chat.path, replace: true });
         queryClient.setQueryData(
           getUserQueryOptions().queryKey,
           result.data.convertedUser,
         );
-        router.navigate({ to: appRoutes.app.chat.path, replace: true });
-        createSession(result.data.accessToken, result.data.convertedUser.id);
       }
     },
     onError: (error: AxiosError) => {
