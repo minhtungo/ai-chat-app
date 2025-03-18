@@ -4,7 +4,7 @@ import {
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
 import { ChatHistory } from '@/features/chat/components/chat-history';
-import { ChatPanel } from '@/features/chat/components/chat-panel';
+import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
 import { DocumentCanvas } from '@/features/chat/components/document-canvas';
 import { ImageCanvas } from '@/features/chat/components/image-canvas';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
@@ -52,7 +52,7 @@ export function ChatCanvas({ className, ...props }: ChatCanvasProps) {
           minSize={25}
           className='flex min-w-[350px] flex-col'
         >
-          <ChatHistory className='px-4 pt-4 pb-10 lg:px-6' />
+          <ChatHistory className='px-4 pt-4 pb-10' />
           <ChatPanel className='px-4' />
         </ResizablePanel>
       </ResizablePanelGroup>

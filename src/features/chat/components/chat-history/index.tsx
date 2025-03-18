@@ -1,10 +1,15 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useChatHistory } from '@/features/chat/api/chat-history';
 import { ChatMessage } from '@/features/chat/components/chat-message';
+import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useInfiniteChatHistory } from '@/features/chat/hooks/use-infinite-chat-history';
-import { useChatStoreMessages } from '@/store/chat-store';
+import {
+  useChatStoreClearMessages,
+  useChatStoreMessages,
+} from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 import { useParams } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 type ChatHistoryProps = React.ComponentProps<'div'> & {};
 
@@ -33,6 +38,18 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
     isFetchingNextPage,
     messages: allMessages,
   });
+
+  const clearMessages = useChatStoreClearMessages();
+
+  useEffect(() => {
+    return () => {
+      clearMessages();
+    };
+  }, [id]);
+
+  if (chatHistory?.pages.flatMap((page) => page.messages).length === 0) {
+    return <NewChatScreen />;
+  }
 
   return (
     <div

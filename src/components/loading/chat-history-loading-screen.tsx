@@ -10,8 +10,8 @@ export function ChatHistoryLoadingScreen({
         <div className='flex flex-col gap-4'>
           {Array.from({ length: 4 }).map((_, i) => (
             <React.Fragment key={`chat-history-skeleton-${i}`}>
-              <Skeleton className='ml-auto h-14 w-64 rounded-md' />
-              <Skeleton className='h-14 w-64 rounded-md' />
+              <Skeleton className='ml-auto h-12 w-64 rounded-md' />
+              <Skeleton className='h-12 w-64 rounded-md' />
             </React.Fragment>
           ))}
         </div>
