@@ -1,6 +1,5 @@
 import type { ChatMessage } from '@/types/chat';
 import { cn } from '@/utils/cn';
-import 'katex/dist/katex.min.css';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
@@ -28,7 +27,32 @@ export function ChatMessageContent({
       <div className='prose prose-sm text-base leading-6 break-words whitespace-pre-wrap'>
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
-          rehypePlugins={[rehypeHighlight, rehypeKatex]}
+          rehypePlugins={[
+            [rehypeHighlight, { ignoreMissing: true, subset: false }],
+            rehypeKatex,
+          ]}
+          components={{
+            code({ node, className, children, ...props }) {
+              return (
+                <code
+                  className={cn('break-words whitespace-pre-wrap', className)}
+                  {...props}
+                >
+                  {children}
+                </code>
+              );
+            },
+            pre({ node, children, ...props }) {
+              return (
+                <pre
+                  className='max-w-full overflow-x-auto whitespace-pre-wrap'
+                  {...props}
+                >
+                  {children}
+                </pre>
+              );
+            },
+          }}
         >
           {message.content}
         </ReactMarkdown>

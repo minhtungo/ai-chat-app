@@ -6,7 +6,9 @@ import {
   getPromptSuggestions,
   getPromptSuggestionsQueryOptions,
 } from '@/features/chat/api/suggestions';
+import '@/styles/github-dark.css';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
+import 'katex/dist/katex.min.css';
 
 export const Route = createFileRoute('/_app/chat')({
   component: ChatLayoutComponent,

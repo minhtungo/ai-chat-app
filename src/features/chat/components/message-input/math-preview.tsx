@@ -1,6 +1,5 @@
 // src/features/chat/components/chat-input/math-preview.tsx
 import katex from 'katex';
-import 'katex/dist/katex.min.css';
 import { useMemo } from 'react';
 
 interface MathPreviewProps {

@@ -9,13 +9,11 @@ import { DocumentCanvas } from '@/features/chat/components/document-canvas';
 import { ImageCanvas } from '@/features/chat/components/image-canvas';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
 import { useCanvas } from '@/store/canvas-store';
-import type { ChatMessage } from '@/types/chat';
+import { cn } from '@/utils/cn';
 
-type ChatCanvasProps = {
-  messages: ChatMessage[];
-};
+type ChatCanvasProps = React.ComponentProps<'div'> & {};
 
-export function ChatCanvas({ messages }: ChatCanvasProps) {
+export function ChatCanvas({ className, ...props }: ChatCanvasProps) {
   const { isOpen, type, attachment } = useCanvas();
 
   if (!isOpen) {
@@ -36,7 +34,10 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
   };
 
   return (
-    <div className='bg-background fixed inset-0 z-50'>
+    <div
+      className={cn('bg-background fixed inset-0 z-50', className)}
+      {...props}
+    >
       <ResizablePanelGroup direction='horizontal'>
         <ResizablePanel
           defaultSize={65}
@@ -51,7 +52,7 @@ export function ChatCanvas({ messages }: ChatCanvasProps) {
           minSize={25}
           className='flex min-w-[350px] flex-col'
         >
-          <ChatHistory messages={messages} className='px-4 pt-4 pb-10' />
+          <ChatHistory className='px-4 pt-4 pb-10 lg:px-6' />
           <ChatPanel className='px-4' />
         </ResizablePanel>
       </ResizablePanelGroup>

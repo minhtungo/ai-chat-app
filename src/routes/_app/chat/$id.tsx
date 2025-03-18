@@ -4,12 +4,10 @@ import {
   getChatHistoryQueryOptions,
   useChatHistory,
 } from '@/features/chat/api/chat-history';
+import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import {
-  useChatStoreClearMessages,
-  useChatStoreMessages,
-} from '@/store/chat-store';
+import { useChatStoreClearMessages } from '@/store/chat-store';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 
@@ -29,38 +27,21 @@ export const Route = createFileRoute('/_app/chat/$id')({
 function ChatRouteComponent() {
   const { id } = Route.useParams();
   const clearMessages = useChatStoreClearMessages();
-  const messages = useChatStoreMessages();
 
   useEffect(() => {
     clearMessages();
   }, [id]);
 
-  // Get chat history with all the necessary properties for infinite scrolling
-  const {
-    data: chatHistory,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useChatHistory(id);
+  const { data: chatHistory } = useChatHistory(id);
 
-  const allMessages = [
-    ...(chatHistory?.pages.flatMap((page) => page.messages) ?? []),
-    ...messages,
-  ];
-
-  if (allMessages.length === 0) {
+  if (chatHistory?.pages.flatMap((page) => page.messages).length === 0) {
     return <NewChatScreen />;
   }
 
   return (
     <>
-      <ChatHistory
-        messages={allMessages}
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-      />
-      {/* <ChatCanvas messages={allMessages} /> */}
+      <ChatHistory />
+      <ChatCanvas />
     </>
   );
 }
