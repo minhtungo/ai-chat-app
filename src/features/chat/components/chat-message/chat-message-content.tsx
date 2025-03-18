@@ -24,7 +24,7 @@ export function ChatMessageContent({
           : 'bg-transparent',
       )}
     >
-      <div className='prose prose-sm text-base leading-6 break-words whitespace-pre-wrap'>
+      <div className='prose-xl text-base leading-6 break-words whitespace-normal'>
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[
