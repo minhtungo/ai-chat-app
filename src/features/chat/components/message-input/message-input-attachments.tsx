@@ -4,22 +4,37 @@ import { useMessageInputStore } from '@/features/chat/store/message-input-store'
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
-type ChatInputAttachmentProps = React.ComponentProps<'div'> & {
+type MessageInputAttachmentProps = React.ComponentProps<'div'> & {
   attachment: Attachment;
 };
+export function MessageInputAttachments() {
+  const attachments = useMessageInputStore((state) => state.state.attachments);
 
-export function ChatInputAttachment({
+  if (attachments.length === 0) return null;
+
+  return (
+    <div className='mb-1 flex gap-2 overflow-auto pt-1'>
+      {attachments.map((attachment) => (
+        <div key={`chat-input-attachment-${attachment.id}`}>
+          <MessageInputAttachment attachment={attachment} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MessageInputAttachment({
   attachment,
   className,
   ...props
-}: ChatInputAttachmentProps) {
+}: MessageInputAttachmentProps) {
   const removeAttachment = useMessageInputStore(
     (state) => state.actions.removeAttachment,
   );
 
   return (
     <div
-      key={`chat-input-attachment-${attachment.id}`}
+      key={`message-input-attachment-${attachment.id}`}
       className={cn(
         'relative mb-1 w-fit rounded-md',
         attachment.type === 'document' &&

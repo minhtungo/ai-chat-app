@@ -53,19 +53,18 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
       if (!message.trim() && attachments.length === 0) {
         return;
       }
-      set((state) => ({
-        state: {
-          ...state.state,
-          message: '',
-          mathExpressions: [],
-          attachments: [],
-        },
-      }));
+
       const mathExpressions = get().state.mathExpressions;
 
       const combinedMessage = [message, ...mathExpressions]
         .filter((text) => text.trim())
-        .join('');
+        .join('\n\n');
+
+      set(() => ({
+        state: {
+          ...initialMessageInputState,
+        },
+      }));
 
       const addMessage = chatStore.getState().messageActions.addMessage;
 

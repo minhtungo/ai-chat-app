@@ -6,14 +6,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { VoiceRecorder } from '@/features/chat/components/chat-input/voice-recorder';
+import { VoiceRecorder } from '@/features/chat/components/message-input/voice-recorder';
 import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import { useCanvasActions } from '@/store/canvas-store';
 import { useRef } from 'react';
 
-type ChatInputActionsProps = React.ComponentProps<'div'> & {};
+type MessageInputActionsProps = React.ComponentProps<'div'> & {};
 
-export function ChatInputActions({}: ChatInputActionsProps) {
+export function MessageInputActions({}: MessageInputActionsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { setCanvasMode } = useCanvasActions();
   const addAttachment = useMessageInputStore(
