@@ -1,19 +1,22 @@
 import { FileText, XIcon } from '@/components/icons';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 
 type ChatInputAttachmentProps = React.ComponentProps<'div'> & {
   attachment: Attachment;
-  onRemoveAttachment: (id: string) => void;
 };
 
 export function ChatInputAttachment({
   attachment,
   className,
-  onRemoveAttachment,
   ...props
 }: ChatInputAttachmentProps) {
+  const removeAttachment = useMessageInputStore(
+    (state) => state.actions.removeAttachment,
+  );
+
   return (
     <div
       key={`chat-input-attachment-${attachment.id}`}
@@ -25,16 +28,14 @@ export function ChatInputAttachment({
       )}
       {...props}
     >
-      {onRemoveAttachment && (
-        <TooltipButton tooltip='Remove'>
-          <button
-            onClick={() => onRemoveAttachment(attachment.id)}
-            className='text-foreground bg-secondary/40 absolute top-0 -right-0 cursor-pointer rounded-full p-[2px]'
-          >
-            <XIcon className='size-3' />
-          </button>
-        </TooltipButton>
-      )}
+      <TooltipButton tooltip='Remove'>
+        <button
+          onClick={() => removeAttachment(attachment.id)}
+          className='text-foreground bg-secondary/40 absolute top-0 -right-0 cursor-pointer rounded-full p-[2px]'
+        >
+          <XIcon className='size-3' />
+        </button>
+      </TooltipButton>
       {attachment.type === 'image' ? (
         <img
           src={attachment.url}

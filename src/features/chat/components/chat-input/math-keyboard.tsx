@@ -1,20 +1,23 @@
 import { Button } from '@/components/ui/button';
+import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import '@/styles/math-live.css';
 import { MathfieldElement } from 'mathlive';
 import { useEffect, useRef, useState } from 'react';
 
-type MathKeyboardProps = {
-  onInsert: (expression: string) => void;
-  onToggle: (isOpen: boolean) => void;
-};
+type MathKeyboardProps = {};
 
-export default function MathKeyboard({
-  onInsert,
-  onToggle,
-}: MathKeyboardProps) {
+export default function MathKeyboard({}: MathKeyboardProps) {
   const mathfieldRef = useRef<HTMLDivElement>(null);
   const mathfieldElementRef = useRef<any>(null);
   const [mathExpression, setMathExpression] = useState('');
+
+  const addMathExpression = useMessageInputStore(
+    (state) => state.actions.addMathExpression,
+  );
+
+  const toggleMathKeyboard = useMessageInputStore(
+    (state) => state.actions.toggleMathKeyboard,
+  );
 
   useEffect(() => {
     if (!customElements.get('math-field')) {
@@ -82,14 +85,14 @@ export default function MathKeyboard({
 
     // Format with appropriate delimiters
     const delimiter = '$';
-    onInsert(`${delimiter}${mathExpression}${delimiter}`);
+    addMathExpression(`${delimiter}${mathExpression}${delimiter}`);
 
     // Clear and close
     if (mathfieldElementRef.current) {
       mathfieldElementRef.current.value = '';
     }
     setMathExpression('');
-    onToggle(false);
+    toggleMathKeyboard();
   };
 
   return (
@@ -103,7 +106,7 @@ export default function MathKeyboard({
           >
             Insert
           </Button>
-          <Button size='sm' variant='outline' onClick={() => onToggle(false)}>
+          <Button size='sm' variant='outline' onClick={toggleMathKeyboard}>
             Close
           </Button>
         </div>

@@ -5,7 +5,7 @@ import { ChatInputActions } from '@/features/chat/components/chat-input/chat-inp
 import { ChatInputAttachment } from '@/features/chat/components/chat-input/chat-input-attachment';
 import { ChatSubmitButton } from '@/features/chat/components/chat-input/chat-submit-button';
 import { MathPreview } from '@/features/chat/components/chat-input/math-preview';
-import { useMessage } from '@/features/chat/hooks/use-message';
+import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import { Suspense, lazy } from 'react';
 
 type ChatInputProps = {};
@@ -15,25 +15,32 @@ const MathKeyboard = lazy(
 );
 
 export function ChatInput({}: ChatInputProps) {
-  const {
-    currentMessage,
-    setCurrentMessage,
-    attachments,
-    handleFileChange,
-    handleRemoveAttachment,
-    handleSendMessage,
-    isMathKeyboardOpen,
-    handleInsertMath,
-    handleRemoveMath,
-    setIsMathKeyboardOpen,
-    mathExpressions,
-  } = useMessage();
+  const sendMessage = useMessageInputStore(
+    (state) => state.actions.sendMessage,
+  );
+
+  const attachments = useMessageInputStore((state) => state.state.attachments);
+  const isMathKeyboardOpen = useMessageInputStore(
+    (state) => state.state.isMathKeyboardOpen,
+  );
+
+  const setCurrentMessage = useMessageInputStore(
+    (state) => state.actions.setMessage,
+  );
+  const currentMessage = useMessageInputStore((state) => state.state.message);
+
+  const mathExpressions = useMessageInputStore(
+    (state) => state.state.mathExpressions,
+  );
+  const handleRemoveMath = useMessageInputStore(
+    (state) => state.actions.removeMathExpression,
+  );
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        handleSendMessage(currentMessage, attachments);
+        sendMessage();
       }}
       className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
     >
@@ -41,10 +48,7 @@ export function ChatInput({}: ChatInputProps) {
         <div className='mb-1 flex gap-2 overflow-auto pt-1'>
           {attachments.map((attachment) => (
             <div key={`chat-input-attachment-${attachment.id}`}>
-              <ChatInputAttachment
-                attachment={attachment}
-                onRemoveAttachment={handleRemoveAttachment}
-              />
+              <ChatInputAttachment attachment={attachment} />
             </div>
           ))}
         </div>
@@ -52,10 +56,7 @@ export function ChatInput({}: ChatInputProps) {
 
       {isMathKeyboardOpen ? (
         <Suspense fallback={<Spinner />}>
-          <MathKeyboard
-            onInsert={handleInsertMath}
-            onToggle={setIsMathKeyboardOpen}
-          />
+          <MathKeyboard />
         </Suspense>
       ) : (
         <>
@@ -66,7 +67,7 @@ export function ChatInput({}: ChatInputProps) {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 e.currentTarget.style.height = '';
-                handleSendMessage(currentMessage, attachments);
+                sendMessage();
               }
             }}
             placeholder='Type a message...'
@@ -95,10 +96,7 @@ export function ChatInput({}: ChatInputProps) {
           )}
 
           <div className='flex items-center justify-between'>
-            <ChatInputActions
-              onFileChange={handleFileChange}
-              onToggleMathKeyboard={() => setIsMathKeyboardOpen(true)}
-            />
+            <ChatInputActions />
             <div>
               <ChatSubmitButton
                 disabled={

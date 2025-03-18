@@ -1,4 +1,4 @@
-import { Camera, Image, Mic, Plus, Radical } from '@/components/icons';
+import { Camera, Image, Plus, Radical } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -7,20 +7,21 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { VoiceRecorder } from '@/features/chat/components/chat-input/voice-recorder';
+import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import { useCanvasActions } from '@/store/canvas-store';
 import { useRef } from 'react';
 
-type ChatInputActionsProps = React.ComponentProps<'div'> & {
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onToggleMathKeyboard: () => void;
-};
+type ChatInputActionsProps = React.ComponentProps<'div'> & {};
 
-export function ChatInputActions({
-  onFileChange,
-  onToggleMathKeyboard,
-}: ChatInputActionsProps) {
+export function ChatInputActions({}: ChatInputActionsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { setCanvasMode } = useCanvasActions();
+  const addAttachment = useMessageInputStore(
+    (state) => state.actions.addAttachment,
+  );
+  const toggleMathKeyboard = useMessageInputStore(
+    (state) => state.actions.toggleMathKeyboard,
+  );
 
   const handleWebcamMode = () => {
     setCanvasMode({
@@ -43,13 +44,13 @@ export function ChatInputActions({
           <input
             type='file'
             ref={fileInputRef}
-            onChange={onFileChange}
+            onChange={addAttachment}
             multiple
             accept='image/*,.pdf,.doc,.docx,video/*'
             hidden
           />
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onToggleMathKeyboard}>
+        <DropdownMenuItem onClick={toggleMathKeyboard}>
           <Radical className='size-4.5' /> Math Input
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
