@@ -2,7 +2,7 @@ import { privateApi } from '@/api/api-client';
 import { apiRoutes, appRoutes } from '@/config/routes';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
 import { handleError } from '@/lib/errors';
-import { useSession } from '@/store/auth-store';
+import { useAuthActions } from '@/store/auth-store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useRouter } from '@tanstack/react-router';
 import type { AxiosError } from 'axios';
@@ -13,7 +13,7 @@ export function signOut() {
 
 export function useSignOut() {
   const queryClient = useQueryClient();
-  const { clearSession } = useSession();
+  const { clearSession } = useAuthActions();
   const router = useRouter();
   const location = useLocation();
 

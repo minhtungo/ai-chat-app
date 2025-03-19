@@ -4,7 +4,7 @@ import { ChatMessage } from '@/features/chat/components/chat-message';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
 import { useInfiniteChatHistory } from '@/features/chat/hooks/use-infinite-chat-history';
 import {
-  useChatStoreClearMessages,
+  useChatStoreActions,
   useChatStoreMessages,
 } from '@/features/chat/store/chat-store';
 import { cn } from '@/utils/cn';
@@ -39,7 +39,7 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
     messages: allMessages,
   });
 
-  const clearMessages = useChatStoreClearMessages();
+  const { clearMessages } = useChatStoreActions();
 
   useEffect(() => {
     return () => {

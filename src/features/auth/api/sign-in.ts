@@ -3,7 +3,7 @@ import { apiRoutes, appRoutes } from '@/config/routes';
 import type { SignInInput } from '@/features/auth/hooks/use-sign-in-form';
 import { getUserQueryOptions } from '@/features/user/api/get-user';
 import { handleError } from '@/lib/errors';
-import { useSession } from '@/store/auth-store';
+import { useAuthActions } from '@/store/auth-store';
 import type { ApiResponse } from '@/types/api';
 import { type SignInResponse } from '@/types/api/auth/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -29,7 +29,7 @@ export function signInWithEmailAndPassWord(
 
 export function useSignIn() {
   const queryClient = useQueryClient();
-  const { createSession } = useSession();
+  const { createSession } = useAuthActions();
   const router = useRouter();
 
   return useMutation({

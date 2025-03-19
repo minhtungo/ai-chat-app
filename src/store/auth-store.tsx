@@ -104,6 +104,14 @@ function useAuthStore(selector: AuthStoreSelector) {
 }
 
 export const useAuth = (): AuthState => useAuthStore((state) => state.state);
+export const useAuthIsAuthenticated = (): AuthState['isAuthenticated'] =>
+  useAuthStore((state) => state.state.isAuthenticated);
+export const useAuthIsLoaded = (): AuthState['isLoaded'] =>
+  useAuthStore((state) => state.state.isLoaded);
+export const useAuthToken = (): AuthState['token'] =>
+  useAuthStore((state) => state.state.token);
+export const useAuthUserId = (): AuthState['userId'] =>
+  useAuthStore((state) => state.state.userId);
 
-export const useSession = (): AuthActions =>
+export const useAuthActions = (): AuthActions =>
   useAuthStore((state) => state.actions);

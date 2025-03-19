@@ -10,7 +10,7 @@ export const Route = createFileRoute('/_auth')({
   beforeLoad: ({ context, search }) => {
     console.log('AuthLayoutComponent beforeLoad', context);
 
-    if (context.auth.isLoaded && context.auth.isAuthenticated) {
+    if (context.isAuthLoaded && context.isAuthenticated) {
       throw redirect({
         to: search.redirect || appRoutes.app.chat.path,
       });

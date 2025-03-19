@@ -2,17 +2,14 @@ import { queryClient } from '@/api/query-client';
 import { NotFound } from '@/components/errors/not-found';
 import { AppLoadingScreen } from '@/components/loading/app-loading-screen';
 import { routeTree } from '@/routeTree.gen';
-import {
-  type AuthActions,
-  type AuthState,
-  initialAuthState,
-} from '@/store/auth-store';
+import { type AuthActions } from '@/store/auth-store';
 import type { QueryClient } from '@tanstack/react-query';
 import { ErrorComponent, createRouter } from '@tanstack/react-router';
 
 export type RouterContext = {
-  auth: AuthState;
-  session: AuthActions;
+  isAuthenticated: boolean;
+  isAuthLoaded: boolean;
+  authActions: AuthActions;
   queryClient: QueryClient;
 };
 
@@ -23,8 +20,9 @@ export const router = createRouter({
   defaultNotFoundComponent: () => <NotFound />,
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
-    auth: initialAuthState as AuthState,
-    session: {} as AuthActions,
+    isAuthenticated: false,
+    isAuthLoaded: false,
+    authActions: {} as AuthActions,
     queryClient,
   },
   defaultPreload: 'intent',

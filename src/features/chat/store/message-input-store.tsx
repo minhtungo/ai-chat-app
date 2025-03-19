@@ -66,12 +66,12 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
         },
       }));
 
-      const addMessage = chatStore.getState().messageActions.addMessage;
+      const addMessage = chatStore.getState().actions.addMessage;
 
       const updateStreamingResponse =
-        chatStore.getState().messageActions.updateStreamingResponse;
+        chatStore.getState().actions.updateStreamingResponse;
 
-      const setIsStreaming = chatStore.getState().messageActions.setIsStreaming;
+      const setIsStreaming = chatStore.getState().actions.setIsStreaming;
 
       const messages = chatStore.getState().state.messages;
 

@@ -24,7 +24,7 @@ type ChatStoreProviderProps = {
 
 type ChatStore = {
   state: ChatState;
-  messageActions: ChatMessageActions;
+  actions: ChatMessageActions;
 };
 
 type ChatContext = StoreApi<ChatStore> | null;
@@ -43,7 +43,7 @@ export const chatStore = createStore<ChatStore>((set) => ({
   state: {
     ...initialChatState,
   },
-  messageActions: {
+  actions: {
     addMessage: (message) =>
       set((state) => ({
         state: { ...state.state, messages: [...state.state.messages, message] },
@@ -95,30 +95,18 @@ export function useChatStore(selector: ChatStoreSelector) {
   return useStore(store, selector);
 }
 
-export const useChatStoreIsStreaming = (): ChatState['isStreaming'] =>
-  useChatStore((state) => state.state.isStreaming);
-export const useChatStoreMessages = (): ChatState['messages'] =>
-  useChatStore((state) => state.state.messages);
-export const useChatStoreChatName = (): ChatState['chatName'] =>
-  useChatStore((state) => state.state.chatName);
+export function useChatStoreIsStreaming(): ChatState['isStreaming'] {
+  return useChatStore((state) => state.state.isStreaming);
+}
 
-export const useChatStoreSetIsStreaming =
-  (): ChatMessageActions['setIsStreaming'] =>
-    useChatStore((state) => state.messageActions.setIsStreaming);
+export function useChatStoreMessages(): ChatState['messages'] {
+  return useChatStore((state) => state.state.messages);
+}
 
-export const useChatStoreSetChatName = (): ChatMessageActions['setChatName'] =>
-  useChatStore((state) => state.messageActions.setChatName);
+export function useChatStoreChatName(): ChatState['chatName'] {
+  return useChatStore((state) => state.state.chatName);
+}
 
-export const useChatStoreAddMessage = (): ChatMessageActions['addMessage'] =>
-  useChatStore((state) => state.messageActions.addMessage);
-
-export const useChatStoreSetMessages = (): ChatMessageActions['setMessages'] =>
-  useChatStore((state) => state.messageActions.setMessages);
-
-export const useChatStoreClearMessages =
-  (): ChatMessageActions['clearMessages'] =>
-    useChatStore((state) => state.messageActions.clearMessages);
-
-export const useChatStoreUpdateStreamingResponse =
-  (): ChatMessageActions['updateStreamingResponse'] =>
-    useChatStore((state) => state.messageActions.updateStreamingResponse);
+export function useChatStoreActions(): ChatMessageActions {
+  return useChatStore((state) => state.actions);
+}
