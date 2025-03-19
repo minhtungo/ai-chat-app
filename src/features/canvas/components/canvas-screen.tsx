@@ -3,17 +3,17 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from '@/components/ui/resizable';
+import { useCanvas } from '@/features/canvas/store/canvas-store';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
 import { DocumentCanvas } from '@/features/chat/components/document-canvas';
 import { ImageCanvas } from '@/features/chat/components/image-canvas';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';
-import { useCanvas } from '@/store/canvas-store';
 import { cn } from '@/utils/cn';
 
-type ChatCanvasProps = React.ComponentProps<'div'> & {};
+type CanvasScreenProps = React.ComponentProps<'div'> & {};
 
-export function ChatCanvas({ className, ...props }: ChatCanvasProps) {
+export function CanvasScreen({ className, ...props }: CanvasScreenProps) {
   const { isOpen, type, attachment } = useCanvas();
 
   if (!isOpen) {

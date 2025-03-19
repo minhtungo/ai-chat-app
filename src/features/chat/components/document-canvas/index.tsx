@@ -1,4 +1,4 @@
-import { CanvasAction } from '@/features/chat/components/chat-canvas/canvas-action';
+import { CanvasActions } from '@/features/canvas/components/canvas-actions';
 import { DocumentCanvasActions } from '@/features/chat/components/document-canvas/document-canvas-actions';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
@@ -39,7 +39,7 @@ export function DocumentCanvas({
 
   return (
     <>
-      <CanvasAction
+      <CanvasActions
         actions={
           <DocumentCanvasActions
             currentPage={currentPage}

@@ -1,5 +1,5 @@
 import { FileText } from '@/components/icons';
-import { useCanvasActions } from '@/store/canvas-store';
+import { useCanvasActions } from '@/features/canvas/store/canvas-store';
 import type { Attachment } from '@/types/chat';
 import { cn } from '@/utils/cn';
 

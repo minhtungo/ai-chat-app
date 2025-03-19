@@ -3,10 +3,10 @@ import { ChatSidebar } from '@/components/chat-sidebar';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
 import { appRoutes } from '@/config/routes';
+import { CanvasStoreProvider } from '@/features/canvas/store/canvas-store';
 import { ChatHeader } from '@/features/chat/components/chat-history/chat-header';
 import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
-import { CanvasStoreProvider } from '@/store/canvas-store';
-import { ChatStoreProvider } from '@/store/chat-store';
+import { ChatStoreProvider } from '@/features/chat/store/chat-store';
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app')({

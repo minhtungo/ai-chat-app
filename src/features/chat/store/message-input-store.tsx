@@ -1,5 +1,5 @@
 import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
-import { chatStore } from '@/store/chat-store';
+import { chatStore } from '@/features/chat/store/chat-store';
 import type { Attachment } from '@/types/chat';
 import { convertFileToAttachment } from '@/utils/chat';
 import { createContext, useContext, useState } from 'react';

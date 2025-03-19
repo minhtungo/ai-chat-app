@@ -1,7 +1,7 @@
 import { Camera, Square } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
-import { CanvasAction } from '@/features/chat/components/chat-canvas/canvas-action';
+import { CanvasActions } from '@/features/canvas/components/canvas-actions';
 import { useSocket } from '@/features/chat/hooks/use-socket';
 import { useWebcamRecorder } from '@/features/chat/hooks/use-webcam-recorder';
 import { cn } from '@/utils/cn';
@@ -26,7 +26,7 @@ export const WebcamPreview = ({ className, ...props }: WebcamPreviewProps) => {
 
   return (
     <>
-      <CanvasAction />
+      <CanvasActions />
       <div
         className={cn('relative overflow-hidden rounded-md', className)}
         {...props}

@@ -1,6 +1,6 @@
 import { Camera } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { useCanvasActions } from '@/store/canvas-store';
+import { useCanvasActions } from '@/features/canvas/store/canvas-store';
 import { cn } from '@/utils/cn';
 
 type WebcamRecorderProps = {};

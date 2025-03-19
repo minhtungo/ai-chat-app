@@ -1,9 +1,9 @@
 import { ChatHistoryLoadingScreen } from '@/components/loading/chat-history-loading-screen';
+import { CanvasScreen } from '@/features/canvas/components/canvas-screen';
 import {
   getChatHistory,
   getChatHistoryQueryOptions,
 } from '@/features/chat/api/chat-history';
-import { ChatCanvas } from '@/features/chat/components/chat-canvas';
 import { ChatHistory } from '@/features/chat/components/chat-history';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -24,7 +24,7 @@ function ChatRouteComponent() {
   return (
     <>
       <ChatHistory />
-      <ChatCanvas />
+      <CanvasScreen />
     </>
   );
 }

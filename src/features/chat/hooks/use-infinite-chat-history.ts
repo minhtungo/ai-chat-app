@@ -1,4 +1,4 @@
-import { useChatStoreIsStreaming } from '@/store/chat-store';
+import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
 import type { ChatMessage } from '@/types/chat';
 import { useEffect, useRef } from 'react';
 

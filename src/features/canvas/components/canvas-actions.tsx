@@ -1,21 +1,21 @@
 import { XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { useCanvasActions } from '@/features/canvas/store/canvas-store';
 import { useKeyboardShortcut } from '@/hooks/use-keyboard-shortcut';
-import { useCanvasActions } from '@/store/canvas-store';
 import { cn } from '@/utils/cn';
 
-type CanvasActionProps = React.ComponentProps<'div'> & {
+type CanvasActionsProps = React.ComponentProps<'div'> & {
   actions?: React.ReactNode;
   onCanvasClose?: () => void;
 };
 
-export function CanvasAction({
+export function CanvasActions({
   className,
   actions,
   onCanvasClose,
   ...props
-}: CanvasActionProps) {
+}: CanvasActionsProps) {
   const { setCanvasMode } = useCanvasActions();
 
   const handleClose = () => {

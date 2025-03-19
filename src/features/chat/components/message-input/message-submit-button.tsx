@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
 import { useMessageInputStore } from '@/features/chat/store/message-input-store';
-import { useChatStoreIsStreaming } from '@/store/chat-store';
 import { ArrowUp, Square } from 'lucide-react';
 
 type MessageSubmitButtonProps = React.ComponentProps<'button'>;

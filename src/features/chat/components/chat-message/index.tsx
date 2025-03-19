@@ -1,7 +1,7 @@
 import { ChatMessageActions } from '@/features/chat/components/chat-message/chat-message-actions';
 import { ChatMessageAttachment } from '@/features/chat/components/chat-message/chat-message-attachment';
 import { ChatMessageContent } from '@/features/chat/components/chat-message/chat-message-content';
-import { useChatStoreIsStreaming } from '@/store/chat-store';
+import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
 import type { ChatMessage as ChatMessageType } from '@/types/chat';
 import { cn } from '@/utils/cn';
 import { memo } from 'react';

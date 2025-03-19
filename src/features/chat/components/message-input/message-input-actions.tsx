@@ -6,9 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useCanvasActions } from '@/features/canvas/store/canvas-store';
 import { VoiceRecorder } from '@/features/chat/components/message-input/voice-recorder';
 import { useMessageInputStore } from '@/features/chat/store/message-input-store';
-import { useCanvasActions } from '@/store/canvas-store';
 import { useRef } from 'react';
 
 type MessageInputActionsProps = React.ComponentProps<'div'> & {};

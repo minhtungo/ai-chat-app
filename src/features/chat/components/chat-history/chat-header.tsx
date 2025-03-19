@@ -2,8 +2,8 @@ import { AuthActions } from '@/components/common/auth-actions';
 import { Share2 } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
+import { useChatStoreChatName } from '@/features/chat/store/chat-store';
 import { useUser } from '@/features/user/api/get-user';
-import { useChatStoreChatName } from '@/store/chat-store';
 import { cn } from '@/utils/cn';
 
 type ChatHeaderProps = React.ComponentProps<'div'>;

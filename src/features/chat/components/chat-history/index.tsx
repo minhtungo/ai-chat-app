@@ -6,7 +6,7 @@ import { useInfiniteChatHistory } from '@/features/chat/hooks/use-infinite-chat-
 import {
   useChatStoreClearMessages,
   useChatStoreMessages,
-} from '@/store/chat-store';
+} from '@/features/chat/store/chat-store';
 import { cn } from '@/utils/cn';
 import { useParams } from '@tanstack/react-router';
 import { useEffect } from 'react';

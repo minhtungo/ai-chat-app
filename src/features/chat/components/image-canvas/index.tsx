@@ -1,4 +1,4 @@
-import { CanvasAction } from '@/features/chat/components/chat-canvas/canvas-action';
+import { CanvasActions } from '@/features/canvas/components/canvas-actions';
 import { ImageCanvasAction } from '@/features/chat/components/image-canvas/image-canvas-action';
 import { useImageHighlighter } from '@/features/chat/hooks/use-image-highlighter';
 import type { Attachment } from '@/types/chat';
@@ -35,7 +35,7 @@ export function ImageCanvas({
 
   return (
     <>
-      <CanvasAction
+      <CanvasActions
         actions={
           <ImageCanvasAction
             highlightColor={highlightColor}

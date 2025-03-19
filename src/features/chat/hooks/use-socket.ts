@@ -8,16 +8,13 @@ export function useSocket() {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    // Create socket connection
-    const socket = io(env.AI_API_URL, {
+    const socket = io(env.SOCKET_API_URL, {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
 
-    // Store socket in ref
     socketRef.current = socket;
 
-    // Connection event handlers
     socket.on('connect', () => {
       setIsConnected(true);
       console.log('Socket connected');
@@ -43,7 +40,6 @@ export function useSocket() {
     //   toast.info(JSON.stringify(message));
     // });
 
-    // Clean up on unmount
     return () => {
       console.log('Unsubscribing useSocket');
       socket.disconnect();
@@ -51,7 +47,6 @@ export function useSocket() {
     };
   }, []);
 
-  // Method to emit events - memoized with useCallback
   const emit = useCallback(
     (event: string, data: any) => {
       if (socketRef.current && isConnected) {
@@ -63,7 +58,6 @@ export function useSocket() {
     [isConnected],
   );
 
-  // Generic method to listen for events - memoized with useCallback
   const on = useCallback((event: string, callback: (data: any) => void) => {
     if (socketRef.current) {
       console.log('Subscribing to', event);
@@ -71,7 +65,6 @@ export function useSocket() {
     }
   }, []);
 
-  // Clean up event listener - memoized with useCallback
   const off = useCallback((event: string) => {
     if (socketRef.current) {
       socketRef.current.off(event);

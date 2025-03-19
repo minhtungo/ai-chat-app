@@ -16,7 +16,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { useChatList } from '@/features/chat/api/chat-list';
-import { useChatStoreSetChatName } from '@/store/chat-store';
+import { useChatStoreSetChatName } from '@/features/chat/store/chat-store';
 import { Link } from '@tanstack/react-router';
 
 export function ChatList() {
