@@ -2,7 +2,7 @@ import heroBackground from '@/assets/images/hero-background.svg';
 import heroImage from '@/assets/images/hero-image.png';
 import { BorderTrail } from '@/components/ui/border-trail';
 import { buttonVariants } from '@/components/ui/button';
-import { appConfig } from '@/config/app';
+import { appConfig } from '@/config/app-config';
 import { appRoutes } from '@/config/routes';
 import { Link } from '@tanstack/react-router';
 

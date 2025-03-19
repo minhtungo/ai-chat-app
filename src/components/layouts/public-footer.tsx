@@ -1,4 +1,4 @@
-import { publicNavigations } from '@/config/navigations';
+import { appConfig } from '@/config/app-config';
 import { appRoutes } from '@/config/routes';
 import { Link } from '@tanstack/react-router';
 
@@ -21,7 +21,7 @@ export function PublicFooter({
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
           <ul className='flex flex-1 items-center justify-end gap-x-4'>
-            {publicNavigations.footer.map(({ name, path }) => (
+            {appConfig.menu.footer.map(({ name, path }) => (
               <li
                 key={`footer-${name}`}
                 className='text-muted-foreground hover:text-primary'

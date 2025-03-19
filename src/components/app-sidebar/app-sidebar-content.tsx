@@ -1,6 +1,6 @@
 import { buttonVariants } from '@/components/ui/button';
 import { TooltipButton } from '@/components/ui/tooltip-button';
-import { appNavigations } from '@/config/navigations';
+import { appConfig } from '@/config/app-config';
 import { cn } from '@/utils/cn';
 import { Link } from '@tanstack/react-router';
 
@@ -11,7 +11,7 @@ export function AppSidebarContent({
   return (
     <div className={cn('flex flex-1 flex-col gap-y-4', className)} {...props}>
       <div className='flex flex-col gap-2.5'>
-        {appNavigations.sidebar.map((item) => (
+        {appConfig.menu.chatSidebar.map((item) => (
           <TooltipButton tooltip={item.name} key={`app-side-nav-${item.name}`}>
             <Link
               to={item.path}

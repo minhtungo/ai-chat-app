@@ -1,7 +1,7 @@
 import { AuthActions } from '@/components/common/auth-actions';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { buttonVariants } from '@/components/ui/button';
-import { publicNavigations } from '@/config/navigations';
+import { appConfig } from '@/config/app-config';
 import { appRoutes } from '@/config/routes';
 import { useUser } from '@/features/user/api/get-user';
 import { cn } from '@/utils/cn';
@@ -25,7 +25,7 @@ export function PublicHeader({
             </Link>
           </div>
           <nav className='hidden items-center gap-4 md:flex'>
-            {publicNavigations.header.map((navigation) => (
+            {appConfig.menu.header.map((navigation) => (
               <Link
                 to={navigation.path}
                 key={navigation.path}

@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { accountNavigations } from '@/config/navigations';
+import { appConfig } from '@/config/app-config';
 import { Link } from '@tanstack/react-router';
 
 export function AccountSidebar({
@@ -24,7 +24,7 @@ export function AccountSidebar({
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {accountNavigations.sidebar.map((item) => (
+            {appConfig.menu.accountSidebar.map((item) => (
               <SidebarMenuItem key={item.name}>
                 <SidebarMenuButton asChild>
                   <Link

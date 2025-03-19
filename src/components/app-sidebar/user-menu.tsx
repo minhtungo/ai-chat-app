@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useSidebar } from '@/components/ui/sidebar';
-import { appNavigations } from '@/config/navigations';
+import { appConfig } from '@/config/app-config';
 import { useSignOut } from '@/features/auth/api/sign-out';
 import { useUser } from '@/features/user/api/get-user';
 import { getNameInitials } from '@/utils/name';
@@ -67,7 +67,7 @@ export function UserMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {appNavigations.userDropdown.map((item) => (
+          {appConfig.menu.userDropdown.map((item) => (
             <DropdownMenuItem key={item.name} asChild>
               <Link to={item.path}>
                 <item.icon />
