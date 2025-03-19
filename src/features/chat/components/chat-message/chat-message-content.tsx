@@ -24,7 +24,7 @@ export function ChatMessageContent({
           : 'bg-transparent',
       )}
     >
-      <div className='prose-xl text-base leading-6 break-words whitespace-normal'>
+      <div className='prose-xl inline-block text-base leading-6 break-words whitespace-normal'>
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[
@@ -56,10 +56,10 @@ export function ChatMessageContent({
         >
           {message.content}
         </ReactMarkdown>
-        {isStreaming && message.role === 'assistant' && (
-          <span className='bg-foreground ml-1 inline-block h-4 w-1 animate-pulse' />
-        )}
       </div>
+      {isStreaming && message.role === 'assistant' && (
+        <span className='bg-foreground inline-block h-3 w-1 animate-pulse' />
+      )}
     </div>
   );
 }

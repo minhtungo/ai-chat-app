@@ -13,6 +13,7 @@ import 'katex/dist/katex.min.css';
 export const Route = createFileRoute('/_app/chat')({
   component: ChatLayoutComponent,
   loader: ({ context }) => {
+    console.log('beforeLoad _app/chat');
     context.queryClient.ensureInfiniteQueryData({
       queryKey: getChatListQueryOptions().queryKey,
       initialPageParam: 0,

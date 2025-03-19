@@ -1,7 +1,7 @@
 import { Info } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { usePromptSuggestions } from '@/features/chat/api/suggestions';
-import { useMessageInputStore } from '@/features/chat/store/message-input-store';
+import { useChatStoreActions } from '@/features/chat/store/chat-store';
 import { cn } from '@/utils/cn';
 
 export function PromptSuggestions({
@@ -10,9 +10,7 @@ export function PromptSuggestions({
 }: React.ComponentProps<'div'>) {
   const { data: promptSuggestions } = usePromptSuggestions();
 
-  const sendMessage = useMessageInputStore(
-    (state) => state.actions.sendMessage,
-  );
+  const { sendChatMessage } = useChatStoreActions();
 
   return (
     <div
@@ -25,7 +23,7 @@ export function PromptSuggestions({
           variant='outline'
           className='flex h-auto flex-row items-start gap-x-2 p-4 text-left whitespace-normal'
           onClick={() => {
-            sendMessage();
+            sendChatMessage(suggestion.name);
           }}
         >
           <Info className='size-5' />

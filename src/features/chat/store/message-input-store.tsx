@@ -19,7 +19,7 @@ type MessageInputActions = {
   removeAttachment: (id: string) => void;
   addMathExpression: (expression: string) => void;
   removeMathExpression: (index: number) => void;
-  sendMessage: (initialMessage?: string) => void;
+  submitMessage: (initialMessage?: string) => void;
 };
 
 type MessageInputStore = {
@@ -47,14 +47,18 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
         state: { ...state.state, message },
       }));
     },
-    sendMessage: async (initialMessage?: string) => {
+    submitMessage: (initialMessage?: string) => {
       const message = initialMessage || get().state.message;
       const attachments = get().state.attachments;
-      if (!message.trim() && attachments.length === 0) {
+      const mathExpressions = get().state.mathExpressions;
+
+      if (
+        !message.trim() &&
+        attachments.length === 0 &&
+        mathExpressions.length === 0
+      ) {
         return;
       }
-
-      const mathExpressions = get().state.mathExpressions;
 
       const combinedMessage = [message, ...mathExpressions]
         .filter((text) => text.trim())
@@ -66,55 +70,9 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
         },
       }));
 
-      const addMessage = chatStore.getState().actions.addMessage;
-
-      const updateStreamingResponse =
-        chatStore.getState().actions.updateStreamingResponse;
-
-      const setIsStreaming = chatStore.getState().actions.setIsStreaming;
-
-      const messages = chatStore.getState().state.messages;
-
-      addMessage({
-        id: crypto.randomUUID(),
-        content: combinedMessage,
-        role: 'user',
-        createdAt: new Date(),
-        attachments,
-      });
-
-      // Add assistant message placeholder
-      addMessage({
-        id: crypto.randomUUID(),
-        content: '',
-        role: 'assistant',
-        createdAt: new Date(),
-        attachments: [],
-      });
-
-      setIsStreaming(true);
-
-      let accumulatedResponse = '';
-
-      try {
-        await streamChatCompletion(
-          message,
-          messages,
-          (chunk) => {
-            accumulatedResponse += chunk;
-            updateStreamingResponse(accumulatedResponse);
-          },
-          () => {
-            setIsStreaming(false);
-          },
-        );
-      } catch (error) {
-        console.error('Chat completion error:', error);
-        updateStreamingResponse(
-          'Sorry, there was an error processing your request.',
-        );
-        setIsStreaming(false);
-      }
+      chatStore
+        .getState()
+        .actions.sendChatMessage(combinedMessage, attachments);
     },
     addAttachment: (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {

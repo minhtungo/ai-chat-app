@@ -59,6 +59,7 @@ export const ChatMessage = memo(
   NotMemoizedChatMessage,
   (prevProps, nextProps) => {
     return (
+      prevProps.message.id === nextProps.message.id &&
       prevProps.message.content === nextProps.message.content &&
       prevProps.isLatest === nextProps.isLatest
     );

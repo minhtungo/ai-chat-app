@@ -1,4 +1,5 @@
-import type { ChatMessage } from '@/types/chat';
+import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
+import type { Attachment, ChatMessage } from '@/types/chat';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';
 
@@ -15,6 +16,7 @@ export type ChatMessageActions = {
   clearMessages: () => void;
   setChatName: (chatName: string) => void;
   setIsStreaming: (isStreaming: boolean) => void;
+  sendChatMessage: (message: string, attachments?: Attachment[]) => void;
 };
 
 type ChatStoreProviderProps = {
@@ -39,15 +41,67 @@ export const initialChatState: ChatState = {
   isStreaming: false,
 };
 
-export const chatStore = createStore<ChatStore>((set) => ({
+export const chatStore = createStore<ChatStore>((set, get) => ({
   state: {
     ...initialChatState,
   },
   actions: {
-    addMessage: (message) =>
+    addMessage: (message) => {
+      console.log('addMessage', message);
+      const messages = [...get().state.messages, message];
       set((state) => ({
-        state: { ...state.state, messages: [...state.state.messages, message] },
-      })),
+        state: { ...state.state, messages },
+      }));
+    },
+    sendChatMessage: (message: string, attachments: Attachment[] = []) => {
+      const chatHistory = get().state.messages;
+
+      // Add user message
+      const addMessage = get().actions.addMessage;
+
+      addMessage({
+        id: crypto.randomUUID(),
+        content: message,
+        role: 'user',
+        createdAt: new Date(),
+        attachments,
+      });
+
+      // Add assistant placeholder
+      addMessage({
+        id: crypto.randomUUID(),
+        content: '',
+        role: 'assistant',
+        createdAt: new Date(),
+        attachments: [],
+      });
+
+      // Handle streaming
+      const updateStreamingResponse = get().actions.updateStreamingResponse;
+      const setIsStreaming = get().actions.setIsStreaming;
+
+      setIsStreaming(true);
+      let accumulatedResponse = '';
+
+      // Process response
+      streamChatCompletion(
+        message,
+        chatHistory,
+        (chunk) => {
+          accumulatedResponse += chunk;
+          updateStreamingResponse(accumulatedResponse);
+        },
+        () => {
+          setIsStreaming(false);
+        },
+      ).catch((error) => {
+        console.error('Chat completion error:', error);
+        updateStreamingResponse(
+          'Sorry, there was an error processing your request.',
+        );
+        setIsStreaming(false);
+      });
+    },
     updateStreamingResponse: (content) =>
       set((state) => {
         const messages = [...state.state.messages];
