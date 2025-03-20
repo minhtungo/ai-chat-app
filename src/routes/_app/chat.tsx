@@ -1,3 +1,5 @@
+import { ChatSidebar } from '@/components/chat-sidebar';
+import { CanvasStoreProvider } from '@/features/canvas/store/canvas-store';
 import {
   getChatList,
   getChatListQueryOptions,
@@ -6,6 +8,9 @@ import {
   getPromptSuggestions,
   getPromptSuggestionsQueryOptions,
 } from '@/features/chat/api/suggestions';
+import { ChatHeader } from '@/features/chat/components/chat-history/chat-header';
+import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
+import { ChatStoreProvider } from '@/features/chat/store/chat-store';
 import '@/styles/github-dark.css';
 import { Outlet, createFileRoute } from '@tanstack/react-router';
 import 'katex/dist/katex.min.css';
@@ -28,5 +33,16 @@ export const Route = createFileRoute('/_app/chat')({
 });
 
 function ChatLayoutComponent() {
-  return <Outlet />;
+  return (
+    <ChatStoreProvider>
+      <CanvasStoreProvider>
+        <ChatSidebar />
+        <main className='relative flex h-svh w-full flex-col'>
+          <ChatHeader className='px-4 py-2' />
+          <Outlet />
+          <ChatPanel className='px-4' />
+        </main>
+      </CanvasStoreProvider>
+    </ChatStoreProvider>
+  );
 }

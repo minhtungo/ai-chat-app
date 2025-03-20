@@ -16,7 +16,7 @@ function NotMemoizedChatMessage({ message, isLatest }: ChatMessageProps) {
 
   return (
     <article className='group w-full pt-3.5 pb-3 md:py-5'>
-      <div className='relative mx-auto w-full xl:max-w-5xl'>
+      <div className='relative mx-auto w-full xl:max-w-4xl'>
         <div className='flex flex-col gap-1 md:gap-3'>
           <div
             className={cn(

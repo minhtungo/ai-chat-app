@@ -34,8 +34,12 @@ export function MessageInputActions({}: MessageInputActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' size='icon' className='rounded-full'>
-          <Plus className='size-4.5' />
+        <Button
+          variant='outline'
+          size='sm'
+          className='border-foreground/20 rounded-full bg-transparent'
+        >
+          <Plus className='size-4' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='start'>

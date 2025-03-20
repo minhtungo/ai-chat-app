@@ -15,8 +15,8 @@ export function MessageInputContent() {
   const setCurrentMessage = useMessageInputStore(
     (state) => state.actions.setMessage,
   );
-  const sendMessage = useMessageInputStore(
-    (state) => state.actions.sendMessage,
+  const submitMessage = useMessageInputStore(
+    (state) => state.actions.submitMessage,
   );
 
   if (isMathKeyboardOpen) {
@@ -35,11 +35,11 @@ export function MessageInputContent() {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
           e.currentTarget.style.height = '';
-          sendMessage();
+          submitMessage();
         }
       }}
       placeholder='Type a message...'
-      className='max-h-[200px] min-h-16 w-full resize-none border-none p-0 focus-visible:ring-0 focus-visible:outline-none'
+      className='max-h-[200px] min-h-9 w-full resize-none border-none p-0 focus-visible:ring-0 focus-visible:outline-none'
       autoFocus
     />
   );

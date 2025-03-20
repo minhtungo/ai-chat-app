@@ -11,27 +11,27 @@ type MessageInputProps = {};
 export function MessageInput({}: MessageInputProps) {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const sendMessage = useMessageInputStore(
-    (state) => state.actions.sendMessage,
+  const submitMessage = useMessageInputStore(
+    (state) => state.actions.submitMessage,
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage();
+    submitMessage();
   };
 
   return (
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className='border-input focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-xl border px-3 py-2'
+      className='border-accent bg-accent/50 focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-2xl border px-3 py-2'
     >
       <MessageInputAttachments />
       <MessageInputContent />
       <MathExpressions />
       <div className='flex items-center justify-between'>
         <MessageInputActions />
-        <div>
+        <div className='flex items-center gap-x-2'>
           <MessageSubmitButton />
         </div>
       </div>
