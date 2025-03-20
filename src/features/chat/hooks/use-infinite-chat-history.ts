@@ -1,6 +1,6 @@
 import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
 import type { ChatMessage } from '@/types/chat';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type UseInfiniteChatHistoryProps = {
   hasNextPage: boolean;
@@ -18,12 +18,12 @@ export function useInfiniteChatHistory({
   threshold = 100,
 }: UseInfiniteChatHistoryProps) {
   const topRef = useRef<HTMLDivElement>(null);
-
   const prevMessagesLengthRef = useRef<number>(0);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const scrollHeightBeforeLoadRef = useRef<number>(0);
   const isUserNearBottomRef = useRef<boolean>(true);
   const isStreaming = useChatStoreIsStreaming();
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,40 +50,35 @@ export function useInfiniteChatHistory({
     };
   }, [hasNextPage, fetchNextPage, threshold]);
 
-  // Track if user is near bottom whenever scrolling happens
   const handleScroll = () => {
     const container = chatContainerRef.current;
     if (!container) return;
 
-    // Check if user is near the bottom (within 100px)
     const isNearBottom =
       container.scrollHeight - container.scrollTop - container.clientHeight <
       100;
 
     isUserNearBottomRef.current = isNearBottom;
+
+    setShowScrollButton(!isNearBottom);
   };
 
-  // Store scroll height before loading older messages
   useEffect(() => {
     if (isFetchingNextPage && chatContainerRef.current) {
       scrollHeightBeforeLoadRef.current = chatContainerRef.current.scrollHeight;
     }
   }, [isFetchingNextPage]);
 
-  // Adjust scroll position after messages are loaded or added
   useEffect(() => {
     const container = chatContainerRef.current;
     if (!container) return;
 
-    // First load - always scroll to bottom
     if (prevMessagesLengthRef.current === 0) {
       container.scrollTop = container.scrollHeight;
     } else if (
-      // When older messages are loaded (at the top)
       messages.length > prevMessagesLengthRef.current &&
       !isFetchingNextPage
     ) {
-      // When loading older messages - maintain position
       if (scrollHeightBeforeLoadRef.current > 0) {
         const newScrollHeight = container.scrollHeight;
         const addedHeight = newScrollHeight - scrollHeightBeforeLoadRef.current;
@@ -91,11 +86,8 @@ export function useInfiniteChatHistory({
         if (addedHeight > 0) {
           container.scrollTop = addedHeight;
         }
-        scrollHeightBeforeLoadRef.current = 0; // Reset for next time
-      }
-      // When new messages are added at the bottom and user was near bottom
-      else if (isUserNearBottomRef.current) {
-        // Scroll to bottom with a slight delay to ensure content is rendered
+        scrollHeightBeforeLoadRef.current = 0;
+      } else if (isUserNearBottomRef.current) {
         requestAnimationFrame(() => {
           container.scrollTop = container.scrollHeight;
         });
@@ -105,7 +97,6 @@ export function useInfiniteChatHistory({
     prevMessagesLengthRef.current = messages.length;
   }, [messages.length, isFetchingNextPage]);
 
-  // Scroll to bottom when AI is streaming responses
   useEffect(() => {
     if (isStreaming && isUserNearBottomRef.current) {
       const container = chatContainerRef.current;
@@ -117,7 +108,6 @@ export function useInfiniteChatHistory({
     }
   }, [isStreaming, messages]);
 
-  // Add scroll event listener
   useEffect(() => {
     const container = chatContainerRef.current;
     if (!container) return;
@@ -128,5 +118,15 @@ export function useInfiniteChatHistory({
     };
   }, []);
 
-  return { topRef, chatContainerRef };
+  const scrollToBottom = () => {
+    const container = chatContainerRef.current;
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
+  return { topRef, chatContainerRef, showScrollButton, scrollToBottom };
 }

@@ -2,6 +2,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { useChatHistory } from '@/features/chat/api/chat-history';
 import { ChatMessage } from '@/features/chat/components/chat-message';
 import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
+import { ScrollToBottomButton } from '@/features/chat/components/scroll-to-bottom-button';
 import { useInfiniteChatHistory } from '@/features/chat/hooks/use-infinite-chat-history';
 import {
   useChatStoreActions,
@@ -32,12 +33,13 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
     ...newMessages,
   ];
 
-  const { topRef, chatContainerRef } = useInfiniteChatHistory({
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    messages: allMessages,
-  });
+  const { topRef, chatContainerRef, showScrollButton, scrollToBottom } =
+    useInfiniteChatHistory({
+      hasNextPage,
+      fetchNextPage,
+      isFetchingNextPage,
+      messages: allMessages,
+    });
 
   const { clearMessages } = useChatStoreActions();
 
@@ -55,7 +57,7 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
     <div
       ref={chatContainerRef}
       className={cn(
-        'flex min-h-0 flex-1 flex-col overflow-auto px-4 pt-2 pb-8 lg:px-6',
+        'relative flex min-h-0 flex-1 flex-col overflow-auto px-4 pt-2 pb-8 lg:px-6',
         className,
       )}
       {...props}
@@ -74,6 +76,13 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
             isLatest={index === allMessages.length - 1}
           />
         ))}
+
+      {showScrollButton && (
+        <ScrollToBottomButton
+          onClick={scrollToBottom}
+          className='fixed right-1/2 bottom-[120px] z-50'
+        />
+      )}
     </div>
   );
 }
