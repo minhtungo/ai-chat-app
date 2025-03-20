@@ -7,6 +7,13 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 export const Route = createFileRoute('/_auth/auth/callback/google')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Google Auth Callback',
+      },
+    ],
+  }),
   component: RouteComponent,
   validateSearch: z.object({
     verifyCode: z.string(),

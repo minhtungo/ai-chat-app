@@ -5,6 +5,13 @@ import { verifyEmail } from '@/features/auth/api/verify-email';
 import { Link, createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_auth/verify-email/$token')({
+  head: () => ({
+    meta: [
+      {
+        title: `Verify Email`,
+      },
+    ],
+  }),
   component: RouteComponent,
   loader: async ({ params }) => {
     const { token } = params;

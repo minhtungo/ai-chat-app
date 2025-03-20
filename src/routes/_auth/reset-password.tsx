@@ -4,6 +4,13 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 
 export const Route = createFileRoute('/_auth/reset-password')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Reset Password',
+      },
+    ],
+  }),
   component: RouteComponent,
   validateSearch: z.object({
     token: z.union([z.string(), z.number()]).transform((val) => String(val)),

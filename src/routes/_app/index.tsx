@@ -2,6 +2,13 @@ import { appRoutes } from '@/config/routes';
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Home',
+      },
+    ],
+  }),
   component: AppLayoutComponent,
   beforeLoad: async ({}) => {
     console.log('beforeLoad _app/index');

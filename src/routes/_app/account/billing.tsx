@@ -3,6 +3,13 @@ import { Plans } from '@/features/user/components/plans';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/account/billing')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Billing',
+      },
+    ],
+  }),
   component: RouteComponent,
 });
 

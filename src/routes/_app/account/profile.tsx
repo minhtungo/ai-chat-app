@@ -3,6 +3,13 @@ import { UpdateProfileForm } from '@/features/user/components/update-profile-for
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_app/account/profile')({
+  head: () => ({
+    meta: [
+      {
+        title: 'Profile',
+      },
+    ],
+  }),
   component: RouteComponent,
 });
 

@@ -20,8 +20,8 @@ import { Route as AuthResetPasswordImport } from './routes/_auth/reset-password'
 import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
 import { Route as AppChatImport } from './routes/_app/chat'
 import { Route as AppAccountImport } from './routes/_app/account'
+import { Route as AppSessionIndexImport } from './routes/_app/session/index'
 import { Route as AppQuizIndexImport } from './routes/_app/quiz/index'
-import { Route as AppLessonIndexImport } from './routes/_app/lesson/index'
 import { Route as AppChatIndexImport } from './routes/_app/chat/index'
 import { Route as AppAccountIndexImport } from './routes/_app/account/index'
 import { Route as AuthVerifyEmailTokenImport } from './routes/_auth/verify-email.$token'
@@ -86,15 +86,15 @@ const AppAccountRoute = AppAccountImport.update({
   getParentRoute: () => AppRoute,
 } as any)
 
-const AppQuizIndexRoute = AppQuizIndexImport.update({
-  id: '/quiz/',
-  path: '/quiz/',
+const AppSessionIndexRoute = AppSessionIndexImport.update({
+  id: '/session/',
+  path: '/session/',
   getParentRoute: () => AppRoute,
 } as any)
 
-const AppLessonIndexRoute = AppLessonIndexImport.update({
-  id: '/lesson/',
-  path: '/lesson/',
+const AppQuizIndexRoute = AppQuizIndexImport.update({
+  id: '/quiz/',
+  path: '/quiz/',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -268,18 +268,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppChatIndexImport
       parentRoute: typeof AppChatImport
     }
-    '/_app/lesson/': {
-      id: '/_app/lesson/'
-      path: '/lesson'
-      fullPath: '/lesson'
-      preLoaderRoute: typeof AppLessonIndexImport
-      parentRoute: typeof AppImport
-    }
     '/_app/quiz/': {
       id: '/_app/quiz/'
       path: '/quiz'
       fullPath: '/quiz'
       preLoaderRoute: typeof AppQuizIndexImport
+      parentRoute: typeof AppImport
+    }
+    '/_app/session/': {
+      id: '/_app/session/'
+      path: '/session'
+      fullPath: '/session'
+      preLoaderRoute: typeof AppSessionIndexImport
       parentRoute: typeof AppImport
     }
     '/_auth/auth/callback/google': {
@@ -338,16 +338,16 @@ interface AppRouteChildren {
   AppAccountRoute: typeof AppAccountRouteWithChildren
   AppChatRoute: typeof AppChatRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
-  AppLessonIndexRoute: typeof AppLessonIndexRoute
   AppQuizIndexRoute: typeof AppQuizIndexRoute
+  AppSessionIndexRoute: typeof AppSessionIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppAccountRoute: AppAccountRouteWithChildren,
   AppChatRoute: AppChatRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
-  AppLessonIndexRoute: AppLessonIndexRoute,
   AppQuizIndexRoute: AppQuizIndexRoute,
+  AppSessionIndexRoute: AppSessionIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -388,8 +388,8 @@ export interface FileRoutesByFullPath {
   '/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/account/': typeof AppAccountIndexRoute
   '/chat/': typeof AppChatIndexRoute
-  '/lesson': typeof AppLessonIndexRoute
   '/quiz': typeof AppQuizIndexRoute
+  '/session': typeof AppSessionIndexRoute
   '/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
@@ -408,8 +408,8 @@ export interface FileRoutesByTo {
   '/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/account': typeof AppAccountIndexRoute
   '/chat': typeof AppChatIndexRoute
-  '/lesson': typeof AppLessonIndexRoute
   '/quiz': typeof AppQuizIndexRoute
+  '/session': typeof AppSessionIndexRoute
   '/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/account/files': typeof AppAccountFilesIndexRoute
 }
@@ -432,8 +432,8 @@ export interface FileRoutesById {
   '/_auth/verify-email/$token': typeof AuthVerifyEmailTokenRoute
   '/_app/account/': typeof AppAccountIndexRoute
   '/_app/chat/': typeof AppChatIndexRoute
-  '/_app/lesson/': typeof AppLessonIndexRoute
   '/_app/quiz/': typeof AppQuizIndexRoute
+  '/_app/session/': typeof AppSessionIndexRoute
   '/_auth/auth/callback/google': typeof AuthAuthCallbackGoogleRoute
   '/_app/account/files/': typeof AppAccountFilesIndexRoute
 }
@@ -456,8 +456,8 @@ export interface FileRouteTypes {
     | '/verify-email/$token'
     | '/account/'
     | '/chat/'
-    | '/lesson'
     | '/quiz'
+    | '/session'
     | '/auth/callback/google'
     | '/account/files'
   fileRoutesByTo: FileRoutesByTo
@@ -475,8 +475,8 @@ export interface FileRouteTypes {
     | '/verify-email/$token'
     | '/account'
     | '/chat'
-    | '/lesson'
     | '/quiz'
+    | '/session'
     | '/auth/callback/google'
     | '/account/files'
   id:
@@ -497,8 +497,8 @@ export interface FileRouteTypes {
     | '/_auth/verify-email/$token'
     | '/_app/account/'
     | '/_app/chat/'
-    | '/_app/lesson/'
     | '/_app/quiz/'
+    | '/_app/session/'
     | '/_auth/auth/callback/google'
     | '/_app/account/files/'
   fileRoutesById: FileRoutesById
@@ -534,8 +534,8 @@ export const routeTree = rootRoute
         "/_app/account",
         "/_app/chat",
         "/_app/",
-        "/_app/lesson/",
-        "/_app/quiz/"
+        "/_app/quiz/",
+        "/_app/session/"
       ]
     },
     "/_auth": {
@@ -616,12 +616,12 @@ export const routeTree = rootRoute
       "filePath": "_app/chat/index.tsx",
       "parent": "/_app/chat"
     },
-    "/_app/lesson/": {
-      "filePath": "_app/lesson/index.tsx",
-      "parent": "/_app"
-    },
     "/_app/quiz/": {
       "filePath": "_app/quiz/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/session/": {
+      "filePath": "_app/session/index.tsx",
       "parent": "/_app"
     },
     "/_auth/auth/callback/google": {

@@ -58,9 +58,9 @@ export const appRoutes = {
       name: 'Quiz',
       icon: Brain,
     },
-    lesson: {
-      path: `${appRootPath}/lesson`,
-      name: 'Lesson',
+    session: {
+      path: `${appRootPath}/session`,
+      name: 'Session',
       icon: Book,
     },
   },

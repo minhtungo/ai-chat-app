@@ -17,6 +17,13 @@ export const Route = createFileRoute('/_app/chat/$id')({
         getChatHistory({ offset: pageParam, chatId: params.id }),
     });
   },
+  head: ({ params }) => ({
+    meta: [
+      {
+        title: `Chat ${params.id}`,
+      },
+    ],
+  }),
   pendingComponent: () => <ChatHistoryLoadingScreen />,
 });
 

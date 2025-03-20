@@ -3,13 +3,18 @@ import { appRoutes } from '@/config/routes';
 
 export const appConfig = {
   appName: env.APP_NAME,
+  appDescription: 'App Description',
   cookie: {
     accessToken: {
       name: env.ACCESS_TOKEN_COOKIE,
     },
   },
   menu: {
-    chatSidebar: [appRoutes.app.chat, appRoutes.app.quiz, appRoutes.app.lesson],
+    chatSidebar: [
+      appRoutes.app.chat,
+      appRoutes.app.quiz,
+      appRoutes.app.session,
+    ],
     accountSidebar: [
       appRoutes.account.profile,
       appRoutes.account.billing,
