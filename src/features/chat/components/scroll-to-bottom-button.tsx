@@ -16,7 +16,10 @@ export function ScrollToBottomButton({
     <Button
       variant='outline'
       size='sm'
-      className={cn('transition-opacity0 rounded-full shadow-md', className)}
+      className={cn(
+        'transition-opacity0 bg-background/80 rounded-full shadow-md',
+        className,
+      )}
       onClick={onClick}
       {...props}
     >

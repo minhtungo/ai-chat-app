@@ -78,10 +78,9 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
         ))}
 
       {showScrollButton && (
-        <ScrollToBottomButton
-          onClick={scrollToBottom}
-          className='fixed right-1/2 bottom-[120px] z-50'
-        />
+        <div className='sticky -bottom-4 z-50 mx-auto'>
+          <ScrollToBottomButton onClick={scrollToBottom} />
+        </div>
       )}
     </div>
   );
