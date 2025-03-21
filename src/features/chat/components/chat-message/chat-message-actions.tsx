@@ -18,7 +18,7 @@ export function ChatMessageActions({
   return (
     <div
       className={cn(
-        'mt-2 flex items-center gap-1',
+        'mt-1 -ml-[2px] flex items-center gap-1',
         !isLatest &&
           'md:opacity-0 md:transition-opacity md:duration-200 md:ease-in-out md:group-hover:opacity-100',
         className,

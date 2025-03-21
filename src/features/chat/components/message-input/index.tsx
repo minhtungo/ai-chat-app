@@ -1,4 +1,5 @@
 import { MathExpressions } from '@/features/chat/components/chat-panel/math-expressions';
+import { AiModeToggle } from '@/features/chat/components/message-input/ai-mode-toggle';
 import { MessageInputActions } from '@/features/chat/components/message-input/message-input-actions';
 import { MessageInputAttachments } from '@/features/chat/components/message-input/message-input-attachments';
 import { MessageInputContent } from '@/features/chat/components/message-input/message-input-content';
@@ -24,7 +25,7 @@ export function MessageInput({}: MessageInputProps) {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className='border-accent bg-accent/50 focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-2xl border px-3 py-2'
+      className='border-accent bg-accent/50 focus-within:border-ring/20 flex w-full flex-col justify-between gap-y-1 rounded-2xl border p-3'
     >
       <MessageInputAttachments />
       <MessageInputContent />
@@ -32,6 +33,7 @@ export function MessageInput({}: MessageInputProps) {
       <div className='flex items-center justify-between'>
         <MessageInputActions />
         <div className='flex items-center gap-x-2'>
+          <AiModeToggle />
           <MessageSubmitButton />
         </div>
       </div>

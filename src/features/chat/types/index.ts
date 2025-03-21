@@ -13,3 +13,5 @@ export type Attachment = {
   type: 'image' | 'document';
   createdAt: Date;
 };
+
+export type ChatMode = 'quick-mode' | 'guide-mode';

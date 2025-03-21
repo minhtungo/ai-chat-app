@@ -2,7 +2,7 @@ import { ChatMessageActions } from '@/features/chat/components/chat-message/chat
 import { ChatMessageAttachment } from '@/features/chat/components/chat-message/chat-message-attachment';
 import { ChatMessageContent } from '@/features/chat/components/chat-message/chat-message-content';
 import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
-import type { ChatMessage as ChatMessageType } from '@/types/chat';
+import type { ChatMessage as ChatMessageType } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 import { memo } from 'react';
 
@@ -20,9 +20,7 @@ function NotMemoizedChatMessage({ message, isLatest }: ChatMessageProps) {
         <div className='flex flex-col gap-1 md:gap-3'>
           <div
             className={cn(
-              message.role === 'user'
-                ? 'ml-auto w-fit md:max-w-[75%]'
-                : 'md:mb-2',
+              message.role === 'user' && 'ml-auto w-fit md:max-w-[75%]',
             )}
           >
             {message.attachments.length > 0 &&

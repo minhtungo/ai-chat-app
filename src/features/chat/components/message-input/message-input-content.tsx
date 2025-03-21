@@ -1,6 +1,10 @@
 import { Spinner } from '@/components/ui/spinner';
 import { Textarea } from '@/components/ui/textarea';
-import { useMessageInputStore } from '@/features/chat/store/message-input-store';
+import {
+  useMessageInputStore,
+  useMessageInputStoreActions,
+} from '@/features/chat/store/message-input-store';
+import { adjustMessageInputHeight } from '@/utils/message-input';
 import { useRouterState } from '@tanstack/react-router';
 import { Suspense, lazy, useEffect, useRef } from 'react';
 
@@ -13,13 +17,7 @@ export function MessageInputContent() {
     (state) => state.state.isMathKeyboardOpen,
   );
   const currentMessage = useMessageInputStore((state) => state.state.message);
-
-  const setCurrentMessage = useMessageInputStore(
-    (state) => state.actions.setMessage,
-  );
-  const submitMessage = useMessageInputStore(
-    (state) => state.actions.submitMessage,
-  );
+  const { setMessage, submitMessage } = useMessageInputStoreActions();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -41,9 +39,12 @@ export function MessageInputContent() {
 
   return (
     <Textarea
-      ref={textareaRef}
       value={currentMessage}
-      onChange={(e) => setCurrentMessage(e.target.value)}
+      ref={textareaRef}
+      onChange={(e) => {
+        setMessage(e.target.value);
+        adjustMessageInputHeight(textareaRef.current);
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
@@ -52,7 +53,7 @@ export function MessageInputContent() {
         }
       }}
       placeholder='Type a message...'
-      className='max-h-[200px] min-h-9 w-full resize-none border-none p-0 focus-visible:ring-0 focus-visible:outline-none'
+      className='h-full max-h-[200px] min-h-8 w-full resize-none border-none p-0 text-base focus-visible:ring-0 focus-visible:outline-none'
       autoFocus
     />
   );

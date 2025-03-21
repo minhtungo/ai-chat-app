@@ -1,5 +1,5 @@
 import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
-import type { Attachment, ChatMessage } from '@/types/chat';
+import type { Attachment, ChatMessage, ChatMode } from '@/features/chat/types';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';
 
@@ -7,6 +7,7 @@ export type ChatState = {
   messages: ChatMessage[];
   chatName: string;
   isStreaming: boolean;
+  mode: ChatMode;
 };
 
 export type ChatMessageActions = {
@@ -17,6 +18,7 @@ export type ChatMessageActions = {
   setChatName: (chatName: string) => void;
   setIsStreaming: (isStreaming: boolean) => void;
   sendChatMessage: (message: string, attachments?: Attachment[]) => void;
+  setMode: (mode: ChatMode) => void;
 };
 
 type ChatStoreProviderProps = {
@@ -39,6 +41,7 @@ export const initialChatState: ChatState = {
   messages: [],
   chatName: '',
   isStreaming: false,
+  mode: 'quick-mode',
 };
 
 export const chatStore = createStore<ChatStore>((set, get) => ({
@@ -130,6 +133,10 @@ export const chatStore = createStore<ChatStore>((set, get) => ({
       set((state) => ({
         state: { ...state.state, isStreaming },
       })),
+    setMode: (mode: ChatMode) =>
+      set((state) => ({
+        state: { ...state.state, mode },
+      })),
   },
 }));
 
@@ -151,6 +158,10 @@ export function useChatStore(selector: ChatStoreSelector) {
 
 export function useChatStoreIsStreaming(): ChatState['isStreaming'] {
   return useChatStore((state) => state.state.isStreaming);
+}
+
+export function useChatStoreMode(): ChatState['mode'] {
+  return useChatStore((state) => state.state.mode);
 }
 
 export function useChatStoreMessages(): ChatState['messages'] {
