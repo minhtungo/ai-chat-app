@@ -7,7 +7,7 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { CreateNewChatLink } from '@/features/chat/components/create-new-chat-link';
+import { CreateNewChatLink } from '@/features/chat/components/common/create-new-chat-link';
 
 export function ChatSidebar({
   ...props

@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@/types/chat';
+import type { ChatMessage } from '@/features/chat/types';
 
 export type ChatHistory = {
   name: string;

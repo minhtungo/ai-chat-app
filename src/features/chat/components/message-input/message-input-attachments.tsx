@@ -1,7 +1,7 @@
 import { FileText, XIcon } from '@/components/icons';
 import { TooltipButton } from '@/components/ui/tooltip-button';
 import { useMessageInputStore } from '@/features/chat/store/message-input-store';
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 
 type MessageInputAttachmentProps = React.ComponentProps<'div'> & {

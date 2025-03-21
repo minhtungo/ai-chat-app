@@ -1,5 +1,5 @@
 import { chatApi } from '@/api/api-client';
-import type { ChatMessage } from '@/types/chat';
+import type { ChatMessage } from '@/features/chat/types';
 
 export async function streamChatCompletion(
   message: string,

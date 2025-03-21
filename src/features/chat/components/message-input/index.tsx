@@ -1,4 +1,4 @@
-import { MathExpressions } from '@/features/chat/components/message-input/math-expressions';
+import { MathExpressions } from '@/features/chat/components/chat-panel/math-expressions';
 import { MessageInputActions } from '@/features/chat/components/message-input/message-input-actions';
 import { MessageInputAttachments } from '@/features/chat/components/message-input/message-input-attachments';
 import { MessageInputContent } from '@/features/chat/components/message-input/message-input-content';

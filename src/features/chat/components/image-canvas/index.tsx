@@ -1,7 +1,7 @@
 import { CanvasActions } from '@/features/canvas/components/canvas-actions';
 import { ImageCanvasAction } from '@/features/chat/components/image-canvas/image-canvas-action';
 import { useImageHighlighter } from '@/features/chat/hooks/use-image-highlighter';
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 import { useRef, useState } from 'react';
 

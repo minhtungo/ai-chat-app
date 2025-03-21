@@ -1,4 +1,4 @@
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 
 export function convertFileToAttachment(file: File): Attachment {
   return {

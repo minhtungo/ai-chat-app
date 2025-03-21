@@ -1,6 +1,6 @@
 import { CanvasActions } from '@/features/canvas/components/canvas-actions';
 import { DocumentCanvasActions } from '@/features/chat/components/document-canvas/document-canvas-actions';
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 import { useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';

@@ -1,8 +1,8 @@
 import { Spinner } from '@/components/ui/spinner';
 import { useChatHistory } from '@/features/chat/api/chat-history';
+import { NewChatScreen } from '@/features/chat/components/chat-history/new-chat-screen';
+import { ScrollToBottomButton } from '@/features/chat/components/chat-history/scroll-to-bottom-button';
 import { ChatMessage } from '@/features/chat/components/chat-message';
-import { NewChatScreen } from '@/features/chat/components/new-chat-screen';
-import { ScrollToBottomButton } from '@/features/chat/components/scroll-to-bottom-button';
 import { useInfiniteChatHistory } from '@/features/chat/hooks/use-infinite-chat-history';
 import {
   useChatStoreActions,
@@ -17,6 +17,11 @@ type ChatHistoryProps = React.ComponentProps<'div'> & {};
 export function ChatHistory({ className, ...props }: ChatHistoryProps) {
   const { id } = useParams({
     from: '/_app/chat/$id',
+    select: (params) => {
+      return {
+        id: params.id ?? null,
+      };
+    },
   });
 
   const {

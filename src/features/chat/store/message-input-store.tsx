@@ -1,6 +1,5 @@
-import { streamChatCompletion } from '@/features/chat/api/stream-chat-completion';
 import { chatStore } from '@/features/chat/store/chat-store';
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { convertFileToAttachment } from '@/utils/chat';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';
@@ -20,6 +19,7 @@ type MessageInputActions = {
   addMathExpression: (expression: string) => void;
   removeMathExpression: (index: number) => void;
   submitMessage: (initialMessage?: string) => void;
+  clearMessageInput: () => void;
 };
 
 type MessageInputStore = {
@@ -42,6 +42,11 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
     ...initialMessageInputState,
   },
   actions: {
+    clearMessageInput: () => {
+      set(() => ({
+        state: { ...initialMessageInputState },
+      }));
+    },
     setMessage: (message: string) => {
       set((state) => ({
         state: { ...state.state, message },
@@ -150,4 +155,8 @@ export function useMessageInputStore<T>(
   }
 
   return useStore(store, selector);
+}
+
+export function useMessageInputStoreActions() {
+  return useMessageInputStore((state) => state.actions);
 }

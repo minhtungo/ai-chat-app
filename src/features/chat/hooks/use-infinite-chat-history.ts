@@ -1,5 +1,5 @@
 import { useChatStoreIsStreaming } from '@/features/chat/store/chat-store';
-import type { ChatMessage } from '@/types/chat';
+import type { ChatMessage } from '@/features/chat/types';
 import { useEffect, useRef, useState } from 'react';
 
 type UseInfiniteChatHistoryProps = {

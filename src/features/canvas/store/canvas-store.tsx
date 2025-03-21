@@ -1,4 +1,4 @@
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { createContext, useContext, useState } from 'react';
 import { type StoreApi, createStore, useStore } from 'zustand';
 

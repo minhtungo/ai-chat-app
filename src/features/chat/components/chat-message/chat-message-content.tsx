@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@/types/chat';
+import type { ChatMessage } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';

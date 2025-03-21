@@ -9,7 +9,7 @@ import {
   getPromptSuggestionsQueryOptions,
 } from '@/features/chat/api/suggestions';
 import { ChatHeader } from '@/features/chat/components/chat-history/chat-header';
-import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
+import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { ChatStoreProvider } from '@/features/chat/store/chat-store';
 import '@/styles/github-dark.css';
 import { Outlet, createFileRoute } from '@tanstack/react-router';

@@ -1,6 +1,6 @@
 import { FileText } from '@/components/icons';
 import { useCanvasActions } from '@/features/canvas/store/canvas-store';
-import type { Attachment } from '@/types/chat';
+import type { Attachment } from '@/features/chat/types';
 import { cn } from '@/utils/cn';
 
 type ChatMessageAttachmentProps = React.ComponentProps<'button'> & {

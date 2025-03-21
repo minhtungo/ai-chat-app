@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import { MathPreview } from '@/features/chat/components/message-input/math-preview';
+import { MathPreview } from '@/features/chat/components/chat-panel/math-preview';
 import { useMessageInputStore } from '@/features/chat/store/message-input-store';
 import { X } from 'lucide-react';
 

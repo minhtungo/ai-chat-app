@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/resizable';
 import { useCanvas } from '@/features/canvas/store/canvas-store';
 import { ChatHistory } from '@/features/chat/components/chat-history';
-import { ChatPanel } from '@/features/chat/components/chat-history/chat-panel';
+import { ChatPanel } from '@/features/chat/components/chat-panel';
 import { DocumentCanvas } from '@/features/chat/components/document-canvas';
 import { ImageCanvas } from '@/features/chat/components/image-canvas';
 import { WebcamPreview } from '@/features/chat/components/webcam-recorder/webcam-preview';

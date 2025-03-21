@@ -4,7 +4,7 @@ import { useMessageInputStore } from '@/features/chat/store/message-input-store'
 import { Suspense, lazy } from 'react';
 
 const MathKeyboard = lazy(
-  () => import('@/features/chat/components/message-input/math-keyboard'),
+  () => import('@/features/chat/components/chat-panel/math-keyboard'),
 );
 
 export function MessageInputContent() {

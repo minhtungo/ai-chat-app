@@ -1,4 +1,4 @@
-import { PromptSuggestions } from '@/features/chat/components/prompt-suggestions';
+import { PromptSuggestions } from '@/features/chat/components/chat-history/prompt-suggestions';
 import { useUser } from '@/features/user/api/get-user';
 
 export function NewChatScreen({}: React.ComponentProps<'div'>) {
