@@ -62,7 +62,7 @@ export function ChatHistory({ className, ...props }: ChatHistoryProps) {
     <div
       ref={chatContainerRef}
       className={cn(
-        'relative flex min-h-0 flex-1 flex-col overflow-auto px-4 pt-2 pb-8 lg:px-6',
+        'relative flex min-h-0 flex-1 flex-col overflow-auto',
         className,
       )}
       {...props}

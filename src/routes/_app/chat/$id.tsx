@@ -30,7 +30,7 @@ export const Route = createFileRoute('/_app/chat/$id')({
 function ChatRouteComponent() {
   return (
     <>
-      <ChatHistory />
+      <ChatHistory className='px-4 py-8 lg:px-6' />
       <CanvasScreen />
     </>
   );

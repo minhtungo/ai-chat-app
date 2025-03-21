@@ -38,9 +38,9 @@ function ChatLayoutComponent() {
       <CanvasStoreProvider>
         <ChatSidebar />
         <main className='relative flex h-svh w-full flex-col'>
-          <ChatHeader className='px-4 py-2' />
+          <ChatHeader className='px-4 py-2 lg:px-6' />
           <Outlet />
-          <ChatPanel className='px-4' />
+          <ChatPanel className='px-4 lg:px-6' />
         </main>
       </CanvasStoreProvider>
     </ChatStoreProvider>

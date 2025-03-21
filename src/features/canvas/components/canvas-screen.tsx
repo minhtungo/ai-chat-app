@@ -52,7 +52,7 @@ export function CanvasScreen({ className, ...props }: CanvasScreenProps) {
           minSize={25}
           className='flex min-w-[350px] flex-col'
         >
-          <ChatHistory className='px-4 pt-4 pb-10' />
+          <ChatHistory className='px-4 py-8' />
           <ChatPanel className='px-4' />
         </ResizablePanel>
       </ResizablePanelGroup>
