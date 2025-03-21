@@ -24,7 +24,12 @@ export function ChatMessageContent({
           : 'bg-transparent',
       )}
     >
-      <div className='prose-xl inline-block text-base leading-6 break-words whitespace-normal'>
+      <div
+        className={cn(
+          'max-w-none',
+          message.role === 'assistant' && 'prose-chat-message',
+        )}
+      >
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[
@@ -32,6 +37,13 @@ export function ChatMessageContent({
             rehypeKatex,
           ]}
           components={{
+            // We can simplify this since we're using prose modifiers,
+            // but still need to handle a few special cases
+            a: ({ children, ...props }) => (
+              <a target='_blank' rel='noopener noreferrer' {...props}>
+                {children}
+              </a>
+            ),
             code({ node, className, children, ...props }) {
               return (
                 <code
@@ -44,14 +56,16 @@ export function ChatMessageContent({
             },
             pre({ node, children, ...props }) {
               return (
-                <pre
-                  className='max-w-full overflow-x-auto whitespace-pre-wrap'
-                  {...props}
-                >
+                <pre className='overflow-x-auto whitespace-pre-wrap' {...props}>
                   {children}
                 </pre>
               );
             },
+            table: ({ children, ...props }) => (
+              <div className='overflow-x-auto'>
+                <table {...props}>{children}</table>
+              </div>
+            ),
           }}
         >
           {message.content}
