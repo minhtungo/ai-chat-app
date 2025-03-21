@@ -49,7 +49,6 @@ export function MessageInputActions({}: MessageInputActionsProps) {
             type='file'
             ref={fileInputRef}
             onChange={addAttachment}
-            multiple
             accept='image/*,.pdf,.doc,.docx,video/*'
             hidden
           />

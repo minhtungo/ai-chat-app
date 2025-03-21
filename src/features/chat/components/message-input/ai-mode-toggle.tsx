@@ -37,7 +37,7 @@ export function AiModeToggle({ className }: AiModeToggleProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => setMode('quick-mode')}>
-          Live Mode
+          Quick Mode
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setMode('guide-mode')}>
           Guide Mode

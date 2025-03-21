@@ -1,4 +1,7 @@
+import { FileUploadButton } from '@/features/chat/components/chat-panel/file-upload-button';
+import { FileUploadModal } from '@/features/chat/components/chat-panel/file-upload-modal';
 import { MathExpressions } from '@/features/chat/components/chat-panel/math-expressions';
+import { MathModeToggleButton } from '@/features/chat/components/chat-panel/math-mode-toggle-button';
 import { AiModeToggle } from '@/features/chat/components/message-input/ai-mode-toggle';
 import { MessageInputActions } from '@/features/chat/components/message-input/message-input-actions';
 import { MessageInputAttachments } from '@/features/chat/components/message-input/message-input-attachments';
@@ -31,9 +34,10 @@ export function MessageInput({}: MessageInputProps) {
       <MessageInputContent />
       <MathExpressions />
       <div className='flex items-center justify-between'>
-        <MessageInputActions />
+        <AiModeToggle className='-ml-[5px]' />
         <div className='flex items-center gap-x-2'>
-          <AiModeToggle />
+          <MathModeToggleButton />
+          <FileUploadButton />
           <MessageSubmitButton />
         </div>
       </div>
