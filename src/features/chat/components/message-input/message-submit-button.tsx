@@ -19,8 +19,7 @@ export function MessageSubmitButton({ ...props }: MessageSubmitButtonProps) {
   return (
     <Button
       type='submit'
-      className='size-8'
-      size='icon'
+      size='sm'
       disabled={
         !currentMessage.trim() &&
         mathExpressions.length === 0 &&

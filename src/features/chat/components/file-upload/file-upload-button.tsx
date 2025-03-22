@@ -27,7 +27,7 @@ export function FileUploadButton({
       <input
         type='file'
         ref={fileInputRef}
-        onChange={addAttachment}
+        onChange={(e) => addAttachment(e.target.files?.[0])}
         accept='image/*,.pdf,.doc,.docx,video/*'
         hidden
       />

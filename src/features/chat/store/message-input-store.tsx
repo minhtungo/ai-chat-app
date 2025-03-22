@@ -2,6 +2,7 @@ import { chatStore } from '@/features/chat/store/chat-store';
 import type { Attachment } from '@/features/chat/types';
 import { convertFileToAttachment } from '@/utils/chat';
 import { createContext, useContext, useState } from 'react';
+import { toast } from 'sonner';
 import { type StoreApi, createStore, useStore } from 'zustand';
 
 type MessageInputState = {
@@ -14,7 +15,7 @@ type MessageInputState = {
 type MessageInputActions = {
   setMessage: (message: string) => void;
   toggleMathKeyboard: () => void;
-  addAttachment: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  addAttachment: (file: File | undefined) => void;
   removeAttachment: (id: string) => void;
   addMathExpression: (expression: string) => void;
   removeMathExpression: (index: number) => void;
@@ -79,17 +80,17 @@ export const messageInputStore = createStore<MessageInputStore>((set, get) => ({
         .getState()
         .actions.sendChatMessage(combinedMessage, attachments);
     },
-    addAttachment: (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        const newAttachments = Array.from(e.target.files).map((file) =>
-          convertFileToAttachment(file),
-        );
+    addAttachment: (file: File | undefined) => {
+      if (file) {
+        const newAttachments = [convertFileToAttachment(file)];
         set((state) => ({
           state: {
             ...state.state,
             attachments: [...state.state.attachments, ...newAttachments],
           },
         }));
+      } else {
+        toast.error('No file provided');
       }
     },
     removeAttachment: (id: string) => {

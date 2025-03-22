@@ -3,19 +3,21 @@ import { cn } from '@/utils/cn';
 import { FileText, Upload, X } from 'lucide-react';
 import { useState } from 'react';
 
-export function InputFileUpload() {
+type InputFileUploadProps = {
+  onFileChange: (file: File | undefined) => void;
+};
+
+export function InputFileUpload({ onFileChange }: InputFileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const {
-    fileName,
-    fileInputRef,
-    clearFile,
-    error,
-    validateAndSetFile,
-    fileSize,
-  } = useFileInput({ accept: 'image/*', maxSize: 5 });
+  const { file, fileInputRef, clearFile, error, validateAndSetFile } =
+    useFileInput({
+      accept: 'image/*,.pdf,.doc,.docx',
+      maxSize: 5,
+      onFileChange,
+    });
 
   function handleFile(file: File) {
     validateAndSetFile(file);
@@ -71,11 +73,9 @@ export function InputFileUpload() {
       <div
         className={cn(
           'group relative cursor-pointer',
-          'rounded-lg border-2 border-dashed',
+          'rounded-md border border-dashed',
           'transition-colors duration-200',
-          isDragging
-            ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10'
-            : 'border-zinc-200 dark:border-zinc-800',
+          isDragging ? 'border-primary/50' : 'border-input',
         )}
         onDragOver={(e) => {
           e.preventDefault();
@@ -95,23 +95,25 @@ export function InputFileUpload() {
         <input
           ref={fileInputRef}
           type='file'
-          accept='image/*'
+          accept='image/*,.pdf,.doc,.docx'
           onChange={handleChange}
           className='hidden'
         />
 
-        <div className='space-y-4 p-8'>
-          {!fileName ? (
+        <div className='space-y-4 p-6'>
+          {!file ? (
             <div className='flex flex-col items-center gap-2'>
-              <Upload className='h-8 w-8 text-zinc-400 dark:text-zinc-500' />
-              <p className='text-sm text-zinc-600 dark:text-zinc-400'>
+              <div className='bg-accent flex items-center justify-center rounded-full p-3'>
+                <Upload className='size-5' />
+              </div>
+              <p className='text-muted-foreground mt-1 text-sm'>
                 Drag and drop or click to upload
               </p>
             </div>
           ) : (
             <div className='flex items-center gap-4'>
               {preview ? (
-                <div className='relative h-16 w-16 overflow-hidden rounded-lg'>
+                <div className='relative h-16 w-16 overflow-hidden rounded-md'>
                   <img
                     src={preview}
                     alt='Preview'
@@ -119,23 +121,21 @@ export function InputFileUpload() {
                   />
                 </div>
               ) : (
-                <div className='flex h-16 w-16 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800'>
+                <div className='bg-accent flex h-16 w-16 items-center justify-center rounded-lg'>
                   <FileText className='h-8 w-8 text-zinc-400' />
                 </div>
               )}
               <div className='min-w-0 flex-1'>
-                <p className='truncate text-sm font-medium'>
-                  {fileName || 'No file selected'}
-                </p>
+                <p className='truncate text-sm font-medium'>{file.name}</p>
                 <p className='text-xs text-zinc-500'>
-                  {fileSize
-                    ? `${(fileSize / 1024 / 1024).toFixed(2)} MB`
+                  {file.size
+                    ? `${(file.size / 1024 / 1024).toFixed(2)} MB`
                     : '0 MB'}
                 </p>
                 {uploadProgress < 100 && (
-                  <div className='mt-2 h-1 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800'>
+                  <div className='bg-accent mt-2 h-1 w-full overflow-hidden rounded-full'>
                     <div
-                      className='h-full bg-indigo-500 transition-all duration-200'
+                      className='bg-primary h-full transition-all duration-200'
                       style={{
                         width: `${uploadProgress}%`,
                       }}
@@ -149,7 +149,7 @@ export function InputFileUpload() {
                   e.stopPropagation();
                   removeFile();
                 }}
-                className='rounded p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                className='hover:bg-accent rounded p-1'
               >
                 <X className='h-5 w-5 text-zinc-400' />
               </button>
