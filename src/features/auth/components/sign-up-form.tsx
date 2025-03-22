@@ -61,7 +61,7 @@ export function SignUpForm({
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input {...field} autoFocus />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

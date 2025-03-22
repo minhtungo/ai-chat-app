@@ -41,7 +41,7 @@ export const initialChatState: ChatState = {
   messages: [],
   chatName: '',
   isStreaming: false,
-  mode: 'quick-mode',
+  mode: 'guide-mode',
 };
 
 export const chatStore = createStore<ChatStore>((set, get) => ({

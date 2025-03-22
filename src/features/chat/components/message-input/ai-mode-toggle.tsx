@@ -31,16 +31,16 @@ export function AiModeToggle({ className }: AiModeToggleProps) {
             className,
           )}
         >
-          {mode === 'quick-mode' ? 'Quick Mode' : 'Guide Mode'}
+          {mode === 'guide-mode' ? 'Guide Mode' : 'Solve Mode'}
           <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => setMode('quick-mode')}>
-          Quick Mode
-        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setMode('guide-mode')}>
           Guide Mode
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setMode('solve-mode')}>
+          Solve Mode
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -14,4 +14,4 @@ export type Attachment = {
   createdAt: Date;
 };
 
-export type ChatMode = 'quick-mode' | 'guide-mode';
+export type ChatMode = 'solve-mode' | 'guide-mode';
